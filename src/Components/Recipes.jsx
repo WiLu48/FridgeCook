@@ -12,7 +12,7 @@ const Recipe = ({ body }) => {
         return (
           <Card 
           key={Recipe_ID}
-          style={{width: '400px'}}>
+          style={{width: '400px', height: '400px', display: 'inline-grid', margin: 5}}>
           <CardHeader
             title={Recipe_Name}
           />
@@ -60,9 +60,7 @@ class Recipes extends Component {
     const { isLoading, recipes, error } = this.state;
     return (
       <React.Fragment>
-        <Paper style={{display: "inline-flex"}}>
           {!isLoading ? Object.keys(recipes).map(key => <Recipe key={key} body={recipes[key]} />) : <h3>Loading...</h3>}
-        </Paper>
       </React.Fragment>
          
     );
