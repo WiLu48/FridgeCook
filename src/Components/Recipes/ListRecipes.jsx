@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Paper, Card, CardHeader, CardMedia, CardContent, Typography} from '@material-ui/core'
 
 
-
-
 const Recipe = ({ body }) => {
   return (
     <div>
