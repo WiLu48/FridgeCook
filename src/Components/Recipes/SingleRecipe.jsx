@@ -1,15 +1,59 @@
 import React, { Component } from 'react'
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography} from '@material-ui/core'
+import { Button, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea} from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 
+const styles = theme => ({
+  card: {
+    maxWidth: 400,
+    margin: 10,
+  },
+  cardheader: {
+    textAlign: 'center',
+    width: '75%',
+    margin: 'auto',
+    marginTop: '-25px',
+    background: 'white'
+  },
+  carddesc: {
+    paddingTop: 0,
+    height: '200px',
+  },
+  button: {
+    width: '100%',
+    margin: 'auto',
+  },
+});
 
-export default class SingleRecipe extends Component {
+class SingleRecipe extends Component {
+  state = {
+    categoryname: '',
+  }
+
   render() {
+
+    const catid = this.props.cat;
+
+    if (catid === '1') {
+      this.setState({
+        categoryname: 'Dinner'
+      })
+    } else if (catid === '2') {
+      this.setState({
+        categoryname: 'Breakfast'
+      })
+    } else if (catid === '3') {
+      this.setState({
+        categoryname: 'Desert'
+      })
+    }
+
+    const { classes } = this.props;
+    
     return(
-      <Grid item sm
-      style={{width: '400px'}}
-      >
+      <Grid item>
         <Card 
-          style={{width: '400px'}}
+          className={classes.card}
           key={this.props.id}
           >          
           <CardMedia
@@ -17,15 +61,29 @@ export default class SingleRecipe extends Component {
             image={this.props.image}
           />
           <CardHeader
-            title={this.props.name}
+          className={classes.cardheader}
+          title={this.props.name}
           />
-          <CardContent>
-            <Typography>
-              {this.props.desc}
-            </Typography>
+          <CardContent
+          className={classes.carddesc}
+          >
+          <Typography>
+            <i className="fas fa-utensils"></i>
+            {this.state.categoryname}
+          </Typography>
+          <Typography>
+            {this.props.desc}
+          </Typography>
           </CardContent>
+          <CardActionArea>
+            <Button variant="contained" className={classes.button}>
+              Full Recipe
+            </Button>
+          </CardActionArea>
         </Card>
       </Grid>
     )
   }
 }
+
+export default withStyles(styles)(SingleRecipe);

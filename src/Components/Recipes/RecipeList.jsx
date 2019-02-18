@@ -8,32 +8,22 @@ export default class RecipeList extends Component {
       isLoading: null,
       recipes: [],
       error: null,
-      test: [{
-
-      },
-      {
-        id: 1,
-        name: 'number1'
-      },
-        {
-          id: 2,
-          name: 'number2'
-        }],
   }
 
-    fetchRecipes() {
-      Axios.get("https://p4tr7k.me/Recipes.php")
-      .then(response => {
-        const res = response.data.data
-        this.setState({
-          recipes: res,
-        })
+  fetchRecipes() {
+    Axios.get("https://p4tr7k.me/Recipes.php")
+    .then(response => {
+      const res = response.data.data
+      this.setState({
+        recipes: res,
       })
+    })
+    .catch(error => this.state({ error, isLoading: false}));
   }
       
-      componentDidMount() {
-        this.fetchRecipes();
-    }
+  componentDidMount() {
+      this.fetchRecipes();
+  }
 
   render() {
     const { isLoading, recipes, error } = this.state;
@@ -46,6 +36,7 @@ export default class RecipeList extends Component {
             name={recipe.Recipe_Name}
             image={recipe.Recipe_Image}
             desc={recipe.Recipe_Description}
+            cat={recipe.Category_ID}
             />
             )}
         </Grid>
