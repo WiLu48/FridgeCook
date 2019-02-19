@@ -1,7 +1,23 @@
 import React from 'react';
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
-export default props => {
-    <div>
-        <h1>Footer</h1>
-    </div>
-}
+const NavBar = () => (
+    <AppBar position="static">
+        <Toolbar>
+            <Typography variant="title">
+                FridgeCook
+            </Typography>
+            <Typography variant="title">
+                FridgeCook
+            </Typography>
+            <Typography variant="title">
+                FridgeCook
+            </Typography>
+            <Typography variant="title">
+                FridgeCook
+            </Typography>
+        </Toolbar>
+    </AppBar>
+);
+
+export default NavBar;

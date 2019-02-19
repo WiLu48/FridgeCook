@@ -34,19 +34,19 @@ class SingleRecipe extends Component {
 
     const catid = this.props.cat;
 
-    if (catid === '1') {
-      this.setState({
-        categoryname: 'Dinner'
-      })
-    } else if (catid === '2') {
-      this.setState({
-        categoryname: 'Breakfast'
-      })
-    } else if (catid === '3') {
-      this.setState({
-        categoryname: 'Desert'
-      })
-    }
+    // if (catid === '1') {
+    //   this.setState({
+    //     categoryname: 'Dinner'
+    //   })
+    // } else if (catid === '2') {
+    //   this.setState({
+    //     categoryname: 'Breakfast'
+    //   })
+    // } else if (catid === '3') {
+    //   this.setState({
+    //     categoryname: 'Desert'
+    //   })
+    // }
 
     const { classes } = this.props;
     
