@@ -13,7 +13,7 @@ const styles = theme => ({
     width: '75%',
     margin: 'auto',
     marginTop: '-25px',
-    background: 'white'
+    background: 'white',
   },
   carddesc: {
     paddingTop: 0,
@@ -51,11 +51,11 @@ class SingleRecipe extends Component {
     const { classes } = this.props;
     
     return(
-      <Grid item>
-        <Card 
+      <Grid item lg={4}>
+      <Card 
           className={classes.card}
           key={this.props.id}
-          >          
+          >         
           <CardMedia
             style={{height: 0, paddingTop: '56.25%'}}
             image={this.props.image}

@@ -13,9 +13,6 @@ const NavBar = () => (
             <Typography variant="title">
                 FridgeCook
             </Typography>
-            <Typography variant="title">
-                FridgeCook
-            </Typography>
         </Toolbar>
     </AppBar>
 );

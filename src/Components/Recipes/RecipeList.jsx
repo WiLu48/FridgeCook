@@ -29,7 +29,11 @@ export default class RecipeList extends Component {
     const { isLoading, recipes, error } = this.state;
     return (
       <Paper>
-        <Grid container>
+        <Grid container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        >
           {recipes.map(recipe =>
             <SingleRecipe
             key={recipe.Recipe_ID}
@@ -40,7 +44,7 @@ export default class RecipeList extends Component {
             />
             )}
         </Grid>
-      </Paper>
+        </Paper>
     )
   }
 }
