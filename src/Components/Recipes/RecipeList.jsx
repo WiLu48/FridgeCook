@@ -1,13 +1,26 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
 import SingleRecipe from './SingleRecipe'
-import { Grid, Paper } from '@material-ui/core'
+import { Button, Grid, Paper } from '@material-ui/core'
 
 export default class RecipeList extends Component {
-  state = {
+  constructor(props) {
+    super(props)
+  
+  this.state = {
       isLoading: null,
       recipes: [],
       error: null,
+      limit: 6,
+  }
+  this.loadMore = this.loadMore.bind(this);
+}
+
+
+  loadMore() {
+    this.setState((prev) => {
+      return {limit: prev.limit + 3};
+    });
   }
 
   fetchRecipes() {
@@ -26,15 +39,15 @@ export default class RecipeList extends Component {
   }
 
   render() {
-    const { isLoading, recipes, error } = this.state;
+    const { isLoading, recipes, error, limit } = this.state;
     return (
-      <Paper>
+      <>
         <Grid container
-        direction="row"
         justify="center"
-        alignItems="center"
+        alignItems="flex-start"
+        style={{width: '70%', margin: 'auto'}}
         >
-          {recipes.map(recipe =>
+          {recipes.slice(0, limit).map(recipe =>
             <SingleRecipe
             key={recipe.Recipe_ID}
             name={recipe.Recipe_Name}
@@ -44,7 +57,11 @@ export default class RecipeList extends Component {
             />
             )}
         </Grid>
-        </Paper>
+        <div style={{margin: '30px', textAlign: 'center'}}>
+          {limit < recipes.length &&
+            <Button onClick={this.loadMore} type="button">Load More</Button>}
+        </div>
+      </>
     )
   }
 }
