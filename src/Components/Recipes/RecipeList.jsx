@@ -50,6 +50,7 @@ export default class RecipeList extends Component {
           {recipes.slice(0, limit).map(recipe =>
             <SingleRecipe
             key={recipe.Recipe_ID}
+            id={recipe.Recipe_ID}
             name={recipe.Recipe_Name}
             image={recipe.Recipe_Image}
             desc={recipe.Recipe_Description}

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, Hidden} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import { SINGLE_RECIPE } from '../../Routes/routes'
 import PropTypes from 'prop-types'
 
 const styles = theme => ({
   card: {
-    width: 300,
+    width: 350,
     margin: 10,
   },
   cardheader: {
@@ -25,7 +27,7 @@ const styles = theme => ({
     borderRadius: 0,
   },
   title: {
-    fontSize: '100px',
+    fontSize: '30px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
@@ -35,24 +37,27 @@ const styles = theme => ({
 });
 
 class SingleRecipe extends Component {
-  state = {
-    categoryname: {
-      1: 'Dinner',
-      2: 'Breakfast',
-      3: 'Desert'
-    },
-  }
+    state = {
+      categoryname: {
+        1: 'Dinner',
+        2: 'Breakfast',
+        3: 'Desert'
+      },
+    }
 
   render() {
 
     const { classes } = this.props;
+
+    const link = "/recipes/" + this.props.id;
+
     
     return(
       <div className={classes.container}>
       <Grid item lg={6}>
       <Card 
           className={classes.card}
-          key={this.props.id}
+          key={this.props.key}
           >         
           <CardMedia
             style={{height: 0, paddingTop: '56.25%'}}
@@ -74,7 +79,7 @@ class SingleRecipe extends Component {
             {this.props.desc}
           </Typography>
           </CardContent>
-          <Button variant="contained" className={classes.button}>
+          <Button variant="contained" className={classes.button} component={props => <Link to={link} {...props}/>} >
             Full Recipe
           </Button>
         </Card>
