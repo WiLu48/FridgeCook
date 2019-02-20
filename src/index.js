@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
-import Homepage from './Pages/Homepage';
-import Recipes from './Pages/Recipes';
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Homepage from './Pages/Homepage';
+import RecipesPage from './Pages/RecipesPage';
+import SingleRecipePage from './Pages/SingleRecipePage';
+import NavBar from './Components/Layout/Navbar';
 
 const routing = (
     <Router>
         <div>
+        <NavBar />
         <Route exact path='/' component={Homepage} />
-        <Route path='/recipes' component={Recipes} />
+        <Route exact path='/recipes' component={RecipesPage} />
+        <Route exact path='/recipes/:id' component={SingleRecipePage} />
         </div>
     </Router> 
 )

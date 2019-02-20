@@ -1,17 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 const NavBar = () => (
     <AppBar position="static">
-        <Toolbar>
-            <Typography variant="title">
-                FridgeCook
+        <Toolbar style={{margin: '0 auto'}}>
+            <Typography>
+                <Link to="/">Home</Link>
             </Typography>
-            <Typography variant="title">
-                FridgeCook
+            <Typography>
+            "          "
             </Typography>
-            <Typography variant="title">
-                FridgeCook
+            <Typography>
+                <Link to="/recipes">Recipes</Link>
             </Typography>
         </Toolbar>
     </AppBar>

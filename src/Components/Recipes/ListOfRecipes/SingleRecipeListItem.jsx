@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, Hidden} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { SINGLE_RECIPE } from '../../Routes/routes'
-import PropTypes from 'prop-types'
 
 const styles = theme => ({
   card: {

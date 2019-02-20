@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
-import SingleRecipe from './SingleRecipe'
+import SingleRecipeListItem from './SingleRecipeListItem'
 import { Button, Grid, Paper } from '@material-ui/core'
+import RecipeFilters from './RecipeFilters';
 
 export default class RecipeList extends Component {
   constructor(props) {
@@ -12,8 +13,10 @@ export default class RecipeList extends Component {
       recipes: [],
       error: null,
       limit: 6,
+      filter: null,
   }
   this.loadMore = this.loadMore.bind(this);
+  this.toggleFilter = this.toggleFilter.bind(this);
 }
 
 
@@ -38,17 +41,24 @@ export default class RecipeList extends Component {
       this.fetchRecipes();
   }
 
+  toggleFilter(filter) {
+    this.setState({
+      filter: filter,
+    })
+  }
+
   render() {
     const { isLoading, recipes, error, limit } = this.state;
     return (
-      <>
+      <div style={{marginTop: '30px'}}>
+      <RecipeFilters filter={this.toggleFilter}/>
         <Grid container
         justify="center"
         alignItems="flex-start"
         style={{width: '70%', margin: 'auto'}}
         >
           {recipes.slice(0, limit).map(recipe =>
-            <SingleRecipe
+            <SingleRecipeListItem
             key={recipe.Recipe_ID}
             id={recipe.Recipe_ID}
             name={recipe.Recipe_Name}
@@ -62,7 +72,7 @@ export default class RecipeList extends Component {
           {limit < recipes.length &&
             <Button onClick={this.loadMore} type="button">Load More</Button>}
         </div>
-      </>
+      </div>
     )
   }
 }
