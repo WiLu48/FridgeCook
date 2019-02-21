@@ -14,9 +14,11 @@ export default class RecipeList extends Component {
       error: null,
       limit: 6,
       filter: null,
+      recipesfiltered: [],
+      test: 1,
   }
   this.loadMore = this.loadMore.bind(this);
-  this.toggleFilter = this.toggleFilter.bind(this);
+  this.filterRecipes = this.filterRecipes.bind(this);
 }
 
 
@@ -32,6 +34,7 @@ export default class RecipeList extends Component {
       const res = response.data.data
       this.setState({
         recipes: res,
+        recipesfiltered: res,
       })
     })
     .catch(error => this.state({ error, isLoading: false}));
@@ -41,23 +44,30 @@ export default class RecipeList extends Component {
       this.fetchRecipes();
   }
 
-  toggleFilter(filter) {
-    this.setState({
-      filter: filter,
-    })
-  }
+  filterRecipes(filter) {
+    this.setState({limit: 6})
+    if (filter === '0'){
+      this.setState({recipesfiltered: this.state.recipes})
+    } else {
+      let updatedlist = this.state.recipes.filter(recipe => {
+        return recipe.Category_ID === filter;
+      })
+      this.setState({
+        recipesfiltered: updatedlist
+      })
+  }}
 
   render() {
-    const { isLoading, recipes, error, limit } = this.state;
+    const { isLoading, recipes, error, limit, recipesfiltered } = this.state;
     return (
       <div style={{marginTop: '30px'}}>
-      <RecipeFilters filter={this.toggleFilter}/>
+      <RecipeFilters filterRecipes={this.filterRecipes.bind(this)} />
         <Grid container
         justify="center"
         alignItems="flex-start"
         style={{width: '70%', margin: 'auto'}}
         >
-          {recipes.slice(0, limit).map(recipe =>
+          {recipesfiltered.slice(0, limit).map(recipe =>
             <SingleRecipeListItem
             key={recipe.Recipe_ID}
             id={recipe.Recipe_ID}
@@ -69,7 +79,7 @@ export default class RecipeList extends Component {
             )}
         </Grid>
         <div style={{margin: '30px', textAlign: 'center'}}>
-          {limit < recipes.length &&
+          {limit < recipesfiltered.length &&
             <Button onClick={this.loadMore} type="button">Load More</Button>}
         </div>
       </div>
