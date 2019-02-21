@@ -72,7 +72,7 @@ export default class RecipeList extends Component {
     const { isLoading, recipes, error, limit, recipesfiltered } = this.state;
     return (
       <div style={{marginTop: '30px'}}>
-      <RecipeFilters inputRecipes={this.filterByInput.bind(this)} filterRecipes={this.filterRecipes.bind(this)} />
+      <RecipeFilters filterRecipes={this.filterRecipes.bind(this)} />
         <Grid container
         justify="center"
         alignItems="flex-start"
