@@ -57,11 +57,22 @@ export default class RecipeList extends Component {
       })
   }}
 
+  filterByInput(input){
+    let updatedlist = this.state.recipes.filter(recipe => {
+      return recipe.Recipe_Name.toLowerCase().search(
+        input.toLowerCase()) !== -1;
+      })
+
+    this.setState({
+      recipesfiltered: updatedlist,
+    })
+  }
+
   render() {
     const { isLoading, recipes, error, limit, recipesfiltered } = this.state;
     return (
       <div style={{marginTop: '30px'}}>
-      <RecipeFilters filterRecipes={this.filterRecipes.bind(this)} />
+      <RecipeFilters inputRecipes={this.filterByInput.bind(this)} filterRecipes={this.filterRecipes.bind(this)} />
         <Grid container
         justify="center"
         alignItems="flex-start"
