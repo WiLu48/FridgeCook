@@ -34,7 +34,7 @@ function NavBar (props) {
                         <Link to="/">ABOUT</Link>
                     </Typography>
                     <Typography>
-                        <Link to="/">LOGIN</Link>
+                        <Link to="/login">LOGIN</Link>
                     </Typography>
                 </Hidden>
             </Toolbar>

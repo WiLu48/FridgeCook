@@ -8,6 +8,8 @@ import Homepage from './Pages/Homepage';
 import RecipesPage from './Pages/RecipesPage';
 import SingleRecipePage from './Pages/SingleRecipePage';
 import NavBar from './Components/Layout/Navbar';
+import LoginPage from './Pages/LoginPage';
+import RegisterPage from './Pages/RegisterPage';
 
 const routing = (
     <Router>
@@ -16,6 +18,8 @@ const routing = (
         <Route exact path='/' component={Homepage} />
         <Route exact path='/recipes' component={RecipesPage} />
         <Route exact path='/recipes/:id' component={SingleRecipePage} />
+        <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/register' component={RegisterPage} />
         </div>
     </Router> 
 )

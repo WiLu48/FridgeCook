@@ -9,31 +9,9 @@ class Homepage extends Component {
     error: 'error',
   }
 
-  testAPI(){
-    var postData = {
-      username: "test@test.com",
-      password: "password"
-    };
-    
-    let axiosConfig = {
-      headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          "Access-Control-Allow-Origin": "*",
-      }
-    };
-    
-    Axios.post('https://p4tr7k.me/API/Create_User.php', postData, axiosConfig)
-    .then((res) => {
-      console.log("RESPONSE RECEIVED: ", res);
-    })
-    .catch((err) => {
-      console.log("AXIOS ERROR: ", err);
-    })
-  }
-
-  fetchRecipes() {
-    Axios.post("https://p4tr7k.me/API/Create_User.php",
-    {"username":"User1","password":"Pass1"})
+  addUser() {
+    Axios.post("https://www.p4tr7k.me/API/Account/Validate_token.php",
+    {username: "testuser", password: "testpassword"})
     .then(response => {
       console.log(response);
     })
@@ -41,15 +19,6 @@ class Homepage extends Component {
       console.log(error);
     });
   }
-  //   Axios({
-  //     method: 'post',
-  //     url: 'https://p4tr7k.me/API/Create_User.php',
-  //     data: {
-  //       username: 'Fred',
-  //       password: 'Flintstone'
-  //     }
-  //   });
-  // }
 
   render() {
     return (
@@ -59,7 +28,7 @@ class Homepage extends Component {
         <br />
         {this.state.error}
         <br />
-        <Button onClick={this.testAPI}>TEST</Button>
+        <Button onClick={this.addUser}>TEST</Button>
       </div>
     )
   }
