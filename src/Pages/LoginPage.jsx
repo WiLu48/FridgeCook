@@ -10,7 +10,7 @@ export default class LoginPage extends Component {
     super(props);
     this.state = {
       isAuth: false,
-      email: "",
+      email: "test.email",
       password: "",
       error: "",
     }
@@ -56,23 +56,23 @@ export default class LoginPage extends Component {
 
   handleSubmit(){
     this.authenticateUser();
+    
   }
 
   render() {
 
-    const {isAuth} = this.context;
-    console.log(isAuth);
+    const {login} = this.context;
 
     return (
-      <div style={{background: 'red'}}>
-          <LoginForm 
-          email={this.changeEmailHandler.bind(this)}
-          password={this.changePasswordHandler.bind(this)}
-          sbt={this.handleSubmit.bind(this)}
-          />   
-          {this.state.error}     
-          <button onClick={this.test}>TEST</button>
-      </div>
+        <div style={{background: 'red'}}>
+            <LoginForm 
+            email={this.changeEmailHandler.bind(this)}
+            password={this.changePasswordHandler.bind(this)}
+            sbt={this.handleSubmit.bind(this)}
+            />   
+            {this.state.error}     
+            <button onClick={login}>TEST</button>
+        </div>
     )
   }
 }

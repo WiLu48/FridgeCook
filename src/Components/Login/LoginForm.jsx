@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import { blue } from '@material-ui/core/colors';
+import { AuthContext } from '../Auth/Auth'
 
 
 const styles = theme => ({
@@ -53,6 +54,7 @@ const styles = theme => ({
 
 
 class LoginForm extends Component {
+  static contextType = AuthContext;
   
   handleEmail(email) {
       this.props.email(email);
@@ -70,6 +72,7 @@ class LoginForm extends Component {
   render(){
 
     const {classes} = this.props;
+    const {email, password} = this.context;
 
     return (
       <main className={classes.main}>
@@ -90,11 +93,11 @@ class LoginForm extends Component {
           <form className={classes.form} onSubmit={(e) => this.handleFormSubmit(e)}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input onChange={e => this.handleEmail(e.target.value)} id="email" name="email" autoComplete="email" autoFocus />
+              <Input onChange={e => email(e.target.value)} id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input onChange={e => this.handlePassword(e.target.value)} name="password" type="password" id="password" autoComplete="current-password" />
+              <Input onChange={e => password(e.target.value)} name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

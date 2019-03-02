@@ -8,11 +8,32 @@ class AuthProvider extends Component {
         super(props)
 
         this.state = {
-            isAuth: localStorage.getItem("AUTH"),
+            isAuth: false,
+            email: '',
+            password: '',
         }
         this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
+        this.getEmailInput = this.getEmailInput.bind(this);
+        this.getPasswordInput = this.getPasswordInput.bind(this);
     }
+
+    login() {
+        this.setState({
+            isAuth: true,
+        })
+    }
+
+    getEmailInput(email) {
+        this.setState({
+          email: email,
+        })
+      }
+    
+      getPasswordInput(password) {
+        this.setState({
+          password: password,
+        })
+      }
 
     // MAKE THIS WORK!
     // authenticateUser(){
@@ -36,25 +57,14 @@ class AuthProvider extends Component {
     //       })
     //     })
     //   }
-
-    login(){
-        this.setState({
-            isAuth: true,
-        })
-    }
-
-    logout(){
-        this.setState({
-            isAuth: false,
-        })
-    }
     
     render() {
         return (
         <AuthContext.Provider value={{
             isAuth: this.state.isAuth,
             login: this.login,
-            logout: this.logout,
+            email: this.getEmailInput,
+            password: this.getPasswordInput,
             }}>
             {this.props.children}
         </AuthContext.Provider>
