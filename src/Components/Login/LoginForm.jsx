@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import { blue } from '@material-ui/core/colors';
+
 
 const styles = theme => ({
   main: {
@@ -49,55 +50,74 @@ const styles = theme => ({
   },
 });
 
-function LoginForm(props) {
-  const { classes } = props;
 
-  return (
-    <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper} square={true} elevation={0}>
-        
-        <Avatar className={classes.avatar}>
-          FC
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Typography component='h1' variant="body1">
-            {"Don't have account? "}
-            <Link to="/register">Register here</Link>
-        </Typography>
-        
-        <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+
+class LoginForm extends Component {
+  
+  handleEmail(email) {
+      this.props.email(email);
+    };
+
+  handlePassword(pass) {
+    this.props.password(pass);
+  };
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+    this.props.sbt();
+  };
+
+  render(){
+
+    const {classes} = this.props;
+
+    return (
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper} square={true} elevation={0}>
+          
+          <Avatar className={classes.avatar}>
+            FC
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Sign in
-          </Button>
-        </form>
-      </Paper>
-    </main>
-  );
-}
-
-LoginForm.propTypes = {
-  classes: PropTypes.object.isRequired,
+          </Typography>
+          <Typography component='h1' variant="body1">
+              {"Don't have account? "}
+              <Link to="/register">Register here</Link>
+          </Typography>
+          
+          <form className={classes.form} onSubmit={(e) => this.handleFormSubmit(e)}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input onChange={e => this.handleEmail(e.target.value)} id="email" name="email" autoComplete="email" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input onChange={e => this.handlePassword(e.target.value)} name="password" type="password" id="password" autoComplete="current-password" />
+            </FormControl>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign in
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    );
+  }
+  
 };
+    LoginForm.propTypes = {
+      classes: PropTypes.object.isRequired,
+}
 
 export default withStyles(styles)(LoginForm);

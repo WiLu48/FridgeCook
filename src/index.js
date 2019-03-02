@@ -10,18 +10,23 @@ import SingleRecipePage from './Pages/SingleRecipePage';
 import NavBar from './Components/Layout/Navbar';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
+import { AuthProvider } from './Components/Auth/Auth';
+
+
 
 const routing = (
-    <Router>
-        <div>
-        <NavBar />
-        <Route exact path='/' component={Homepage} />
-        <Route exact path='/recipes' component={RecipesPage} />
-        <Route exact path='/recipes/:id' component={SingleRecipePage} />
-        <Route exact path='/login' component={LoginPage} />
-        <Route exact path='/register' component={RegisterPage} />
-        </div>
-    </Router> 
+    <AuthProvider>
+        <Router>
+            <div>
+            <NavBar />
+            <Route exact path='/' component={Homepage} />
+            <Route exact path='/recipes' component={RecipesPage} />
+            <Route exact path='/recipes/:id' component={SingleRecipePage} />
+            <Route exact path='/login' component={LoginPage} />
+            <Route exact path='/register' component={RegisterPage} />
+            </div>
+        </Router> 
+    </AuthProvider>
 )
 
 ReactDOM.render(routing, document.getElementById('root'));
