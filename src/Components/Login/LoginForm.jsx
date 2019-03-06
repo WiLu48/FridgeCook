@@ -56,23 +56,11 @@ const styles = theme => ({
 class LoginForm extends Component {
   static contextType = AuthContext;
   
-  handleEmail(email) {
-      this.props.email(email);
-    };
-
-  handlePassword(pass) {
-    this.props.password(pass);
-  };
-
-  handleFormSubmit(e) {
-    e.preventDefault();
-    this.props.sbt();
-  };
 
   render(){
 
     const {classes} = this.props;
-    const {email, password} = this.context;
+    const {email, password, login} = this.context;
 
     return (
       <main className={classes.main}>
@@ -90,7 +78,7 @@ class LoginForm extends Component {
               <Link to="/register">Register here</Link>
           </Typography>
           
-          <form className={classes.form} onSubmit={(e) => this.handleFormSubmit(e)}>
+          <form className={classes.form} onSubmit={(e) => login(e)}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input onChange={e => email(e.target.value)} id="email" name="email" autoComplete="email" autoFocus />

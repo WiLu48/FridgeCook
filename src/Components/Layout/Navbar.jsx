@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, withStyles, Hidden, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import { AuthConsumer } from '../Auth/Auth';
+import SimpleMenu from '../Utils/SimpleMenu';
 
 const styles = theme => ({
     toolbar: {
@@ -21,7 +22,7 @@ function NavBar (props) {
     const {classes} = props;
     return(
         <AuthConsumer>
-            {({ isAuth }) => (
+            {({ isAuth, logout }) => (
                 <AppBar position="static">
                     <Toolbar className={classes.toolbar}>
                         <Hidden smUp>
@@ -34,7 +35,7 @@ function NavBar (props) {
                                 <Link className={classes.links} to="/recipes">RECIPES</Link>
                             </Typography>
                             <Typography>
-                                <Link className={classes.links} to="/">EXPLORE</Link>
+                                <Link className={classes.links} to="/dashboard">EXPLORE</Link>
                             </Typography>
                             <Typography>
                                 <Link className={classes.links} to="/">FRIDGE COOK</Link>
@@ -44,9 +45,9 @@ function NavBar (props) {
                             </Typography>
 
                             { isAuth ? (
-                                <Typography>
-                                    <Link className={classes.links} to="/">LOGOUT</Link>
-                                </Typography>
+                                <>
+                                <SimpleMenu />
+                                </>
                             ) : (
                             <Typography>
                                 <Link className={classes.links} to="/login">LOGIN</Link>

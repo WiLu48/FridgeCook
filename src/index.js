@@ -11,6 +11,9 @@ import NavBar from './Components/Layout/Navbar';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import { AuthProvider } from './Components/Auth/Auth';
+import ProtectedRoute from './Routes/ProtectedRoute';
+import DashboardPage from './Pages/DashboardPage';
+import AuthRoute from './Routes/AuthRoute';
 
 
 
@@ -22,8 +25,9 @@ const routing = (
             <Route exact path='/' component={Homepage} />
             <Route exact path='/recipes' component={RecipesPage} />
             <Route exact path='/recipes/:id' component={SingleRecipePage} />
-            <Route exact path='/login' component={LoginPage} />
+            <AuthRoute path='/login' component={LoginPage} />
             <Route exact path='/register' component={RegisterPage} />
+            <ProtectedRoute path='/dashboard' component={DashboardPage} />
             </div>
         </Router> 
     </AuthProvider>
