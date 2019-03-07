@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { withStyles, Button, Menu, MenuItem, Popover } from '@material-ui/core';
+import { withStyles, Button, Menu, MenuItem, NativeSelect, Typography } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../Auth/Auth';
@@ -14,9 +15,12 @@ const styles = theme => ({
         }
     },
     menu: {
-        pointerEvents: 'none',
         top: '5px',
-    }
+        pointerEvents: 'none',
+    },
+    item: {
+
+    },
 })
 
 class SimpleMenu extends React.Component {
@@ -24,6 +28,7 @@ static contextType = AuthContext;
   state = {
     anchorEl: null,
     open: false,
+    event: 'none',
   };
 
   handleClick = event => {
@@ -43,7 +48,6 @@ static contextType = AuthContext;
           aria-owns={this.state.open ? 'simple-menu' : null}
           aria-haspopup="menu"
           onMouseOver={this.handleClick}
-          style={{pointerEvents: 'auto'}}
         >
             <Link className={classes.links} to='/dashboard'>
             My Account
@@ -57,10 +61,9 @@ static contextType = AuthContext;
           open={this.state.open}
           className={classes.menu}
           onMouseLeave={this.handleRequestClose}
-          
         >
             <ClickAwayListener onClickAway={this.handleRequestClose}>
-                <MenuItem onClick={logout}>Sign Out</MenuItem>
+                <MenuItem style={{pointerEvents: 'auto'}} onClick={logout}>Sign Out</MenuItem>
             </ClickAwayListener>
         </Menu>
       </div>
