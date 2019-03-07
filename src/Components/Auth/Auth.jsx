@@ -10,6 +10,7 @@ class AuthProvider extends Component {
             isAuth: sessionStorage.getItem("isAuth"),
             email: '',
             password: '',
+            password2: '',
             error: '',
             userid: '',
             firstname: '',
@@ -18,26 +19,14 @@ class AuthProvider extends Component {
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-        this.getEmailInput = this.getEmailInput.bind(this);
-        this.getPasswordInput = this.getPasswordInput.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.registerUser = this.registerUser.bind(this);
+
+
     }
 
-
-    componentDidMount(){
-      ;       
-    }
-
-    getEmailInput(email) {
-        this.setState({
-          email: email,
-        })
-      }
-    
-      getPasswordInput(password) {
-        this.setState({
-          password: password,
-        })
-
+      handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value })
       }
 
       login(e){
@@ -50,6 +39,26 @@ class AuthProvider extends Component {
           isAuth: false,
         })
         sessionStorage.removeItem('isAuth');
+      }
+
+      checkPassword(){
+        if(this.state.password.length > 0 && this.state.password === this.state.password2){
+          return true;
+        } else {
+          return false;
+
+      }
+    }
+
+      registerUser(e) {
+        e.preventDefault();
+        (this.checkPassword()) ?
+        console.log("YES") :
+        console.log("NO")        
+      }
+
+      createUser(){
+
       }
 
     // AUTH THE USER
@@ -86,8 +95,8 @@ class AuthProvider extends Component {
             error: this.state.error,
             login: this.login,
             logout: this.logout,
-            email: this.getEmailInput,
-            password: this.getPasswordInput,
+            handleChange: this.handleChange,
+            register: this.registerUser,
             }}>
             {this.props.children}
         </AuthContext.Provider>

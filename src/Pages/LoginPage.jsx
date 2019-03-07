@@ -18,7 +18,7 @@ export default class LoginPage extends Component {
     const {error} = this.context;
 
     return (
-        <div style={{background: 'red'}}>
+        <div>
             {error}
             <LoginForm />   
             {this.state.error}     

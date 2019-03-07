@@ -60,7 +60,7 @@ class LoginForm extends Component {
   render(){
 
     const {classes} = this.props;
-    const {email, password, login} = this.context;
+    const {email, password, login, handleChange} = this.context;
 
     return (
       <main className={classes.main}>
@@ -81,11 +81,11 @@ class LoginForm extends Component {
           <form className={classes.form} onSubmit={(e) => login(e)}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input onChange={e => email(e.target.value)} id="email" name="email" autoComplete="email" autoFocus />
+              <Input onChange={handleChange} id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input onChange={e => password(e.target.value)} name="password" type="password" id="password" autoComplete="current-password" />
+              <Input onChange={handleChange} name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

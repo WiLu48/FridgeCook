@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Auth/Auth'
 
 const styles = theme => ({
   main: {
@@ -46,8 +47,9 @@ const styles = theme => ({
   },
 });
 
-function LoginForm(props) {
+function RegisterForm(props) {
   const { classes } = props;
+  const context = useContext(AuthContext);
 
   return (
     <main className={classes.main}>
@@ -59,27 +61,27 @@ function LoginForm(props) {
         <Typography component="h1" variant="h5">
           Register
         </Typography>        
-        <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
+        <form className={classes.form} onSubmit={context.register}>
+            <FormControl margin="normal" fullWidth>
                 <InputLabel htmlFor="text">First Name</InputLabel>
-                <Input id="fname" name="fname" autoComplete="fname" autoFocus />
+                <Input onChange={context.handleChange} id="firstname" name="firstname"/>
             </FormControl>
-           <FormControl margin="normal" required fullWidth>
+           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="text">Surname</InputLabel>
-            <Input id="sname" name="sname" autoComplete="sname" autoFocus />
+            <Input onChange={context.handleChange} id="lastname" name="lastname"/>
           </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="emaail">Email Address</InputLabel>
+            <Input onChange={context.handleChange} id="email" name="email" />
           </FormControl>
-          <FormControl margin="normal" required fullWidth>
+          <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
+            <Input onChange={context.handleChange} name="password" type="password" id="password" />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="password">Confirm Password</InputLabel>
+            <Input onChange={context.handleChange} name="password2" type="password" id="password2" />
+          </FormControl>
           <Button
             type="submit"
             fullWidth
@@ -87,7 +89,7 @@ function LoginForm(props) {
             color="primary"
             className={classes.submit}
           >
-            Sign in
+            Register
           </Button>
         </form>
       </Paper>
@@ -95,8 +97,8 @@ function LoginForm(props) {
   );
 }
 
-LoginForm.propTypes = {
+RegisterForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(RegisterForm);
