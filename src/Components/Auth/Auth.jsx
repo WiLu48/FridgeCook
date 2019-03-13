@@ -15,7 +15,6 @@ class AuthProvider extends Component {
             userid: '',
             firstname: '',
             lastname: '',
-            created: '',
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
@@ -25,41 +24,45 @@ class AuthProvider extends Component {
 
     }
 
-      handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value })
-      }
+    displayError(){
+      setTimeout(() => this.setState({error: ''}), 5000);
+    }
 
-      login(e){
-        e.preventDefault();
-        this.authenticateUser();
-      }
 
-      logout(){
-        this.setState({
-          isAuth: false,
-        })
-        sessionStorage.removeItem('isAuth');
-      }
+    handleChange = event => {
+      this.setState({ [event.target.name]: event.target.value })
+    }
 
-      checkPassword(){
-        if(this.state.password.length > 0 && this.state.password === this.state.password2){
-          return true;
-        } else {
-          return false;
+    login(e){
+      e.preventDefault();
+      this.authenticateUser();
+    }
 
+    logout(){
+      this.setState({
+        isAuth: false,
+      })
+      sessionStorage.removeItem('isAuth');
+    }
+
+    checkPassword(){
+      if(this.state.password.length > 0 && this.state.password === this.state.password2){
+        return true;
+      } else {
+        return false;
       }
     }
 
-      registerUser(e) {
-        e.preventDefault();
-        (this.checkPassword()) ?
-        console.log("YES") :
-        console.log("NO")        
-      }
+    registerUser(e) {
+      e.preventDefault();
+      (this.checkPassword()) ?
+      console.log("YES") :
+      console.log("NO")        
+    }
 
-      createUser(){
+    createUser(){
 
-      }
+    }
 
     // AUTH THE USER
     authenticateUser(){
@@ -85,6 +88,7 @@ class AuthProvider extends Component {
           this.setState({
             error: err.response.data,
           })
+          this.displayError();
         })
       }
     

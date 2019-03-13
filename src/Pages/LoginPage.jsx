@@ -1,10 +1,18 @@
-import React, { Component, useContext } from 'react'
+import React, { Component } from 'react'
 import LoginForm from '../Components/Login/LoginForm';
-import Axios from 'axios';
-import {AuthContext, AuthProvider, AuthConsumer} from '../Components/Auth/Auth';
+import {AuthContext} from '../Components/Auth/Auth';
+import { withStyles } from '@material-ui/core';
+import '../Components/Utils/transitions.css'
+
+const styles = theme => ({
+  error: {
+    opacity: 0.5,
+    transition: 'opacity 1s ease-in-out',  
+  },
+})
 
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   static contextType = AuthContext;
   constructor(props){
     super(props);
@@ -16,13 +24,18 @@ export default class LoginPage extends Component {
   render() {
 
     const {error} = this.context;
+    const {classes} = this.props;
 
     return (
         <div>
+          <div className={classes.error}>
             {error}
-            <LoginForm />   
-            {this.state.error}     
+          </div>
+          <LoginForm />   
+          {this.state.error}     
         </div>
     )
   }
 }
+
+export default withStyles(styles)(LoginPage);
