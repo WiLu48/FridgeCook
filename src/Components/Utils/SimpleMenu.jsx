@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { withStyles, Button, Menu, MenuItem, NativeSelect, Typography } from '@material-ui/core';
+import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../Auth/Auth';
