@@ -11,7 +11,7 @@ class AuthProvider extends Component {
             email: '',
             password: '',
             password2: '',
-            error: '',
+            error: 'asd',
             userid: '',
             firstname: '',
             lastname: '',

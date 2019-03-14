@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import LoginForm from '../Components/Login/LoginForm';
 import {AuthContext} from '../Components/Auth/Auth';
 import { withStyles } from '@material-ui/core';
-import '../Components/Utils/transitions.css'
+import ErrorMsg from '../Components/Login/ErrorMsg';
 
 const styles = theme => ({
   error: {
@@ -28,9 +28,7 @@ class LoginPage extends Component {
 
     return (
         <div>
-          <div className={classes.error}>
-            {error}
-          </div>
+          <ErrorMsg />
           <LoginForm />   
           {this.state.error}     
         </div>
