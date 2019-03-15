@@ -35,10 +35,10 @@ function NavBar (props) {
                                 <Link className={classes.links} to="/recipes">RECIPES</Link>
                             </Typography>
                             <Typography>
-                                <Link className={classes.links} to="/dashboard">EXPLORE</Link>
+                                <Link className={classes.links} to="/ExplorePage">EXPLORE</Link>
                             </Typography>
                             <Typography>
-                                <Link className={classes.links} to="/">FRIDGE COOK</Link>
+                                <Link className={classes.links} to="/dashboard">FRIDGE COOK</Link>
                             </Typography>
                             <Typography>
                                 <Link className={classes.links} to="/">ABOUT</Link>

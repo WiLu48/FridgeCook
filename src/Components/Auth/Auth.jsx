@@ -8,24 +8,28 @@ class AuthProvider extends Component {
         super(props)
         this.state = {
             isAuth: sessionStorage.getItem("isAuth"),
-            email: '',
-            password: '',
-            password2: '',
-            error: 'asd',
-            userid: '',
-            firstname: '',
-            lastname: '',
+            password: null,
+            password2: null,
+            error: null,
+            userid: sessionStorage.getItem("ID"),
+            email: sessionStorage.getItem("email"),
+            firstname: sessionStorage.getItem("fname"),
+            lastname: sessionStorage.getItem("lanme"),
+            admin: sessionStorage.getItem("admin"),
+            key: sessionStorage.getItem("key"), 
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.registerUser = this.registerUser.bind(this);
+        this.authUser = this.authUser.bind(this);
+
 
 
     }
 
     displayError(){
-      setTimeout(() => this.setState({error: ''}), 5000);
+      setTimeout(() => this.setState({error: ''}), 50000);
     }
 
 
@@ -35,14 +39,23 @@ class AuthProvider extends Component {
 
     login(e){
       e.preventDefault();
-      this.authenticateUser();
+      this.loginUser();
     }
 
     logout(){
       this.setState({
-        isAuth: false,
+        isAuth: null,
+        email: null,
+        password: null,
+        password2: null,
+        error: null,
+        userid: null,
+        firstname: null,
+        lastname: null,
+        key: null, 
+        admin: null,
       })
-      sessionStorage.removeItem('isAuth');
+      sessionStorage.clear();
     }
 
     checkPassword(){
@@ -60,12 +73,31 @@ class AuthProvider extends Component {
       console.log("NO")        
     }
 
+    
+
     createUser(){
 
     }
 
-    // AUTH THE USER
-    authenticateUser(){
+    //CHECK IF USERS IS CORRECT
+    authUser() {
+      var page = "https://www.p4tr7k.me/API/Account/Auth.php"
+      var post = {
+        'id': this.state.userid,
+        'key': this.state.key,
+      };
+
+      Axios.post(page, post)
+        .then(res => {
+
+        })
+        .catch(err => {
+          this.logout();
+        })
+    }
+
+    // LOGIN USER
+    loginUser(){
         var page = "https://www.p4tr7k.me/API/Account/Login.php";
         var post = {
           'email': this.state.email,
@@ -73,18 +105,28 @@ class AuthProvider extends Component {
         }
         Axios.post(page, post)
         .then(res => {
-          console.log(res);
           this.setState({
             password: '',
             isAuth: true,
             error: '',
+            userid: res.data.User_ID,
+            email: res.data.Email,   
+            firstname: res.data.Firstname,
+            lastname: res.data.Lastname,
+            admin: res.data.Admin,
+            key: res.data.Auth_Key,
             
           })
           sessionStorage.setItem("isAuth", true);
+          sessionStorage.setItem("email", this.state.email);
+          sessionStorage.setItem("ID", this.state.userid);
+          sessionStorage.setItem("fname", this.state.firstname);
+          sessionStorage.setItem("lname", this.state.lastname);
+          sessionStorage.setItem("key", this.state.key);
+          sessionStorage.setItem("admin", this.state.admin);
 
         })
         .catch(err => {
-          console.log(err.response.data);
           this.setState({
             error: err.response.data,
           })
@@ -96,6 +138,7 @@ class AuthProvider extends Component {
         return (
         <AuthContext.Provider value={{
             isAuth: this.state.isAuth,
+            checkAuth: this.authUser,
             error: this.state.error,
             login: this.login,
             logout: this.logout,
