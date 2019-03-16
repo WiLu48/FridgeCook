@@ -46,8 +46,8 @@ class NewRecipePage extends Component {
 
     call(){
 
-        const data = new FormData();
-        data.append('file', this.state.file, this.state.file.name);
+    const data = new FormData();
+    data.append('recipe_image', this.state.file, this.state.file.name);
 
     var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
       var post = {
@@ -66,6 +66,7 @@ class NewRecipePage extends Component {
     handleFile = event => {
         this.setState({
             file: event.target.files[0],
+            img: URL.createObjectURL(event.target.files[0]),
         })
     }
 
@@ -87,10 +88,10 @@ class NewRecipePage extends Component {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm>
+                    <img style={{width: '100%'}} alt="" src={this.state.img}></img>
                     <Input onChange={this.handleFile} type='file'>Upload Image</Input>
                 </Grid>
-            </Grid>
-            
+            </Grid>            
             
             <FormControl margin='normal' fullWidth>
                 <InputLabel>Recipe Description</InputLabel>
