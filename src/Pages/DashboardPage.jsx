@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { AuthContext } from '../Components/Auth/Auth';
+import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+
 
 export default class Dashboard extends Component {
   static contextType = AuthContext;
@@ -8,7 +11,9 @@ export default class Dashboard extends Component {
     checkAuth();
     return (
       <div>
-        <h1>DASHBOARD BITCHES</h1>
+        <Link to="/dashboard/addrecipe">
+        <Button variant='contained' color='default'>Add new Recipe</Button>
+        </Link>
       </div>
     )
   }

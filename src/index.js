@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -15,6 +15,7 @@ import ProtectedRoute from './Routes/ProtectedRoute';
 import DashboardPage from './Pages/DashboardPage';
 import AuthRoute from './Routes/AuthRoute';
 import ExplorePage from './Pages/ExplorePage';
+import NewRecipePage from './Pages/NewRecipePage';
 
 
 
@@ -26,10 +27,11 @@ const routing = (
             <Route exact path='/' component={Homepage} />
             <Route exact path='/recipes' component={RecipesPage} />
             <Route exact path='/recipes/:id' component={SingleRecipePage} />
-            <AuthRoute path='/login' component={LoginPage} />
+            <AuthRoute exact path='/login' component={LoginPage} />
             <Route exact path='/register' component={RegisterPage} />
             <Route exact path='/explorepage' component={ExplorePage} />
-            <ProtectedRoute path='/dashboard' component={DashboardPage} />
+            <ProtectedRoute exact path='/dashboard' component={DashboardPage} />
+            <ProtectedRoute exact path='/dashboard/addrecipe' component={NewRecipePage} />
             </div>
         </Router> 
     </AuthProvider>

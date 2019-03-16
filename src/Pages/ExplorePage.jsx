@@ -1,4 +1,4 @@
-import React, { useContext, Component } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from '../Components/Auth/Auth'
 const ExplorePage = () => {
     const context = useContext(AuthContext)
