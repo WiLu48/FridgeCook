@@ -60,7 +60,8 @@ class LoginForm extends Component {
   render(){
 
     const {classes} = this.props;
-    const {email, password, login, handleChange} = this.context;
+    const { login, handleChange } = this.context;
+    
 
     return (
       <main className={classes.main}>
@@ -80,8 +81,8 @@ class LoginForm extends Component {
           
           <form className={classes.form} onSubmit={(e) => login(e)}>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input onChange={handleChange} id="email" name="email" autoComplete="email" autoFocus />
+              <InputLabel  htmlFor="email">Email Address</InputLabel>
+              <Input  onChange={handleChange} id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>

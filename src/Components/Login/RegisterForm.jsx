@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -47,55 +47,60 @@ const styles = theme => ({
   },
 });
 
-function RegisterForm(props) {
-  const { classes } = props;
-  const context = useContext(AuthContext);
-
-  return (
-    <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Register
-        </Typography>        
-        <form className={classes.form} onSubmit={context.register}>
-            <FormControl margin="normal" fullWidth>
-                <InputLabel htmlFor="text">First Name</InputLabel>
-                <Input onChange={context.handleChange} id="firstname" name="firstname"/>
-            </FormControl>
-           <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="text">Surname</InputLabel>
-            <Input onChange={context.handleChange} id="lastname" name="lastname"/>
-          </FormControl>
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="emaail">Email Address</InputLabel>
-            <Input onChange={context.handleChange} id="email" name="email" />
-          </FormControl>
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input onChange={context.handleChange} name="password" type="password" id="password" />
-          </FormControl>
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="password">Confirm Password</InputLabel>
-            <Input onChange={context.handleChange} name="password2" type="password" id="password2" />
-          </FormControl>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+class RegisterForm extends Component {
+  static contextType = AuthContext;
+  
+  render(){
+    const { classes } = this.props;
+    const {handleChange, register} = this.context;
+    
+    return (
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Register
-          </Button>
-        </form>
-      </Paper>
-    </main>
-  );
+          </Typography>        
+          <form className={classes.form} onSubmit={(e) => register(e)}>
+              <FormControl margin="normal" fullWidth required>
+                  <InputLabel htmlFor="text">First Name</InputLabel>
+                  <Input onChange={handleChange} id="firstname" name="firstname"/>
+              </FormControl>
+              <FormControl margin="normal" fullWidth required>
+              <InputLabel htmlFor="text">Surname</InputLabel>
+              <Input onChange={handleChange} id="lastname" name="lastname"/>
+            </FormControl>
+            <FormControl margin="normal" fullWidth required>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input onChange={handleChange} id="email" name="email" />
+            </FormControl>
+            <FormControl margin="normal" fullWidth required>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input onChange={handleChange} name="password" type="password" id="password" />
+            </FormControl>
+            <FormControl margin="normal" fullWidth required>
+              <InputLabel htmlFor="password">Confirm Password</InputLabel>
+              <Input onChange={handleChange} name="password2" type="password" id="password2" />
+            </FormControl>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Register
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    );
+  }
 }
+
 
 RegisterForm.propTypes = {
   classes: PropTypes.object.isRequired,

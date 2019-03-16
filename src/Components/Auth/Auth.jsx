@@ -24,8 +24,6 @@ class AuthProvider extends Component {
         this.registerUser = this.registerUser.bind(this);
         this.authUser = this.authUser.bind(this);
 
-
-
     }
 
     displayError(){
@@ -36,10 +34,20 @@ class AuthProvider extends Component {
     handleChange = event => {
       this.setState({ [event.target.name]: event.target.value })
     }
+    
+    registerUser(e) {
+      e.preventDefault();
 
+      if(!this.validateEmail()){
+        this.setState({error: "Wrong Email"})
+      } else if (this.checkPassword()){
+        this.callCreateUserAPI();
+      }
+    }
+    
     login(e){
       e.preventDefault();
-      this.loginUser();
+      this.callLoginAPI();
     }
 
     logout(){
@@ -59,25 +67,22 @@ class AuthProvider extends Component {
     }
 
     checkPassword(){
-      if(this.state.password.length > 0 && this.state.password === this.state.password2){
+      if(this.state.password.length < 8){
+        this.setState({error: "Password needs to be at least 8 characters long"});
+        return false;
+      } else if (this.state.password === this.state.password2) {
         return true;
       } else {
+      this.setState({error: "Password doesn't match"})        
         return false;
       }
     }
 
-    registerUser(e) {
-      e.preventDefault();
-      (this.checkPassword()) ?
-      console.log("YES") :
-      console.log("NO")        
+    validateEmail(){
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(this.state.email).toLowerCase());
     }
 
-    
-
-    createUser(){
-
-    }
 
     //CHECK IF USERS IS CORRECT
     authUser() {
@@ -96,18 +101,21 @@ class AuthProvider extends Component {
         })
     }
 
-    // LOGIN USER
-    loginUser(){
-        var page = "https://www.p4tr7k.me/API/Account/Login.php";
+    callCreateUserAPI(){
+      var page = "https://www.p4tr7k.me/API/Account/Create_User.php";
         var post = {
           'email': this.state.email,
           'password': this.state.password,
+          'firstname': this.state.firstname,
+          'lastname': this.state.lastname
         }
+        var auth;
         Axios.post(page, post)
         .then(res => {
+          (res.data.User_ID > 0 ? auth=true : auth=false)
           this.setState({
             password: '',
-            isAuth: true,
+            isAuth: auth,
             error: '',
             userid: res.data.User_ID,
             email: res.data.Email,   
@@ -117,7 +125,50 @@ class AuthProvider extends Component {
             key: res.data.Auth_Key,
             
           })
-          sessionStorage.setItem("isAuth", true);
+          sessionStorage.setItem("isAuth", auth);
+          sessionStorage.setItem("email", this.state.email);
+          sessionStorage.setItem("ID", this.state.userid);
+          sessionStorage.setItem("fname", this.state.firstname);
+          sessionStorage.setItem("lname", this.state.lastname);
+          sessionStorage.setItem("key", this.state.key);
+          sessionStorage.setItem("admin", this.state.admin);
+
+        })
+        .catch(err => {
+          this.setState({
+            error: err.response.data,
+          })
+          this.displayError();
+        })
+
+    }
+
+
+    // Call the LOGIN API to check wether the user is within the DB
+    // Return USER DATA while removing password data
+    callLoginAPI(){
+        var page = "https://www.p4tr7k.me/API/Account/Login.php";
+        var post = {
+          'email': this.state.email,
+          'password': this.state.password,
+        }
+        var auth;
+        Axios.post(page, post)
+        .then(res => {
+          (res.data.User_ID > 0 ? auth=true : auth=false)
+          this.setState({
+            password: '',
+            isAuth: auth,
+            error: '',
+            userid: res.data.User_ID,
+            email: res.data.Email,   
+            firstname: res.data.Firstname,
+            lastname: res.data.Lastname,
+            admin: res.data.Admin,
+            key: res.data.Auth_Key,
+            
+          })
+          sessionStorage.setItem("isAuth", auth);
           sessionStorage.setItem("email", this.state.email);
           sessionStorage.setItem("ID", this.state.userid);
           sessionStorage.setItem("fname", this.state.firstname);
