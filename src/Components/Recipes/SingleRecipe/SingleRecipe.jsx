@@ -35,9 +35,9 @@ class SingleRecipe extends Component {
 fetchAPI() {
   //FETCH RECIPE
   Axios.all([
-    Axios.get("https://p4tr7k.me/Recipes.php/?id="+this.state.id),
-    Axios.get("https://p4tr7k.me/Ingredients.php/?id="+this.state.id),
-    Axios.get("https://p4tr7k.me/Steps.php/?id="+this.state.id)
+    Axios.get("https://p4tr7k.me/API/Recipes/Recipes.php/?id="+this.state.id),
+    Axios.get("https://p4tr7k.me/API/Recipes/Ingredients.php/?id="+this.state.id),
+    Axios.get("https://p4tr7k.me/API/Recipes/Steps.php/?id="+this.state.id)
   ])
   .then(Axios.spread((rec, ing, stp) => {
     this.setState({

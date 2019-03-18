@@ -29,7 +29,7 @@ export default class RecipeList extends Component {
   }
 
   fetchRecipes() {
-    Axios.get("https://p4tr7k.me/Recipes.php")
+    Axios.get("https://p4tr7k.me/API/Recipes/Recipes.php")
     .then(response => {
       const res = response.data.data
       this.setState({
