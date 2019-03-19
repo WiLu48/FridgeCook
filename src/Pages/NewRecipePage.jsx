@@ -39,20 +39,21 @@ class NewRecipePage extends Component {
 
     RecipeSubmit(e){
         e.preventDefault();
-        console.log(this.state.file)
         this.call()
 
     }
 
     call(){
 
+    const fileExtension = this.state.file.name.split('.').slice(1).join();
+
+
     const data = new FormData();
-    data.append('recipe_image', this.state.file, this.state.file.name);
+
+    data.append('recipe_image', this.state.file, "1."+fileExtension);
+
 
     var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
-      var post = {
-        'file': this.state.file,
-      };
 
       Axios.post(page, data)
         .then(res => {
