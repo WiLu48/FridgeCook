@@ -1,119 +1,56 @@
 import React, { Component } from 'react'
-import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button } from '@material-ui/core';
 import Axios from 'axios';
+import AddNewRecipeForm from '../Components/Recipes/AddNewRecipe/AddNewRecipeForm';
 
-const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 800,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
-    paper: {
-        marginTop: theme.spacing.unit * 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing.unit,
-    },
-    multiline: {
-        border: 'solid 1px grey',
-    }
-})
+
 
 class NewRecipePage extends Component {
-    state={
-        isUploaded: false,
-        file: null,
-    }
-    // this.RecipeSubmit=this.RecipeSubmit.bind(this);
+    // state={
+    //     isUploaded: false,
+    //     file: null,
+    // }
+    // // this.RecipeSubmit=this.RecipeSubmit.bind(this);
 
-    RecipeSubmit(e){
-        e.preventDefault();
-        this.call()
+    // RecipeSubmit(e){
+    //     e.preventDefault();
+    //     this.call()
 
-    }
+    // }
 
-    call(){
+    // call(){
 
-    const fileExtension = this.state.file.name.split('.').slice(1).join();
-
-
-    const data = new FormData();
-
-    data.append('recipe_image', this.state.file, "1."+fileExtension);
+    // const fileExtension = this.state.file.name.split('.').slice(1).join();
 
 
-    var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
+    // const data = new FormData();
 
-      Axios.post(page, data)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    // data.append('recipe_image', this.state.file, "1."+fileExtension);
 
-    handleFile = event => {
-        this.setState({
-            file: event.target.files[0],
-            img: URL.createObjectURL(event.target.files[0]),
-        })
-    }
+
+    // var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
+
+    //   Axios.post(page, data)
+    //     .then(res => {
+    //         console.log(res)
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // }
+
+    // handleFile = event => {
+    //     this.setState({
+    //         file: event.target.files[0],
+    //         img: URL.createObjectURL(event.target.files[0]),
+    //     })
+    // }
 
 
   render() {
-      const {classes} = this.props;
     return (
-      <main className={classes.main}>
-        <Paper className={classes.paper}>
-        <Typography variant="h3">
-            Add new Recipe
-        </Typography>
-            <form className={classes.form} onSubmit={(e) => this.RecipeSubmit(e)}>
-            <Grid container alignItems="flex-end">
-                <Grid item xs={12} sm>
-                    <FormControl margin='normal' fullWidth>
-                        <InputLabel>Recipe Name</InputLabel>
-                        <Input></Input>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm>
-                    <img style={{width: '100%'}} alt="" src={this.state.img}></img>
-                    <Input onChange={this.handleFile} type='file'>Upload Image</Input>
-                </Grid>
-            </Grid>            
-            
-            <FormControl margin='normal' fullWidth>
-                <InputLabel>Recipe Description</InputLabel>
-                <Input 
-                className={classes.multiline}
-                disableUnderline={true}
-                variant="outlined"
-                multiline
-                rows={4}
-                ></Input>
-            </FormControl>
-            <Button
-            type="submit"
-            >
-            Create Recipe</Button>
-
-            </form>
-        </Paper>
-      </main>
+        <AddNewRecipeForm />
     )
   }
 }
 
-export default withStyles(styles)(NewRecipePage);
+export default NewRecipePage;
