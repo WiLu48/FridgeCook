@@ -15,7 +15,6 @@ import ProtectedRoute from './Routes/ProtectedRoute';
 import DashboardPage from './Pages/DashboardPage';
 import AuthRoute from './Routes/AuthRoute';
 import ExplorePage from './Pages/ExplorePage';
-import NewRecipePage from './Pages/NewRecipePage';
 
 
 
@@ -31,7 +30,6 @@ const routing = (
             <Route exact path='/register' component={RegisterPage} />
             <Route exact path='/explorepage' component={ExplorePage} />
             <ProtectedRoute exact path='/dashboard' component={DashboardPage} />
-            <ProtectedRoute exact path='/dashboard/addrecipe' component={NewRecipePage} />
             </div>
         </Router> 
     </AuthProvider>

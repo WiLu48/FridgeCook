@@ -14,9 +14,10 @@ class AuthProvider extends Component {
             userid: sessionStorage.getItem("ID"),
             email: sessionStorage.getItem("email"),
             firstname: sessionStorage.getItem("fname"),
-            lastname: sessionStorage.getItem("lanme"),
+            lastname: sessionStorage.getItem("lname"),
             admin: sessionStorage.getItem("admin"),
             key: sessionStorage.getItem("key"), 
+            level: sessionStorage.getItem('level')
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
@@ -123,6 +124,7 @@ class AuthProvider extends Component {
             lastname: res.data.Lastname,
             admin: res.data.Admin,
             key: res.data.Auth_Key,
+            level: res.data.Level,
             
           })
           sessionStorage.setItem("isAuth", auth);
@@ -132,6 +134,7 @@ class AuthProvider extends Component {
           sessionStorage.setItem("lname", this.state.lastname);
           sessionStorage.setItem("key", this.state.key);
           sessionStorage.setItem("admin", this.state.admin);
+          sessionStorage.setItem("level", this.state.level);
 
         })
         .catch(err => {
@@ -166,6 +169,7 @@ class AuthProvider extends Component {
             lastname: res.data.Lastname,
             admin: res.data.Admin,
             key: res.data.Auth_Key,
+            level: res.data.Level
             
           })
           sessionStorage.setItem("isAuth", auth);
@@ -175,6 +179,7 @@ class AuthProvider extends Component {
           sessionStorage.setItem("lname", this.state.lastname);
           sessionStorage.setItem("key", this.state.key);
           sessionStorage.setItem("admin", this.state.admin);
+          sessionStorage.setItem("level", this.state.level);
 
         })
         .catch(err => {
@@ -195,6 +200,7 @@ class AuthProvider extends Component {
             logout: this.logout,
             handleChange: this.handleChange,
             register: this.registerUser,
+            state: this.state,
             }}>
             {this.props.children}
         </AuthContext.Provider>
