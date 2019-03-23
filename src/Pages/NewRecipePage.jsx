@@ -5,45 +5,45 @@ import AddNewRecipeForm from '../Components/Recipes/AddNewRecipe/AddNewRecipeFor
 
 
 class NewRecipePage extends Component {
-    // state={
-    //     isUploaded: false,
-    //     file: null,
-    // }
-    // // this.RecipeSubmit=this.RecipeSubmit.bind(this);
+    state={
+        isUploaded: false,
+        file: null,
+    }
+    // this.RecipeSubmit=this.RecipeSubmit.bind(this);
 
-    // RecipeSubmit(e){
-    //     e.preventDefault();
-    //     this.call()
+    RecipeSubmit(e){
+        e.preventDefault();
+        this.call()
 
-    // }
+    }
 
-    // call(){
+    call(){
 
-    // const fileExtension = this.state.file.name.split('.').slice(1).join();
-
-
-    // const data = new FormData();
-
-    // data.append('recipe_image', this.state.file, "1."+fileExtension);
+    const fileExtension = this.state.file.name.split('.').slice(1).join();
 
 
-    // var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
+    const data = new FormData();
 
-    //   Axios.post(page, data)
-    //     .then(res => {
-    //         console.log(res)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // }
+    data.append('recipe_image', this.state.file, "1."+fileExtension);
 
-    // handleFile = event => {
-    //     this.setState({
-    //         file: event.target.files[0],
-    //         img: URL.createObjectURL(event.target.files[0]),
-    //     })
-    // }
+
+    var page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php"
+
+      Axios.post(page, data)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+    handleFile = event => {
+        this.setState({
+            file: event.target.files[0],
+            img: URL.createObjectURL(event.target.files[0]),
+        })
+    }
 
 
   render() {

@@ -49,6 +49,8 @@ class SingleRecipe extends Component {
 
     const link = "/recipes/" + this.props.id;
 
+    const img = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + this.props.image;
+
     
     return(
       <div className={classes.container}>
@@ -59,7 +61,7 @@ class SingleRecipe extends Component {
           >         
           <CardMedia
             style={{height: 0, paddingTop: '56.25%'}}
-            image={this.props.image}
+            image={img}
           />
           <CardHeader
           classes = {{title: classes.title}}

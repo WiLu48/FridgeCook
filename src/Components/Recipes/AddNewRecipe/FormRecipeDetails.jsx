@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom'
+import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button, TextField, MenuItem, Select, OutlinedInput } from '@material-ui/core';
+import { NONAME } from 'dns';
 
 
 const styles = theme => ({
@@ -27,6 +29,9 @@ const styles = theme => ({
     },
     multiline: {
         border: 'solid 1px grey',
+    },
+    input: {
+        display: 'none',
     }
 })
 
@@ -50,6 +55,7 @@ class FormRecipeDetails extends Component {
             Add new Recipe
         </Typography>
             <div className={classes.form}>
+            <img style={{width: '75%', margin: '0 auto', display: 'block', borderRadius: '10px'}} alt="" src={values.recImg}></img>
             <Grid container alignItems="flex-end">
                 <Grid item xs={12} sm>
                     <FormControl margin='normal' fullWidth>
@@ -57,32 +63,64 @@ class FormRecipeDetails extends Component {
                         <Input onChange={handleChange} name="recName"></Input>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} sm>
-                    <img style={{width: '100%'}} alt="" src={values.recImg}></img>
-                    <Input type='file' onChange={handleFile} name="recfile">Upload Image</Input>
+                
+            </Grid>
+            <Grid container alignItems="flex-end" justify="space-around">
+                <Grid item xs={12} sm={3}>
+                    <FormControl margin="normal" fullWidth>
+                        <InputLabel>Select Recipe Level</InputLabel>
+                        <Select 
+                        value={values.recLevel}
+                        onChange={handleChange}
+                        name="recLevel"
+                        >
+                            <MenuItem value={1}>Easy</MenuItem>
+                            <MenuItem value={2}>Intermediate</MenuItem>
+                            <MenuItem value={3}>Expert</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
-            </Grid>            
-            
+                <Grid item xs={12} sm={3}>
+                    <FormControl margin="normal" fullWidth>
+                    <InputLabel>Select Recipe Category</InputLabel>
+                    <Select 
+                        value={values.recCat}
+                        onChange={handleChange}
+                        name="recCat"
+                    >
+                        <MenuItem value={1}>Breakfast</MenuItem>
+                        <MenuItem value={2}>Dinner</MenuItem>
+                        <MenuItem value={3}>Desert</MenuItem>
+                    </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                    <Input className={classes.input} type='file' onChange={handleFile} name="recfile" id="contained-button-file"/>
+                    <label htmlFor="contained-button-file">
+                        <Button variant="contained" component="span">Upload Image</Button>
+                    </label>
+                </Grid>
+            </Grid>     
             <FormControl margin='normal' fullWidth>
-                <InputLabel>Recipe Description</InputLabel>
-                <Input 
-                onChange={handleChange}
-                name="recDesc"
-                className={classes.multiline}
-                disableUnderline={true}
-                variant="outlined"
-                multiline
-                rows={4}
-                ></Input>
+            <TextField
+            onChange={handleChange}
+            name="recDesc"
+            label="Recipe Description"
+            variant="outlined"
+            multiline
+            rows={4}></TextField>
             </FormControl>
-            <div>
+            <div style={{textAlign: 'center', marginTop: '10px'}}>
+                <Link style={{textDecoration: 'none'}} to="/dashboard">
                 <Button
-                style={{float: 'left'}}
-                onClick={this.continue}
+                style={{marginRight: '5px'}}
+                variant="contained"
+                color="secondary"
                 >
-                Save</Button>
+                Cancel</Button></Link>
                 <Button
-                style={{float: 'right'}}
+                variant="contained"
+                color="primary"
                 onClick={this.continue}
                 >
                 Next</Button>

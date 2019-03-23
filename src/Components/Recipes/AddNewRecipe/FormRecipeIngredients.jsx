@@ -36,12 +36,6 @@ const styles = theme => ({
 
 class FormRecipeIngredients extends Component {
 
-    state = {
-        ingredients: [],
-        ingredient: null,
-        amount: null,
-    }
-
     continue = e => {
         e.preventDefault();
         this.props.nextStep();
@@ -93,7 +87,7 @@ class FormRecipeIngredients extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <Fab size="small" variant="contained" color="primary" onClick={addIng}><AddIcon /></Fab>
+                            <Fab size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
                         </Grid>
                     </Grid>
                     {values.isList ? <Table>
@@ -113,23 +107,21 @@ class FormRecipeIngredients extends Component {
                             )}
                         </TableBody> 
                     </Table> : null}                    
-                    <div>
-                        <Button
-                        style={{float: 'left'}}
-                        onClick={this.continue}
-                        >
-                        Save</Button>
-                        <Button
-                        style={{float: 'right'}}
-                        onClick={this.continue}
-                        >
-                        Next</Button>
-                        <Button
-                        style={{float: 'right'}}
-                        onClick={this.back}
-                        >
-                        Back</Button>
-                    </div>
+                <div style={{textAlign: 'center', marginTop: '10px'}}>
+                    <Button
+                    style={{marginRight: '5px'}}
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.back}
+                    >
+                    Back</Button>
+                    <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.continue}
+                    >
+                    Next</Button>
+                </div>
                 </form>
             </div>
         </Paper>

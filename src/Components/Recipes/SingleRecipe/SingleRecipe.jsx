@@ -58,6 +58,7 @@ componentDidMount() {
   render() {
     const { classes } = this.props;
     const { id, category, title, description, img, ingredients, steps} = this.state;
+    const imglink = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + img;
     return (
       <div style={{marginTop: '50px'}}>
         <Paper
@@ -74,7 +75,7 @@ componentDidMount() {
               </div>
             </Grid>
             <Grid item md={6} sm={12} className={classes.border}>
-              <img src={img} alt="End result of Recipe" className={classes.img}/>
+              <img src={imglink} alt="End result of Recipe" className={classes.img}/>
             </Grid>
             <Grid item md={6} sm={12} className={classes.border}>
               <div className={classes.spacing}>
