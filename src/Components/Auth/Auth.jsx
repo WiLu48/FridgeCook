@@ -8,29 +8,42 @@ class AuthProvider extends Component {
         super(props)
         this.state = {
             isAuth: sessionStorage.getItem("isAuth"),
-            password: null,
-            password2: null,
-            error: null,
+            oldpassword: '',
+            password: '',
+            password2: '',
+            error: '',
             userid: sessionStorage.getItem("ID"),
             email: sessionStorage.getItem("email"),
             firstname: sessionStorage.getItem("fname"),
             lastname: sessionStorage.getItem("lname"),
             admin: sessionStorage.getItem("admin"),
             key: sessionStorage.getItem("key"), 
-            level: sessionStorage.getItem('level')
+            level: parseInt(sessionStorage.getItem('level')),
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
+        this.changePassword = this.changePassword.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSlider = this.handleSlider.bind(this);
         this.registerUser = this.registerUser.bind(this);
         this.authUser = this.authUser.bind(this);
+        this.callSaveDetailsAPI = this.callSaveDetailsAPI.bind(this);
+        this.updateState = this.updateState.bind(this);
 
     }
 
     displayError(){
-      setTimeout(() => this.setState({error: ''}), 50000);
+      setTimeout(() => this.setState({error: ''}), 7000);
     }
 
+    updateState(name, value, store){
+      sessionStorage.setItem(store, value)
+      this.setState({[name]: value});
+    }
+
+    handleSlider = (event, level) => {
+      this.setState({ level });
+    };
 
     handleChange = event => {
       this.setState({ [event.target.name]: event.target.value })
@@ -53,29 +66,37 @@ class AuthProvider extends Component {
 
     logout(){
       this.setState({
-        isAuth: null,
-        email: null,
-        password: null,
-        password2: null,
-        error: null,
-        userid: null,
-        firstname: null,
-        lastname: null,
-        key: null, 
-        admin: null,
+        isAuth: "",
+        email: "",
+        password: "",
+        password2: "",
+        error: "",
+        userid: "",
+        firstname: "",
+        lastname: "",
+        key: "", 
+        admin: "",
       })
       sessionStorage.clear();
     }
 
     checkPassword(){
       if(this.state.password.length < 8){
-        this.setState({error: "Password needs to be at least 8 characters long"});
+        this.setState({error: "Password needs to be at least 8 characters long."});
+        this.displayError();
         return false;
       } else if (this.state.password === this.state.password2) {
         return true;
       } else {
-      this.setState({error: "Password doesn't match"})        
+      this.setState({error: "Password doesn't match."})     
+      this.displayError();
         return false;
+      }
+    }
+
+    changePassword(){
+      if(this.checkPassword()) {
+        this.callChangePasswordAPI();
       }
     }
 
@@ -116,15 +137,16 @@ class AuthProvider extends Component {
           (res.data.User_ID > 0 ? auth=true : auth=false)
           this.setState({
             password: '',
+            password2: '',
             isAuth: auth,
             error: '',
             userid: res.data.User_ID,
-            email: res.data.Email,   
+            email: res.data.Email.toUpperCase(),   
             firstname: res.data.Firstname,
             lastname: res.data.Lastname,
             admin: res.data.Admin,
             key: res.data.Auth_Key,
-            level: res.data.Level,
+            level: parseInt(res.data.Level),
             
           })
           sessionStorage.setItem("isAuth", auth);
@@ -134,7 +156,7 @@ class AuthProvider extends Component {
           sessionStorage.setItem("lname", this.state.lastname);
           sessionStorage.setItem("key", this.state.key);
           sessionStorage.setItem("admin", this.state.admin);
-          sessionStorage.setItem("level", this.state.level);
+          sessionStorage.setItem("level", parseInt(this.state.level));
 
         })
         .catch(err => {
@@ -161,15 +183,16 @@ class AuthProvider extends Component {
           (res.data.User_ID > 0 ? auth=true : auth=false)
           this.setState({
             password: '',
+            password2: '',
             isAuth: auth,
             error: '',
             userid: res.data.User_ID,
-            email: res.data.Email,   
+            email: res.data.Email.toUpperCase(),   
             firstname: res.data.Firstname,
             lastname: res.data.Lastname,
             admin: res.data.Admin,
             key: res.data.Auth_Key,
-            level: res.data.Level
+            level: parseInt(res.data.Level)
             
           })
           sessionStorage.setItem("isAuth", auth);
@@ -179,7 +202,7 @@ class AuthProvider extends Component {
           sessionStorage.setItem("lname", this.state.lastname);
           sessionStorage.setItem("key", this.state.key);
           sessionStorage.setItem("admin", this.state.admin);
-          sessionStorage.setItem("level", this.state.level);
+          sessionStorage.setItem("level", parseInt(this.state.level));
 
         })
         .catch(err => {
@@ -189,6 +212,61 @@ class AuthProvider extends Component {
           this.displayError();
         })
       }
+
+      callSaveDetailsAPI(){
+        var page = "https://www.p4tr7k.me/API/Account/UpdateDetails.php";
+        var post = {
+          'id': this.state.userid,
+          'key': this.state.key,
+          'email': this.state.email,
+          'firstname': this.state.firstname,
+          'lastname': this.state.lastname,
+          'level': this.state.level,
+        }
+        Axios.post(page, post)
+        .then(res => {
+          this.setState({
+            firstname: res.data.Firstname,
+            lastname: res.data.Lastname,
+            level: parseInt(res.data.Level)
+            
+          })
+          sessionStorage.setItem("fname", this.state.firstname);
+          sessionStorage.setItem("lname", this.state.lastname);
+          sessionStorage.setItem("level", parseInt(this.state.level));
+        })
+        .catch(err => {
+          console.log(err.data)
+        })
+
+      }
+
+      callChangePasswordAPI(){
+        var page = "https://www.p4tr7k.me/API/Account/ChangePassword.php";
+        var post = {
+          'id': this.state.userid,
+          'key': this.state.key,
+          'email': this.state.email,
+          'oldpass': this.state.oldpassword,
+          'newpass': this.state.password,
+        }
+
+        Axios.post(page, post)
+        .then(res => {
+          console.log(res)
+          this.setState({
+            error: res.data,
+            password: '',
+            password2: '',
+            oldpassword: '',
+          })
+          this.displayError();
+        })
+        .catch(err => {
+          this.setState({error: err.response.data})
+        })
+
+      }
     
     render() {
         return (
@@ -197,11 +275,15 @@ class AuthProvider extends Component {
             checkAuth: this.authUser,
             error: this.state.error,
             login: this.login,
+            update: this.callSaveDetailsAPI,
             logout: this.logout,
             handleChange: this.handleChange,
-            register: this.registerUser,
+            handleSlider: this.handleSlider,
             state: this.state,
-            }}>
+            register: this.registerUser,
+            updateState: this.updateState,
+            changePassword: this.changePassword,
+          }}>
             {this.props.children}
         </AuthContext.Provider>
         )

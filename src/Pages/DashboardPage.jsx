@@ -15,7 +15,7 @@ const styles = theme => ({
       marginLeft: theme.spacing.unit * 3,
       marginRight: theme.spacing.unit * 3,
       [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-          width: 1200,
+          width: 1000,
           marginLeft: 'auto',
           marginRight: 'auto',
       },
@@ -35,10 +35,19 @@ const styles = theme => ({
   }
 })
 
+function Acc (props){
+  return(
+    <div>
+        <div><Typography variant="h6">Welcome</Typography></div>
+        <div>{props.fname} {props.lname}</div> 
+    </div>
+  )
+}
+
 class DashboardPage extends Component {
   static contextType = AuthContext;
   state = {
-    buttonPressed: 0,
+    buttonPressed: 1,
     recipes: [],
   }
 
@@ -62,11 +71,11 @@ class DashboardPage extends Component {
     const {recipes} = this.state;
     // eslint-disable-next-line default-case
     switch(step) {
-      case 0:
+      case 1:
       return(
         <MyAccountDetails />
       );
-      case 1:
+      case 2:
       return(
         <Grid container
         justify="center">
@@ -82,11 +91,11 @@ class DashboardPage extends Component {
           )}
         </Grid>
       )
-      case 2:
+      case 3:
       return(
         <AddNewRecipeForm />
       )
-      case 3:
+      case 4:
       return (
         <Typography style={{marginTop: '10px'}} variant="h6">
           Feature coming soon...
@@ -97,19 +106,14 @@ class DashboardPage extends Component {
 
 
   render() {
-    const {checkAuth} = this.context;
+    const {checkAuth, state} = this.context;
     const {recipes, buttonPressed} = this.state;
     const {classes} = this.props;
     checkAuth();
     return (
       <main className={classes.main}>
         <div className={classes.paper}>
-          <Typography variant="h3">
-          Welcome {sessionStorage.getItem('fname')} {sessionStorage.getItem('lname')}
-          </Typography>
-        
-
-        <Paper >
+        <Paper style={{width: '100%'}}>
           <Tabs
           value={buttonPressed}
           variant="fullWidth"
@@ -117,6 +121,7 @@ class DashboardPage extends Component {
           indicatorColor="secondary"
           onChange={this.handleChange}
           >
+            <Tab disabled={true} label={<Acc fname={state.firstname} lname={state.lastname} />} />
             <Tab icon={<Settings />} label="Account Settings" />
             <Tab icon={<Fastfood />} label="My Recipes" />
             <Tab icon={<AddCircle />} label="Add New Recipe" />
@@ -125,7 +130,6 @@ class DashboardPage extends Component {
         </Paper>
         {this.handleButtonDisplay(buttonPressed)}
         </div>       
-        {/* <Avatar src="http://www.p4tr7k.me/API/Recipes/Rec_Imgs/22.jpg" /> */}
       </main>
     )
   }

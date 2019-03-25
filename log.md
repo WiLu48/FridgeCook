@@ -1,12 +1,4 @@
-#########################
-
-
-#### THINGS TO DO
-Refactor RECIPE_FILTERS to be outside of RECIPE_LIST.
-Check validation of LOGIN_PAGE -> Style it.
-Remove all unnecessary functions from LOGIN_PAGE && LOGIN_FORM
--> Add EMAIL / PASSWORD validation on Login / Register Forms
-
+### TASKS
 
 ### 15/03/2019
 [x] Make AUTH work with Context.
@@ -17,3 +9,25 @@ Remove all unnecessary functions from LOGIN_PAGE && LOGIN_FORM
 ### 16/06/2019
 [x] Complete REGISTERTRATION FORM
 [x] Add validation to Regiser Form
+
+
+### 25/03/2019
+### FRONT-END
+[] Search by ingredients section on RECIPE PAGE
+[] Finish DASHBOARD PAGE
+[] ADD NEW RECIPE FORM -> needs validation
+[] MY RECIPES in DASHBOARD needs more info -> RECIPE STATE / EDIT RECIPE
+[] ADMIN section added to the DASHBOARD PAGE to allow APPROVING RECIPES
+[] View SINGLE RECIPE PAGE needs STYLING
+[] SAVE RECIPE functionality needs to be added
+[] HOMEPAGE needs creating
+[] ABOUT PAGE needs creating
+[] EXPLORE PAGE needs creating
+[] Create FRIGE COOK LOGO
+[] Style RECIPE LIST
+[] 
+
+### BACK-END
+[] Add CHANGE PASSWORD functionality
+[] FORGOTTEN PASSWORD functionality for the LOGIN FORM
+[] Modify SINGLE RECIPE API to include AUTHOR details -> First Name & Last Name

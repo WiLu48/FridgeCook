@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {withStyles, Button, Grid, Avatar, Paper, Typography, FormControl, Input, InputLabel, TextField, InputAdornment} from '@material-ui/core'
-import {Slider} from '@material-ui/lab'
+import Slider from '@material-ui/lab/Slider'
 import { AuthContext } from '../../Auth/Auth';
 
 const styles = theme => ({
@@ -10,7 +10,7 @@ const styles = theme => ({
   },
 })
 
-class AccountDetailsLocked extends Component {
+class AccountDetailsChange extends Component {
   static contextType = AuthContext;
   state = {
     levelName: {
@@ -19,12 +19,14 @@ class AccountDetailsLocked extends Component {
         3: 'Expert'
       },
   }
+
+
   render() {
-    const {state} = this.context;
-    const {classes} = this.props;
+    const {state, handleSlider} = this.context;
+    const {classes, fname, lname, change, slide, level} = this.props;
     return (
         <form className={classes.form} >
-            <FormControl margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth required>
                 <TextField
                 variant="outlined"
                 label="EMAIL"
@@ -32,20 +34,22 @@ class AccountDetailsLocked extends Component {
                 disabled={true}
                 />
             </FormControl>
-            <FormControl margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth required>
             <TextField
                 variant="outlined"
-                value={state.firstname}
+                value={fname}
                 label="FIRST NAME"
-                disabled={true}
+                name="fname"
+                onChange={change}
                 />
             </FormControl>
-            <FormControl margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth required>
             <TextField
                 variant="outlined"
-                value={state.lastname}
-                disabled={true}
+                value={lname}
                 label="LAST NAME"
+                name="lname"
+                onChange={change}
                 />
             </FormControl>
             <FormControl margin="normal" fullWidth style={{width: '75%', margin: '20px auto', display: 'block'}}>
@@ -54,15 +58,17 @@ class AccountDetailsLocked extends Component {
                     type='range'
                     min={1}
                     max={3}
-                    value={state.level}
+                    step={1}
+                    value={level}
                     aria-labelledby="label"
-                    disabled={true}
+                    onChange={slide}
+                    name="level"
                 />
-                <Typography style={{paddingTop: '10px', textAlign: 'center'}} variant="body2" id="label">{this.state.levelName[state.level]}</Typography>
+                <Typography style={{paddingTop: '10px', textAlign: 'center'}} variant="body2" id="label">{this.state.levelName[level]}</Typography>
             </FormControl>
         </form>
     )
   }
 }
 
-export default withStyles(styles)(AccountDetailsLocked)
+export default withStyles(styles)(AccountDetailsChange)

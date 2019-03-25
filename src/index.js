@@ -27,7 +27,7 @@ const routing = (
             <Route exact path='/recipes' component={RecipesPage} />
             <Route exact path='/recipes/:id' component={SingleRecipePage} />
             <AuthRoute exact path='/login' component={LoginPage} />
-            <Route exact path='/register' component={RegisterPage} />
+            <AuthRoute exact path='/register' component={RegisterPage} />
             <Route exact path='/explorepage' component={ExplorePage} />
             <ProtectedRoute exact path='/dashboard' component={DashboardPage} />
             </div>
