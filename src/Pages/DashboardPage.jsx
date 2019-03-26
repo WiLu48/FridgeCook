@@ -54,9 +54,15 @@ class DashboardPage extends Component {
   componentDidMount(){
     Axios.get("https://p4tr7k.me/API/Recipes/Recipes.php?uid="+sessionStorage.getItem('ID'))
     .then(res => {
-      this.setState({
-        recipes: res.data.data,
-      })
+        this.setState({
+          recipes: res.data.data,
+        })
+        this.state.recipes ? 
+          this.setState({
+            latestRecipe: res.data.data[res.data.data.length-1],
+            latestRecipeExists: 1,
+          })
+          : this.setState({latestRecipeExists: 0})
     })
     .catch(err => {
       console.log(err);
@@ -68,18 +74,18 @@ class DashboardPage extends Component {
   };
 
   handleButtonDisplay(step){
-    const {recipes} = this.state;
+    const {recipes, latestRecipe} = this.state;
     // eslint-disable-next-line default-case
     switch(step) {
       case 1:
       return(
-        <MyAccountDetails />
+        <MyAccountDetails handleChange={this.handleChange} latestRecipe={this.state.latestRecipe} latestRecipeExists={this.state.latestRecipeExists} />
       );
       case 2:
       return(
         <Grid container
         justify="center">
-          {recipes.map(recipe => 
+          {recipes ? recipes.map(recipe => 
             <MyRecipesItem
             key={recipe.Recipe_ID}
             id={recipe.Recipe_ID}
@@ -88,7 +94,7 @@ class DashboardPage extends Component {
             desc={recipe.Recipe_Description}
             cat={recipe.Category_ID}
             />
-          )}
+          ) : <h1>You don't have any recipes</h1>}
         </Grid>
       )
       case 3:
@@ -107,7 +113,7 @@ class DashboardPage extends Component {
 
   render() {
     const {checkAuth, state} = this.context;
-    const {recipes, buttonPressed} = this.state;
+    const {recipes, latestRecipe, buttonPressed} = this.state;
     const {classes} = this.props;
     checkAuth();
     return (

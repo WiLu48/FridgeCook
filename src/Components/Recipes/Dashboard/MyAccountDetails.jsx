@@ -1,5 +1,5 @@
 import React, { Component, useContext } from 'react'
-import {withStyles, Button, Grid, Avatar, Paper, Typography, FormControl, Input, InputLabel, TextField, InputAdornment} from '@material-ui/core'
+import {withStyles, Button, Grid, Avatar, Paper, Typography, FormControl, Input, InputLabel, TextField, InputAdornment, CardMedia, CardContent, Card, CardHeader} from '@material-ui/core'
 import { AuthContext } from '../../Auth/Auth';
 import AccountDetailsLocked from './AccountDetailsLocked';
 import AccountDetailsChange from './AccountDetailsChange';
@@ -13,7 +13,22 @@ const styles = theme => ({
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
+  circle: {
+    width: '15px',
+    height: '15px',
+    borderRadius: '50%',
+    verticalAlign: 'middle',
+    marginLeft: '5px',
+    display: 'inline-block'
+  },
+  green:{
+    background: 'green',
+  },
+  red:{
+    background: 'red',
+  }
 })
+
 
 class MyAccountDetails extends Component {
   static contextType = AuthContext;
@@ -21,6 +36,10 @@ class MyAccountDetails extends Component {
     super(props)
     this.state = {
       form: 1,
+      status: [
+        {0: 'Waiting Approval'},
+        {1: 'Publicly Visible'}
+      ]
     }
   }
 
@@ -102,11 +121,56 @@ class MyAccountDetails extends Component {
     }
   }
 
+  handleLatestRecipe(x){
+    // eslint-disable-next-line default-case
+    switch(x){
+      case 1:
+      return(
+        <Card square className={this.props.classes.paper} style={{padding: 0}}>
+          <CardContent style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+            <Typography variant="h6">Your Latest Recipe</Typography>
+            <span title={this.state.status} style={{position: 'absolute', right: '30px',}}>Status:<span className={this.props.classes.circle + ' ' + this.props.classes.red}></span> </span>
+          </CardContent>
+          <CardMedia alt="" style={{width: '100%', paddingTop: '35%'}} image={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+this.props.latestRecipe.Recipe_Image} />
+          <CardContent>
+              <Typography style={{textAlign: 'center', overflow: 'hidden'}} variant="h6">
+              {this.props.latestRecipe.Recipe_Name}
+              </Typography>
+              <Typography variant="body1">
+              {this.props.latestRecipe.Recipe_Description}
+              </Typography>
+            </CardContent>
+        </Card>
+      )
+      case 0:
+      return(
+        <Paper className={this.props.classes.paper}>
+          <Typography variant="h5" >
+            Your Latest Recipe
+          </Typography>
+          <Grid container style={{marginTop: '30px'}}>
+            <Grid item xs={12} sm>
+              <Typography color="secondary" variant="h6" style={{textAlign: 'center', marginTop: '30px'}}>
+                IT SEEMS THAT YOU HAVEN'T ADDED ANY RECIPES YET
+              </Typography>
+              <div style={{textAlign: 'center', marginTop: '40px'}}>
+                <Button onClick={(e) => this.props.handleChange(e, 3)} color="secondary" variant="contained">Contribute Now</Button>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm>            
+              <img alt='' src="/Assets/CTA.png" style={{width: '100%'}}/>
+            </Grid>
+          </Grid>
+        </Paper>
+      )
+    }
+  }
+
 
 
   render() {
     const {state} = this.context;
-    const {classes} = this.props;
+    const {classes, latestRecipe} = this.props;
     const {form} = this.state;
     return (
       <Grid container>
@@ -121,11 +185,7 @@ class MyAccountDetails extends Component {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Paper square className={classes.paper}>
-            <Typography variant="h5" >
-              Your Latests Recipe
-            </Typography>
-          </Paper>
+            {this.handleLatestRecipe(this.props.latestRecipeExists)}
         </Grid>  
       </Grid>
     )

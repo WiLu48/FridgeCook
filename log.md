@@ -28,6 +28,6 @@
 [] 
 
 ### BACK-END
-[] Add CHANGE PASSWORD functionality
-[] FORGOTTEN PASSWORD functionality for the LOGIN FORM
+[x] Add CHANGE PASSWORD functionality
+[x] FORGOTTEN PASSWORD functionality for the LOGIN FORM
 [] Modify SINGLE RECIPE API to include AUTHOR details -> First Name & Last Name
