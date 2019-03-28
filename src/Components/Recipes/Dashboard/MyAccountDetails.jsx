@@ -36,10 +36,7 @@ class MyAccountDetails extends Component {
     super(props)
     this.state = {
       form: 1,
-      status: [
-        {0: 'Waiting Approval'},
-        {1: 'Publicly Visible'}
-      ]
+
     }
   }
 
@@ -129,7 +126,7 @@ class MyAccountDetails extends Component {
         <Card square className={this.props.classes.paper} style={{padding: 0}}>
           <CardContent style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
             <Typography variant="h6">Your Latest Recipe</Typography>
-            <span title={this.state.status} style={{position: 'absolute', right: '30px',}}>Status:<span className={this.props.classes.circle + ' ' + this.props.classes.red}></span> </span>
+            <span title={this.props.status[0]} style={{position: 'absolute', right: '30px',}}>Status:<span className={this.props.classes.circle} style={{background: this.props.status[1]}}></span> </span>
           </CardContent>
           <CardMedia alt="" style={{width: '100%', paddingTop: '35%'}} image={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+this.props.latestRecipe.Recipe_Image} />
           <CardContent>

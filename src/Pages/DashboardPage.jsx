@@ -4,9 +4,10 @@ import {withStyles, Button, Grid, Avatar, Paper, Typography, List, ListItem, Lis
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import MyRecipesItem from '../Components/Recipes/Dashboard/MyRecipesItem';
-import { Settings, Fastfood, AddCircle, Favorite } from '@material-ui/icons';
+import { Settings, Fastfood, AddCircle, Favorite, Build } from '@material-ui/icons';
 import AddNewRecipeForm from '../Components/Recipes/AddNewRecipe/AddNewRecipeForm';
 import MyAccountDetails from '../Components/Recipes/Dashboard/MyAccountDetails';
+import AdminPanel from '../Components/Recipes/Dashboard/AdminPanel';
 
 const styles = theme => ({
   main: {
@@ -46,9 +47,13 @@ function Acc (props){
 
 class DashboardPage extends Component {
   static contextType = AuthContext;
-  state = {
-    buttonPressed: 1,
-    recipes: [],
+  constructor(props){
+    super(props)
+    this.state = {
+      buttonPressed: 1,
+      recipes: [],
+    }
+    this.handleNotAdmin=this.handleNotAdmin.bind(this);
   }
 
   componentDidMount(){
@@ -61,12 +66,33 @@ class DashboardPage extends Component {
           this.setState({
             latestRecipe: res.data.data[res.data.data.length-1],
             latestRecipeExists: 1,
+            status: [
+              'Awaiting Approval',
+              'Red',
+            ]
           })
           : this.setState({latestRecipeExists: 0})
+          this.state.latestRecipe.Visible == 1 ?
+          this.setState({
+            status: [
+              'Publicly Visible',
+              'Green',
+            ]
+          }) : 
+          this.setState({
+            status: [
+              'Awaiting Approval',
+              'Red',
+            ]
+          })
     })
     .catch(err => {
       console.log(err);
     })
+  }
+
+  handleNotAdmin() {
+    this.setState({buttonPressed: 1});
   }
 
   handleChange = (event, buttonPressed) => {
@@ -79,7 +105,7 @@ class DashboardPage extends Component {
     switch(step) {
       case 1:
       return(
-        <MyAccountDetails handleChange={this.handleChange} latestRecipe={this.state.latestRecipe} latestRecipeExists={this.state.latestRecipeExists} />
+        <MyAccountDetails handleChange={this.handleChange} latestRecipe={this.state.latestRecipe} latestRecipeExists={this.state.latestRecipeExists} status={this.state.status} />
       );
       case 2:
       return(
@@ -107,6 +133,12 @@ class DashboardPage extends Component {
           Feature coming soon...
         </Typography>
       )
+      case 5:
+      return (
+        <>
+          <AdminPanel notAdmin={this.handleNotAdmin} />
+        </>
+      )
     }
   }
 
@@ -119,6 +151,7 @@ class DashboardPage extends Component {
     return (
       <main className={classes.main}>
         <div className={classes.paper}>
+        <Button onClick={this.handleNotAdmin}>123</Button>
         <Paper style={{width: '100%'}}>
           <Tabs
           value={buttonPressed}
@@ -132,6 +165,9 @@ class DashboardPage extends Component {
             <Tab icon={<Fastfood />} label="My Recipes" />
             <Tab icon={<AddCircle />} label="Add New Recipe" />
             <Tab icon={<Favorite />} label="Saved Recipes" />
+            { state.admin == 1 ? 
+            <Tab icon={<Build />} label="Admin" />
+            : null }
           </Tabs>
         </Paper>
         {this.handleButtonDisplay(buttonPressed)}

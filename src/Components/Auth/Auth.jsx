@@ -27,6 +27,7 @@ class AuthProvider extends Component {
         this.handleSlider = this.handleSlider.bind(this);
         this.registerUser = this.registerUser.bind(this);
         this.authUser = this.authUser.bind(this);
+        this.checkAdmin = this.checkAdmin.bind(this);
         this.callSaveDetailsAPI = this.callSaveDetailsAPI.bind(this);
         this.updateState = this.updateState.bind(this);
 
@@ -121,6 +122,25 @@ class AuthProvider extends Component {
         .catch(err => {
           this.logout();
         })
+    }
+
+    async checkAdmin() {
+      var page = "https://www.p4tr7k.me/API/Account/Admin.php"
+      var post = {
+        'id': this.state.userid,
+        'key': this.state.key,
+      };
+
+      await Axios.post(page, post)
+        .then(res => {
+
+        })
+        .catch(err => {
+          this.setState({
+            admin: 0,
+          });
+        })
+
     }
 
     callCreateUserAPI(){
@@ -273,6 +293,7 @@ class AuthProvider extends Component {
         <AuthContext.Provider value={{
             isAuth: this.state.isAuth,
             checkAuth: this.authUser,
+            checkAdmin: this.checkAdmin,
             error: this.state.error,
             login: this.login,
             update: this.callSaveDetailsAPI,

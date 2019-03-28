@@ -11,12 +11,18 @@
 [x] Add validation to Regiser Form
 
 
-### 25/03/2019
+### 26/03/2019
+[x] Add CHANGE PASSWORD functionality
+[x] FORGOTTEN PASSWORD functionality for the LOGIN FORM
+
+### 28/03/2019
 ### FRONT-END
 [] Search by ingredients section on RECIPE PAGE
 [] Finish DASHBOARD PAGE
 [] ADD NEW RECIPE FORM -> needs validation
 [] MY RECIPES in DASHBOARD needs more info -> RECIPE STATE / EDIT RECIPE
+[] EDIT RECIPE Functionality
+[] Dashboard STATISTICS in (MY RECIPES SECTION) -> Current number of live recipes vs recipes that still needs approving
 [] ADMIN section added to the DASHBOARD PAGE to allow APPROVING RECIPES
 [] View SINGLE RECIPE PAGE needs STYLING
 [] SAVE RECIPE functionality needs to be added
@@ -25,9 +31,7 @@
 [] EXPLORE PAGE needs creating
 [] Create FRIGE COOK LOGO
 [] Style RECIPE LIST
-[] 
 
 ### BACK-END
-[x] Add CHANGE PASSWORD functionality
-[x] FORGOTTEN PASSWORD functionality for the LOGIN FORM
+
 [] Modify SINGLE RECIPE API to include AUTHOR details -> First Name & Last Name
