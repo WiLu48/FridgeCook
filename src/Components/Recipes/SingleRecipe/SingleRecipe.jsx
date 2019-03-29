@@ -69,7 +69,7 @@ componentDidMount() {
                 <Typography variant='h2' gutterBottom>
                 {title}
                 </Typography>
-                <Typography variant='b1'>
+                <Typography variant='body1'>
                 {description}
                 </Typography>
               </div>
@@ -79,10 +79,10 @@ componentDidMount() {
             </Grid>
             <Grid item md={6} sm={12} className={classes.border}>
               <div className={classes.spacing}>
-                <Typography variant='b1' gutterBottom>
+                <Typography variant='body1' gutterBottom>
                 {ingredients.map(ing => {
                   return(
-                  <li>{ing.Ingredient_Name} - {ing.Ingredient_Amount}</li>
+                  <li key={ing.Ingredient_Name}>{ing.Ingredient_Name} - {ing.Ingredient_Amount}</li>
                 )})}
                 </Typography>
               </div>
@@ -90,10 +90,10 @@ componentDidMount() {
             <Grid item md={6} sm={12} className={classes.border}>
               <div className={classes.spacing}>
                 <ol>
-                    <Typography variant='b1' gutterBottom>
+                    <Typography variant='body1' gutterBottom>
                     {steps.length > 0 ? steps.map(stp => {
                       return(
-                        <li>{stp.Instructions}</li>
+                        <li key={stp.Instructions}>{stp.Instructions}</li>
                     )}) : null}
                     </Typography>
                 </ol>
