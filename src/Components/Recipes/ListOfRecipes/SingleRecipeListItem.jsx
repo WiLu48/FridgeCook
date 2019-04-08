@@ -79,7 +79,7 @@ class SingleRecipe extends Component {
             {this.props.desc}
           </Typography>
           </CardContent>
-          <Button variant="contained" className={classes.button} component={props => <Link to={link} {...props}/>} >
+          <Button variant="contained" className={classes.button} component={props => <Link to={link} {...props} params={{test: 'test'}}/>} >
             Full Recipe
           </Button>
         </Card>

@@ -18,12 +18,12 @@
 ### 28/03/2019
 ### FRONT-END
 [] Search by ingredients section on RECIPE PAGE
-[] Finish DASHBOARD PAGE
+[x] Finish DASHBOARD PAGE
 [] ADD NEW RECIPE FORM -> needs validation
 [] MY RECIPES in DASHBOARD needs more info -> RECIPE STATE / EDIT RECIPE
 [] EDIT RECIPE Functionality
 [] Dashboard STATISTICS in (MY RECIPES SECTION) -> Current number of live recipes vs recipes that still needs approving
-[] ADMIN section added to the DASHBOARD PAGE to allow APPROVING RECIPES
+[x] ADMIN section added to the DASHBOARD PAGE to allow APPROVING RECIPES
 [] View SINGLE RECIPE PAGE needs STYLING
 [] SAVE RECIPE functionality needs to be added
 [] HOMEPAGE needs creating

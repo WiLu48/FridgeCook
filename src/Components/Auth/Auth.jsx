@@ -136,9 +136,10 @@ class AuthProvider extends Component {
 
         })
         .catch(err => {
+          sessionStorage.removeItem('admin')
           this.setState({
             admin: 0,
-          });
+          })
         })
 
     }
