@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import SingleRecipe from '../Components/Recipes/SingleRecipe/SingleRecipe';
 import Axios from 'axios';
 import { AuthContext } from '../Components/Auth/Auth';
+import AdminPanel from '../Components/Recipes/SingleRecipe/AdminPanel';
 
 
 export default class SingleRecipePage extends Component {
@@ -51,6 +52,7 @@ export default class SingleRecipePage extends Component {
     return (
       <div>
         {redirect ? this.redirect() : null}
+        <AdminPanel />
         <SingleRecipe 
         id={this.props.match.params.id} />
       </div>

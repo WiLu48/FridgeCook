@@ -60,7 +60,7 @@ componentDidMount() {
     const { id, category, title, description, img, ingredients, steps} = this.state;
     const imglink = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + img;
     return (
-      <div style={{marginTop: '50px'}}>
+      <div style={{marginTop: '30px'}}>
         <Paper
         style={{width: '80%', margin: '0 auto', borderRadius: 0}}>
           <Grid container className={classes.root}>

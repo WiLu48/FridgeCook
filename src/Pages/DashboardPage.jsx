@@ -151,7 +151,6 @@ class DashboardPage extends Component {
     return (
       <main className={classes.main}>
         <div className={classes.paper}>
-        <Button onClick={this.handleNotAdmin}>123</Button>
         <Paper style={{width: '100%'}}>
           <Tabs
           value={buttonPressed}
