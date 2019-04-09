@@ -4,7 +4,7 @@ import SingleRecipe from '../Components/Recipes/SingleRecipe/SingleRecipe';
 import Axios from 'axios';
 import { AuthContext } from '../Components/Auth/Auth';
 import AdminPanel from '../Components/Recipes/SingleRecipe/AdminPanel';
-import AuthorPanel from '../Components/Recipes/SingleRecipe/AuthorPanel';
+
 
 
 export default class SingleRecipePage extends Component {
@@ -22,12 +22,8 @@ export default class SingleRecipePage extends Component {
     this.shouldRedirect();
   }
 
-  checkIfAdmin() {
-    this.context.state.admin ? this.context.checkAdmin() : this.setState({redirect: false});
-  }
-
   shouldRedirect(){
-    this.state.Visible == 0 && this.context.state.userid != this.state.Author && this.state.admin == 0 ? this.setState({redirect: true}) : this.setState({redirect: false})
+    this.state.Visible == 0 && this.context.state.userid != this.state.Author && !this.state.admin ? this.setState({redirect: true}) : this.setState({redirect: false})
   }
 
   async checkPermissions(){
@@ -39,6 +35,7 @@ export default class SingleRecipePage extends Component {
         Visible: res.data.Visible,
         Author: res.data.Author,
       })
+      if(this.state.Author == this.context.state.userid){this.setState({isAuthor: true})} 
       
     })
     .catch(err => {
@@ -53,12 +50,12 @@ export default class SingleRecipePage extends Component {
 
     await Axios.post(page2, post2)
       .then(res => {
-        this.setState({admin: 1})
+        this.setState({isAdmin: true})
 
       })
       .catch(err => {
         sessionStorage.removeItem('admin')
-        this.setState({admin: 0})
+        this.setState({isAdmin: false})
       })
 
   }
@@ -74,13 +71,11 @@ export default class SingleRecipePage extends Component {
 
 
   render() {
-    const {admin, Author, redirect, Visible} = this.state;
+    const {isAdmin, isAuthor, redirect, Visible} = this.state;
     return (
       <div>
-        {this.props.test}
         {redirect ? this.redirect() : null}
-        {admin == 1 && <AdminPanel visible={Visible} changeState={this.changeState} recID={this.props.match.params.id}/>}
-        {this.context.state.userid === Author && <AuthorPanel visible={Visible}/>}
+        {isAdmin || isAuthor ? <AdminPanel visible={Visible} isAdmin={this.state.isAdmin} changeState={this.changeState} recID={this.props.match.params.id}/> : null}
         <SingleRecipe 
         id={this.props.match.params.id} />
       </div>

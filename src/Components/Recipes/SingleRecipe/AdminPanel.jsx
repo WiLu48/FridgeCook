@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Paper, withStyles, Typography, Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 import { AuthContext } from '../../Auth/Auth';
+import EditRecipeForm from '../EditRecipe/EditRecipeForm';
 
 const styles = theme => ({
     paper: {
@@ -69,7 +70,7 @@ class AdminPanel extends Component {
         'id': this.context.state.userid,
         'key': this.context.state.key,
         'recID': this.props.recID,
-        'visible': this.props.visible
+        'visible': this.props.visible,
       }
 
       Axios.post(page, post)
@@ -106,17 +107,18 @@ class AdminPanel extends Component {
       const { classes, visible } = this.props;
       const {status, color, confirmation, visibility} = this.state;
     return (
+      <>
       <Paper square className={classes.paper}>
         <span className={classes.paperAccent} />
         <div className={classes.paperWrapper}>
           <Typography variant="h5" style={{textAlign: 'center'}}>
-              Admin Panel
+              {this.props.isAdmin ? 'Admin Panel' : 'Author Panel'}
           </Typography>
           <Typography variant="subtitle1" style={{textAlign: 'center'}}>
               Recipe Status: <span className={classes.circle} style={{marginRight: '5px', background: color[visible]}} /> {status[visible]}
           </Typography>
           <Grid container justify="center">
-            <Button onClick={this.handleChangeVisibilityAPI} style={{marginRight: '5px'}} variant="contained" color="primary">{visibility[visible]}</Button>
+            {this.props.isAdmin ? <Button onClick={this.handleChangeVisibilityAPI} style={{marginRight: '5px'}} variant="contained" color="primary">{visibility[visible]}</Button> : null}
             <Button style={{marginRight: '5px'}} variant="contained" color="primary">Edit Recipe</Button>
             {confirmation ? 
             <>
@@ -132,6 +134,8 @@ class AdminPanel extends Component {
           </Grid>
         </div>
       </Paper>
+      <EditRecipeForm id={this.props.recID} />
+      </>
     )
   }
 }
