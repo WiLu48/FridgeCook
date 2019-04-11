@@ -36,6 +36,7 @@ export default class SingleRecipePage extends Component {
         Author: res.data.Author,
       })
       if(this.state.Author == this.context.state.userid){this.setState({isAuthor: true})} 
+      this.state.Author ? this.setState({recExists: true}) : this.setState({redirect: true})
       
     })
     .catch(err => {
@@ -71,13 +72,14 @@ export default class SingleRecipePage extends Component {
 
 
   render() {
-    const {isAdmin, isAuthor, redirect, Visible} = this.state;
+    const {isAdmin, isAuthor, redirect, Visible, recExists} = this.state;
     return (
       <div>
-        {redirect ? this.redirect() : null}
-        {isAdmin || isAuthor ? <AdminPanel visible={Visible} isAdmin={this.state.isAdmin} changeState={this.changeState} recID={this.props.match.params.id}/> : null}
-        <SingleRecipe 
+        { redirect ? this.redirect() : null }
+        { isAdmin || isAuthor ? <AdminPanel visible={Visible} isAdmin={this.state.isAdmin} changeState={this.changeState} recID={this.props.match.params.id}/> : null }
+        { recExists ? <SingleRecipe 
         id={this.props.match.params.id} />
+        : null }
       </div>
     )
   }
