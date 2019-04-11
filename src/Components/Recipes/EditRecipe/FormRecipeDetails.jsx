@@ -115,13 +115,13 @@ class FormRecipeDetails extends Component {
             rows={4}></TextField>
             </FormControl>
             <div style={{textAlign: 'center', marginTop: '10px'}}>
-                <Link style={{textDecoration: 'none'}} to="/dashboard">
                 <Button
                 style={{marginRight: '5px'}}
                 variant="contained"
                 color="secondary"
+                onClick={this.props.cancel}
                 >
-                Cancel</Button></Link>
+                Cancel</Button>
                 <Button
                 variant="contained"
                 color="primary"

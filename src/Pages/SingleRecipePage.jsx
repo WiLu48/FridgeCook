@@ -34,6 +34,7 @@ export default class SingleRecipePage extends Component {
       this.setState({
         Visible: res.data.Visible,
         Author: res.data.Author,
+        Image: res.data.Recipe_Image
       })
       if(this.state.Author == this.context.state.userid){this.setState({isAuthor: true})} 
       this.state.Author ? this.setState({recExists: true}) : this.setState({redirect: true})
@@ -76,7 +77,7 @@ export default class SingleRecipePage extends Component {
     return (
       <div>
         { redirect ? this.redirect() : null }
-        { isAdmin || isAuthor ? <AdminPanel visible={Visible} isAdmin={this.state.isAdmin} changeState={this.changeState} recID={this.props.match.params.id}/> : null }
+        { isAdmin || isAuthor ? <AdminPanel visible={Visible} isAdmin={this.state.isAdmin} changeState={this.changeState} recID={this.props.match.params.id} img={this.state.Image} /> : null }
         { recExists ? <SingleRecipe 
         id={this.props.match.params.id} />
         : null }

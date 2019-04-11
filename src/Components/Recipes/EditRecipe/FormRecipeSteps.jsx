@@ -101,7 +101,7 @@ class FormRecipeSteps extends Component {
                     color="primary"
                     onClick={submit}
                     >
-                    Submit</Button>
+                    Update Recipe</Button>
                 </div>
                 </form>
             </div>

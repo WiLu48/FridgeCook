@@ -49,11 +49,14 @@ class AdminPanel extends Component {
           'Make Private'
         ],
         confirmation: false,
+        editRec: false,
       }
       this.handleButtonRemove=this.handleButtonRemove.bind(this);
       this.handleNo=this.handleNo.bind(this);
       this.handleChangeVisibilityAPI=this.handleChangeVisibilityAPI.bind(this);
       this.handleDeleteRecipeAPI=this.handleDeleteRecipeAPI.bind(this);
+      this.handleEditRecipe=this.handleEditRecipe.bind(this);
+      this.hideEditRecipe=this.hideEditRecipe.bind(this);
   }
 
     handleNo(){
@@ -88,6 +91,7 @@ class AdminPanel extends Component {
         'id': this.context.state.userid,
         'key': this.context.state.key,
         'recID': this.props.recID,
+        'img': this.props.img,
       }
 
       Axios.post(page, post)
@@ -99,13 +103,22 @@ class AdminPanel extends Component {
       })
     }
 
+    handleEditRecipe(){
+      this.setState({editRec: true});
+      this.props.changeState('recExists', false)
+    }
+
+    hideEditRecipe(){
+      this.setState({editRec: false})
+    }
+
 
 
 
 
   render() {
       const { classes, visible } = this.props;
-      const {status, color, confirmation, visibility} = this.state;
+      const {status, color, confirmation, visibility, editRec} = this.state;
     return (
       <>
       <Paper square className={classes.paper}>
@@ -119,7 +132,7 @@ class AdminPanel extends Component {
           </Typography>
           <Grid container justify="center">
             {this.props.isAdmin ? <Button onClick={this.handleChangeVisibilityAPI} style={{marginRight: '5px'}} variant="contained" color="primary">{visibility[visible]}</Button> : null}
-            <Button style={{marginRight: '5px'}} variant="contained" color="primary">Edit Recipe</Button>
+            <Button style={{marginRight: '5px'}} onClick={this.handleEditRecipe} variant="contained" color="primary">Edit Recipe</Button>
             {confirmation ? 
             <>
             <Typography variant="subheading" style={{display: 'flex', alignItems: 'center', marginRight: '5px'}}>
@@ -134,7 +147,7 @@ class AdminPanel extends Component {
           </Grid>
         </div>
       </Paper>
-      <EditRecipeForm id={this.props.recID} />
+      {editRec ? <EditRecipeForm hide={this.hideEditRecipe} changeState={this.props.changeState} id={this.props.recID} /> : null }
       </>
     )
   }

@@ -18,7 +18,6 @@ class EditRecipeForm extends Component {
             recAuthor: null,
             recName: "",
             recDesc: "",
-            recFile: null,
             recImg: "",
             recIngredients: [],
             recSteps: [],
@@ -35,6 +34,7 @@ class EditRecipeForm extends Component {
         this.submitRecipe=this.submitRecipe.bind(this);
         this.handleFile=this.handleFile.bind(this);
         this.removeImg=this.removeImg.bind(this);
+        this.cancel=this.cancel.bind(this);
     }
 
     componentDidMount(){
@@ -45,6 +45,7 @@ class EditRecipeForm extends Component {
         ])
         .then(Axios.spread((rec, ing, stp) => {
             this.setState({
+                recID: rec.data.Recipe_ID,
                 recCat: rec.data.Category_ID,
                 recLevel: rec.data.Recipe_Level,
                 recName: rec.data.Recipe_Name,
@@ -121,32 +122,39 @@ class EditRecipeForm extends Component {
 
     submitRecipe(e){
         e.preventDefault();
-        const page = "https://www.p4tr7k.me/API/Recipes/New_Recipe.php";
+        const page = "https://www.p4tr7k.me/API/Recipes/Edit_Recipe.php";
         const config = {
+            id: this.context.state.userid,
+            key: this.context.state.key,
+            recID: this.state.recID,
             catID: this.state.recCat,
             recLevel: this.state.recLevel,
             recName: this.state.recName,
             recDesc: this.state.recDesc,
-            userID: sessionStorage.getItem('ID'),
             ingredients: this.state.recIngredients,
             instructions: this.state.recSteps,
         }
 
         Axios.post(page, config)
         .then(res => {
-            console.log(res.data);
-            var id = res.data;
-            const fileExtension = this.state.recFile.name.split('.').slice(1).join();
-            const file = new FormData();
-            file.append('recipe_image', this.state.recFile, id+"."+fileExtension);
+            console.log(res)
+            if(this.state.recFile){
                 
-            Axios.post(page, file)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                var id = this.state.recID;
+                const fileExtension = this.state.recFile.name.split('.').slice(1).join();
+                const file = new FormData();
+                file.append('recipe_image', this.state.recFile, id+"."+fileExtension);
+                    
+                Axios.post(page, file)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            }
+
+            this.cancel();
         })
         .catch(err => {
             console.log(err);
@@ -155,7 +163,12 @@ class EditRecipeForm extends Component {
     }
 
     removeImg(){
-        this.setState({recImg: ""})
+        this.setState({recImg: "", recFile: undefined})
+    }
+
+    cancel(){
+        this.props.changeState('recExists', true);
+        this.props.hide();
     }
 
     
@@ -174,6 +187,7 @@ class EditRecipeForm extends Component {
                     handleFile={this.handleFile}
                     values={values}
                     removeImg={this.removeImg}
+                    cancel={this.cancel}
                 />
                 );
             case 2:
@@ -196,8 +210,6 @@ class EditRecipeForm extends Component {
                     addStep={this.handleAddStep}
                 />
                 );
-            case 4:
-                return (<h1>123</h1>);
         }
         }
 }
