@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Typography, withStyles, Hidden, IconButton } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, withStyles, Hidden, IconButton, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import { AuthConsumer } from '../Auth/Auth';
 import SimpleMenu from '../Utils/SimpleMenu';
 
 const styles = theme => ({
     toolbar: {
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+        backgroundImage: 'url(/Assets/Nav_Back.png)',
+        backgroundColor: '#2d2d2d',
     },
     links: {
         color: 'white',
@@ -16,6 +18,10 @@ const styles = theme => ({
             color: 'red',
         }
     },
+    logo: {
+        fontFamily: 'Indie Flower, cursive', 
+        fontSize: '40px'       
+    }
 })
 
 function NavBar (props) {
@@ -24,24 +30,26 @@ function NavBar (props) {
         <AuthConsumer>
             {({ isAuth, logout }) => (
                 <AppBar position="static">
-                    <Toolbar className={classes.toolbar}>
+                    <Toolbar className={classes.toolbar} style={{}}>
                         <Hidden smUp>
                             <IconButton color="inherit" aria-label="Menu">
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
                         <Hidden xsDown>
-                            <Typography >
+                            <Typography variant="subtitle1">
                                 <Link className={classes.links} to="/recipes">RECIPES</Link>
                             </Typography>
-                            <Typography>
-                                <Link className={classes.links} to="/ExplorePage">EXPLORE</Link>
+                            <Typography variant="subtitle1">
+                                <Link className={classes.links} to="/About">ABOUT</Link>
                             </Typography>
-                            <Typography>
-                                <Link className={classes.links} to="/dashboard">FRIDGE COOK</Link>
+                            <Typography className={classes.logo}>
+                                <Link className={classes.links} to="/">
+                                    Fridge Cook
+                                </Link>
                             </Typography>
-                            <Typography>
-                                <Link className={classes.links} to="/">ABOUT</Link>
+                            <Typography variant="subtitle1">
+                                <Link className={classes.links} to="/ShoppingList">SHOPPING LIST</Link>
                             </Typography>
 
                             { isAuth ? (
@@ -49,12 +57,13 @@ function NavBar (props) {
                                 <SimpleMenu />
                                 </>
                             ) : (
-                            <Typography>
+                            <Typography variant="subtitle1">
                                 <Link className={classes.links} to="/login">LOGIN</Link>
                             </Typography>
                             )}
                         </Hidden>
                     </Toolbar>
+                    <Divider style={{backgroundColor: 'white'}} />
                 </AppBar>
             )}
 
