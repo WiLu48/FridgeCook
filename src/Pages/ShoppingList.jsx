@@ -60,7 +60,10 @@ const styles = theme => ({
         this.state.shoppingList.splice(i,1)
         this.setState({shoppingList: this.state.shoppingList});
         localStorage.setItem("SL", JSON.stringify(this.state.shoppingList));
-        if(this.state.shoppingList.length == 0) {this.setState({shoppingList: undefined})}
+        if(this.state.shoppingList.length == 0) {
+            this.setState({shoppingList: undefined})
+            localStorage.removeItem('SL')
+        }
     }
 
 
