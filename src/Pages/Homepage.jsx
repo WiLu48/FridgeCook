@@ -15,7 +15,7 @@ const styles = theme => ({
     paddingTop: '20px',
     textAlign: 'center'
 
-  }
+  },
 })
 
 

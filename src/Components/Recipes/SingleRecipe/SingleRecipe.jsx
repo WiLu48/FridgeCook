@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Paper, Grid, Typography } from '@material-ui/core'
+import { Paper, Grid, Typography, Button } from '@material-ui/core'
 import Axios from 'axios';
 import { withStyles } from '@material-ui/core/styles'
 
@@ -52,10 +52,25 @@ fetchAPI() {
   .catch(err => console.log("Axios err: ", err))
 }
 
+addToShoppingList = () => {
+
+  var currentList = JSON.parse(localStorage.getItem("SL"));
+  var newIngredients = this.state.ingredients;
+  if(currentList) {
+    currentList.push(...newIngredients);
+    localStorage.setItem('SL', JSON.stringify(currentList));
+  } else {
+    localStorage.setItem('SL', JSON.stringify(newIngredients));
+  }
+  
+
+}
+
 componentDidMount() {
   this.fetchAPI();
 }
   render() {
+    // var test = JSON.parse(localStorage.getItem('SL'));
     const { classes } = this.props;
     const { id, category, title, description, img, ingredients, steps} = this.state;
     const imglink = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + img;
@@ -101,6 +116,7 @@ componentDidMount() {
             </Grid>
           </Grid>
         </Paper>
+        <Button variant="contained" onClick={this.addToShoppingList}>Add to Shopping List</Button>
       </div>
     )
   }
