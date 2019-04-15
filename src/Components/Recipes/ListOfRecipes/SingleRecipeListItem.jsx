@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   card: {
-    width: 350,
-    margin: 10,
+    // width: 350,
+    // margin: 10,
   },
   cardheader: {
     textAlign: 'center',
@@ -53,8 +53,7 @@ class SingleRecipe extends Component {
 
     
     return(
-      <div className={classes.container}>
-      <Grid item lg={6}>
+      <Grid item sm={12} md={6} lg={4} style={{padding: '10px'}}>
       <Card 
           className={classes.card}
           key={this.props.key}
@@ -84,7 +83,6 @@ class SingleRecipe extends Component {
           </Button>
         </Card>
       </Grid>
-      </div>
     )
   }
 }

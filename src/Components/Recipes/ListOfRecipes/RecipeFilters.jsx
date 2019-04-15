@@ -30,16 +30,17 @@ class RecipeFilters extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, ingredientsVisible, showIngredients } = this.props;
         const { search } = this.state;
         return (
             <div className={classes.mid}>
-            <Button variant='contained' id="0" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>All</Button>
-            <Button variant='contained' id="2" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Breakfast</Button>
-            <Button variant='contained' id="1" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Dinner</Button>
-            <Button variant='contained' id="3" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Desert</Button>    
-            <TextField variant="outlined" label="Search" value={search} type="search" onChange={e => this.handleSearch(e.target.value)} style={{verticalAlign: 'baseline'}}  />        
-        </div>
+                {!ingredientsVisible && <Button variant='contained' color="primary" onClick={showIngredients} className={classes.spacing}>Search By Ingredients</Button>}
+                <Button variant='contained' id="0" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>All</Button>
+                <Button variant='contained' id="2" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Breakfast</Button>
+                <Button variant='contained' id="1" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Dinner</Button>
+                <Button variant='contained' id="3" onClick={e => this.handleButton(e.currentTarget.id)} className={classes.spacing}>Desert</Button>    
+                <TextField variant="outlined" label="Search" value={search} type="search" onChange={e => this.handleSearch(e.target.value)} style={{verticalAlign: 'baseline'}}  />        
+            </div>
         )
     }
 }
