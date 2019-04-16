@@ -17,7 +17,7 @@ const styles = theme => ({
     },
   },
   titleBox: {
-    width: '150%',
+    width: '100%',
     marginTop: '5%',
     marginLeft: '-15%',
     background: '#dfdfdf',

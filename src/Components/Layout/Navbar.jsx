@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Typography, withStyles, Hidden, IconButton, Divider } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, withStyles, Hidden, Divider } from '@material-ui/core'
 import { AuthConsumer } from '../Auth/Auth';
 import SimpleMenu from '../Utils/SimpleMenu';
+import MobileMenu from '../Utils/MobileMenu';
 
 const styles = theme => ({
     toolbar: {
@@ -30,11 +30,14 @@ function NavBar (props) {
         <AuthConsumer>
             {({ isAuth, logout }) => (
                 <AppBar position="static">
-                    <Toolbar className={classes.toolbar} style={{}}>
+                    <Toolbar className={classes.toolbar} >
                         <Hidden smUp>
-                            <IconButton color="inherit" aria-label="Menu">
-                                <MenuIcon />
-                            </IconButton>
+                            <Typography className={classes.logo}>
+                                <Link className={classes.links} to="/">
+                                    Fridge Cook
+                                </Link>
+                            </Typography>
+                            <MobileMenu isAuth={isAuth}/>
                         </Hidden>
                         <Hidden xsDown>
                             <Typography variant="subtitle1">
