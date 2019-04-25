@@ -140,7 +140,7 @@ class MyAccountDetails extends Component {
       )
       case 0:
       return(
-        <Paper className={this.props.classes.paper} style={{height: '100%'}}>
+        <Paper className={this.props.classes.paper} style={{height: 'auto', padding: 20}}>
           <Typography variant="h5" >
             Your Latest Recipe
           </Typography>
@@ -149,7 +149,7 @@ class MyAccountDetails extends Component {
               <Typography color="secondary" variant="h6" style={{textAlign: 'center', marginTop: '30px'}}>
                 IT SEEMS THAT YOU HAVEN'T ADDED ANY RECIPES YET
               </Typography>
-              <div style={{textAlign: 'center', marginTop: '40px'}}>
+              <div style={{textAlign: 'center', marginTop: '40px', marginBottom: '20px'}}>
                 <Button onClick={(e) => this.props.handleChange(e, 3)} color="secondary" variant="contained">Contribute Now</Button>
               </div>
             </Grid>
