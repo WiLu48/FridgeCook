@@ -15,25 +15,29 @@ import ProtectedRoute from './Routes/ProtectedRoute';
 import DashboardPage from './Pages/DashboardPage';
 import AuthRoute from './Routes/AuthRoute';
 import ShoppingList from './Pages/ShoppingList';
+import { MuiThemeProvider } from '@material-ui/core';
+import THEME from './Theme/MuiTheme';
 
 
 
 
 const routing = (
-    <AuthProvider>
-        <Router>
-            <div>
-            <NavBar />
-            <Route exact path='/' component={Homepage} />
-            <Route exact path='/recipes' component={RecipesPage} />
-            <Route exact path='/recipes/:id' component={SingleRecipePage} />
-            <AuthRoute exact path='/login' component={LoginPage} />
-            <AuthRoute exact path='/register' component={RegisterPage} />
-            <Route exact path='/shoppinglist' component={ShoppingList} />
-            <ProtectedRoute exact path='/dashboard' component={DashboardPage} />
-            </div>
-        </Router> 
-    </AuthProvider>
+    <MuiThemeProvider theme={THEME}>
+        <AuthProvider>
+            <Router>
+                <div>
+                <NavBar />
+                <Route exact path='/' component={Homepage} />
+                <Route exact path='/recipes' component={RecipesPage} />
+                <Route exact path='/recipes/:id' component={SingleRecipePage} />
+                <AuthRoute exact path='/login' component={LoginPage} />
+                <AuthRoute exact path='/register' component={RegisterPage} />
+                <Route exact path='/shoppinglist' component={ShoppingList} />
+                <ProtectedRoute exact path='/dashboard' component={DashboardPage} />
+                </div>
+            </Router> 
+        </AuthProvider>
+    </MuiThemeProvider>
 )
 
 ReactDOM.render(routing, document.getElementById('root'));

@@ -15,7 +15,7 @@ const styles = theme => ({
         color: 'white',
         textDecoration: 'none',
         "&:hover": {
-            color: 'red',
+            color: '#B23554',
         }
     },
     logo: {

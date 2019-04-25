@@ -10,25 +10,16 @@ const styles = theme => ({
   },
   cardheader: {
     textAlign: 'center',
-    width: '75%',
-    margin: 'auto',
-    marginTop: '-25px',
-    background: 'white',
   },
   carddesc: {
     paddingTop: 0,
     height: '100px',
+    overflow: 'hidden'
   },
   button: {
     width: '100%',
     margin: 'auto',
     borderRadius: 0,
-  },
-  title: {
-    fontSize: '30px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
   },
   container: {
   },
@@ -63,7 +54,6 @@ class SingleRecipe extends Component {
             image={img}
           />
           <CardHeader
-          classes = {{title: classes.title}}
           className={classes.cardheader}
           title={this.props.name}
           />
@@ -78,7 +68,7 @@ class SingleRecipe extends Component {
             {this.props.desc}
           </Typography>
           </CardContent>
-          <Button variant="contained" className={classes.button} component={props => <Link to={link} {...props} params={{test: 'test'}}/>} >
+          <Button variant="contained" color="primary" className={classes.button} component={props => <Link to={link} {...props} params={{test: 'test'}}/>} >
             Full Recipe
           </Button>
         </Card>

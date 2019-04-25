@@ -55,7 +55,8 @@ class MobileMenu extends Component {
           open={this.state.open}
           className={classes.menu}
         >
-            <ClickAwayListener onClickAway={this.handleRequestClose} >              
+            <ClickAwayListener onClickAway={this.handleRequestClose} >       
+            <>       
                 <Link className={classes.links} to="/recipes"><MenuItem style={{pointerEvents: 'auto'}} >Recipes</MenuItem></Link>
                 <Link className={classes.links} to="/about"><MenuItem style={{pointerEvents: 'auto'}} >About</MenuItem></Link>
                 <Link className={classes.links} to="/shoppinglist"><MenuItem style={{pointerEvents: 'auto'}} >Shopping List</MenuItem></Link>
@@ -65,7 +66,8 @@ class MobileMenu extends Component {
                 <MenuItem onClick={logout} style={{pointerEvents: 'auto'}} >Logout</MenuItem>
                 </>
                 : <Link className={classes.links} to="/login"><MenuItem style={{pointerEvents: 'auto'}} >Login</MenuItem></Link>
-                }                
+                }         
+            </>       
             </ClickAwayListener>
         </Menu>
         

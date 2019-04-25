@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles, Divider, Typography, Button } from '@material-ui/core';
+import { withStyles, Divider } from '@material-ui/core';
 import FeaturedRecipe from '../Components/Recipes/FeaturedRecipe/FeaturedRecipe';
+import WelcomeMsg from '../Components/Homepage/WelcomeMsg';
 
 
 
@@ -35,15 +36,7 @@ class Homepage extends Component {
     return (
       <>
       <div className={classes.bannerSpace}>  
-        <div className={classes.innerWrapper}>
-          <Typography style={{color: 'white'}} variant="h4">
-            I want to see...
-          </Typography>
-          <div>
-            <Button variant="raised" >All Recipes</Button>
-            <Button variant="raised" >Search By Ingredients</Button>
-          </div>
-        </div>  
+        <WelcomeMsg />
       </div>
       <Divider />
       <FeaturedRecipe />

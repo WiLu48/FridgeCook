@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {withStyles,  Grid, Typography } from '@material-ui/core';
-import { Face } from '@material-ui/icons';
+import { Link } from 'react-router-dom'
+import {withStyles,  Grid, Typography, Button, Paper } from '@material-ui/core';
+import Axios from 'axios';
 
 const styles = theme => ({
   main: {
@@ -17,48 +18,88 @@ const styles = theme => ({
     },
   },
   titleBox: {
-    width: '100%',
     marginTop: '5%',
-    marginLeft: '-15%',
-    background: '#dfdfdf',
     padding: '20px',
+  },
+  links: {
+    color: 'white',
+    textDecoration: 'none',
   }
 })
 
 class FeaturedRecipe extends Component {
+  state = {
+    categoryname: {
+      1: 'Dinner',
+      2: 'Breakfast',
+      3: 'Desert'
+    },
+
+  }
+
+  componentDidMount(){
+    this.fetchFeatured();
+  }
+
+  fetchFeatured(){
+    const page = "https://p4tr7k.me/API/Recipes/Recipes.php?featured";
+
+    Axios.get(page)
+    .then(res => {
+      this.setState({
+        recID: res.data.Recipe_ID,
+        recipeName: res.data.Recipe_Name,
+        recipeDesc: res.data.Recipe_Description,
+        recImg: res.data.Recipe_Image,
+        recCat: res.data.Category_ID
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+
+
   render() {
     const {classes} = this.props;
+    const {recID, recipeName, recipeDesc, recImg, recCat} = this.state;
     return (
       <div className={classes.main}>
-        <Grid container style={{height: '500px'}}>
+      <Typography variant="caption" color="secondary" style={{fontSize: '15px', marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>FEATURED</span> RECIPE</Typography>
+      <Paper square style={{background: '#fffaf0'}}>
+        <Grid container style={{height: 'auto'}}>
           <Grid item sm={12} md={5}>
-            <img style={{width: '100%'}} src="http://www.p4tr7k.me/API/Recipes/Rec_Imgs/1.jpg" alt="Fridge Logo" />
+            <img style={{height: '100%', width: '100%'}} src={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recImg} alt="Recipes Logo" />
           </Grid>
           <Grid item sm={12} md={7}>
             <Grid style={{height: '100%'}} container direction="column">
               <Grid item>
                 <div className={classes.titleBox}>
                   <Typography variant="h3">
-                    Spaghetti Carbonara
+                    {recipeName}
                   </Typography>
                   <Typography variant="h6">
-                    Dinner
+                    {this.state.categoryname[recCat]}
                   </Typography>
                 </div>                            
               </Grid>
               <Grid item>
-                <div><Face /> 
+                <div style={{padding: '20px'}}>
                   <Typography variant="h6">
-                    Recipe Difficulty: Easy | Author: John Smith
+                    {recipeDesc}
                   </Typography>
                 </div>
               </Grid>
-              <Grid item>
-              CTA Button
+              <Grid item style={{display: 'flex', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                <Link className={classes.links} to={"/recipes/"+recID}>
+                  <Button size="large" style={{marginBottom: '20px', marginRight: '20px'}} variant="outlined" color="secondary">View Recipe</Button>
+                </Link>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+        </Paper>
         
       </div>
     )
