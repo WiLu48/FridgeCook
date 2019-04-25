@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button, TextField, MenuItem, Select, OutlinedInput } from '@material-ui/core';
-import { NONAME } from 'dns';
 
 
 const styles = theme => ({
     main: {
         width: 'auto',
         display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
+        // marginLeft: theme.spacing.unit * 3,
+        // marginRight: theme.spacing.unit * 3,
         [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
             width: 950,
             marginLeft: 'auto',
@@ -17,7 +16,6 @@ const styles = theme => ({
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -48,18 +46,18 @@ class FormRecipeDetails extends Component {
     const { values, handleChange, handleFile, classes } = this.props;
 
     return (        
-        <div>
+        <div style={{width: '100%'}}>
         <main className={classes.main}>
-        <Paper className={classes.paper}>
-        <Typography variant="h3">
-            Add new Recipe
+        <Paper square className={classes.paper}>
+        <Typography variant="h3" style={{textAlign: 'center'}}>
+            New Recipe
         </Typography>
             <div className={classes.form}>
             <img style={{width: '75%', margin: '0 auto', display: 'block', borderRadius: '10px'}} alt="" src={values.recImg}></img>
             <Grid container alignItems="flex-end">
                 <Grid item xs={12} sm>
                     <FormControl margin='normal' fullWidth>
-                        <InputLabel>Recipe Name</InputLabel>
+                        <InputLabel >Recipe Name</InputLabel>
                         <Input onChange={handleChange} name="recName"></Input>
                     </FormControl>
                 </Grid>
@@ -94,7 +92,7 @@ class FormRecipeDetails extends Component {
                     </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={3} style={{textAlign: 'center'}}>
                     <Input className={classes.input} type='file' onChange={handleFile} name="recfile" id="contained-button-file"/>
                     <label htmlFor="contained-button-file">
                         <Button variant="contained" component="span">Upload Image</Button>

@@ -5,8 +5,7 @@ export default class StepsItem extends Component {
   render() {
     return (
       <ListItem>
-          <Avatar style={{margin: 10}}>{this.props.number}</Avatar>
-            <ListItemText primary={this.props.step} />
+            <ListItemText primary={this.props.number + ". " + this.props.step} />
       </ListItem>
     )
   }

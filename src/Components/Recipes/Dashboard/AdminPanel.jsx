@@ -153,16 +153,6 @@ class AdminPanel extends Component {
                   </>
                 } secondary={recipe.Recipe_Description} />
 
-                {/* <span>
-                <Button className={classes.btn} variant="contained" onClick={this.test} color="primary">View Recipe</Button>
-                </span>
-
-                <span>
-                <Link style={{textDecoration: 'none'}} to={"/recipes/"+recipe.Recipe_ID}>
-                  <Button  className={classes.btn} variant="contained" color="primary">View Recipe</Button>
-                </Link>
-                </span> */}
-
               </ListItem>
               </Link>
               <Divider />

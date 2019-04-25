@@ -86,7 +86,7 @@ class FeaturedRecipe extends Component {
               </Grid>
               <Grid item>
                 <div style={{padding: '20px'}}>
-                  <Typography variant="h6">
+                  <Typography variant="body1">
                     {recipeDesc}
                   </Typography>
                 </div>

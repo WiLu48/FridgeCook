@@ -66,7 +66,7 @@ class LoginForm extends Component {
     return (
       <main className={classes.main}>
         <CssBaseline />
-        <Paper className={classes.paper} square={true} elevation={0}>
+        <Paper className={classes.paper} square={true}>
           
           <Avatar className={classes.avatar}>
             FC
@@ -88,10 +88,6 @@ class LoginForm extends Component {
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input onChange={handleChange} name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth

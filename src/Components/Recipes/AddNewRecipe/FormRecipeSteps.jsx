@@ -8,8 +8,8 @@ const styles = theme => ({
     main: {
         width: 'auto',
         display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
+        // marginLeft: theme.spacing.unit * 3,
+        // marginRight: theme.spacing.unit * 3,
         [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
             width: 950,
             marginLeft: 'auto',
@@ -17,7 +17,6 @@ const styles = theme => ({
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,6 +30,14 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
     },
+    btn: {
+        marginTop: '-5px',
+        width: '98%',
+        borderRadius: 0,
+        [theme.breakpoints.down(1000)]: {
+            width: '95%',
+        },
+    }
 })
 
 
@@ -50,17 +57,17 @@ class FormRecipeSteps extends Component {
     const stepsList = values.recSteps;
 
     return (        
-      <div>
+      <div style={{width: '100%'}}>
         <main className={classes.main}>
-        <Paper className={classes.paper}>
+        <Paper square className={classes.paper}>
         <Typography variant="h3">
-            Add Recipe Instructions
+            Instructions
         </Typography>
             <div className={classes.form}>     
                 <form>
                     <Grid container
                     alignItems="center">
-                        <Grid item xs>
+                        <Grid item xs={12}>
                             <FormControl margin='normal' fullWidth>
                                 <TextField
                                     onChange={handleChange}
@@ -73,8 +80,8 @@ class FormRecipeSteps extends Component {
                                     rows={6}></TextField>
                                 </FormControl>
                         </Grid>
-                        <Grid item>
-                            <Fab size="small" variant="round" color="primary" onClick={addStep}><AddIcon /></Fab>
+                        <Grid item xs={12} style={{textAlign: 'center'}}>
+                            <Button className={classes.btn} variant="contained" color="primary" onClick={addStep}><AddIcon /></Button>
                         </Grid>
                     </Grid>
                     {values.isListSteps ? 

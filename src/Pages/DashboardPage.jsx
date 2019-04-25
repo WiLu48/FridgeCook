@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { AuthContext } from '../Components/Auth/Auth';
-import {withStyles, Button, Grid, Avatar, Paper, Typography, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs} from '@material-ui/core'
+import {withStyles, Button, Grid, Avatar, Paper, Typography, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Hidden} from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import MyRecipesItem from '../Components/Recipes/Dashboard/MyRecipesItem';
@@ -27,6 +27,9 @@ const styles = theme => ({
       flexDirection: 'column',
       alignItems: 'center',
       padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+      [theme.breakpoints.down(800)]: {
+        padding: 0,
+    },
   },
   btns: {
     marginTop: theme.spacing.unit,
@@ -99,6 +102,7 @@ class DashboardPage extends Component {
     this.setState({ buttonPressed });
   };
 
+
   handleButtonDisplay(step){
     const {recipes, latestRecipe} = this.state;
     // eslint-disable-next-line default-case
@@ -145,13 +149,14 @@ class DashboardPage extends Component {
 
   render() {
     const {checkAuth, state} = this.context;
-    const {recipes, latestRecipe, buttonPressed} = this.state;
+    const {recipes, latestRecipe, buttonPressed, buttonPressedMobile} = this.state;
     const {classes} = this.props;
     checkAuth();
     return (
       <main className={classes.main}>
         <div className={classes.paper}>
-        <Paper style={{width: '100%'}}>
+        <Paper square style={{width: '100%', marginBottom: '10px'}}>
+        <Hidden smDown>
           <Tabs
           value={buttonPressed}
           variant="fullWidth"
@@ -159,15 +164,34 @@ class DashboardPage extends Component {
           indicatorColor="secondary"
           onChange={this.handleChange}
           >
-            <Tab disabled={true} label={<Acc fname={state.firstname} lname={state.lastname} />} />
-            <Tab icon={<Settings />} label="Account Settings" />
-            <Tab icon={<Fastfood />} label="My Recipes" />
-            <Tab icon={<AddCircle />} label="Add New Recipe" />
-            <Tab icon={<Favorite />} label="Saved Recipes" />
+              <Tab disabled={true} label={<Acc fname={state.firstname} lname={state.lastname} />} />
+              <Tab icon={<Settings />} label="Account Settings" />
+              <Tab icon={<Fastfood />} label="My Recipes" />
+              <Tab icon={<AddCircle />} label="Add New Recipe" />
+              <Tab icon={<Favorite />} label="Saved Recipes" />
             { state.admin == 1 ? 
             <Tab icon={<Build />} label="Admin" />
             : null }
           </Tabs>
+          </Hidden>
+          <Hidden smUp>
+          <Tabs
+          value={buttonPressed}
+          variant="fullWidth"
+          textColor="secondary"
+          indicatorColor="secondary"
+          onChange={this.handleChange}
+          >
+              <Tab disabled={true} label={state.firstname + " " +state.lastname} />
+              <Tab icon={<Settings />} />
+              <Tab icon={<Fastfood />} />
+              <Tab icon={<AddCircle />} />
+              <Tab icon={<Favorite />} />
+            { state.admin == 1 ? 
+            <Tab icon={<Build />}/>
+            : null }
+          </Tabs>
+          </Hidden>
         </Paper>
         {this.handleButtonDisplay(buttonPressed)}
         </div>       

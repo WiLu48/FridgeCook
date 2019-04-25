@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
 import SingleRecipeListItem from './SingleRecipeListItem'
-import { Button, Grid, Paper } from '@material-ui/core'
+import { Button, Grid, Paper, withStyles } from '@material-ui/core'
 import RecipeFilters from './RecipeFilters';
 import RecipesByIngredients from './RecipesByIngredients';
 
-export default class RecipeList extends Component {
+
+const styles = theme => ({
+  container: {
+    width: '70%',
+    margin: '0 auto',
+    [theme.breakpoints.down(800)]: {
+      width: '95%',
+    }
+  },
+});
+
+class RecipeList extends Component {
   constructor(props) {
     super(props)
   
@@ -153,6 +164,7 @@ export default class RecipeList extends Component {
 
   render() {
     const { isLoading, recipes, error, limit, recipesfiltered, ingredientsVisible, isError } = this.state;
+    const {classes} = this.props;
     return (
       <div style={{marginTop: '30px'}}>
       { ingredientsVisible ? 
@@ -167,7 +179,7 @@ export default class RecipeList extends Component {
       showIngredients={this.handleIngredientsVisibility} ingredientsVisible={ingredientsVisible}
       />
         <Grid container
-        style={{width: '70%', margin: '0 auto'}}
+        className={classes.container}
         >
           {recipesfiltered.slice(0, limit).map(recipe =>
             <SingleRecipeListItem
@@ -188,3 +200,5 @@ export default class RecipeList extends Component {
     )
   }
 }
+
+export default withStyles(styles)(RecipeList);

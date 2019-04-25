@@ -24,7 +24,9 @@ class AddNewRecipeForm extends Component {
             recSteps: [],
             instruction: "",
             ingredient: "",
+            ingredientError: false,
             amount: "",
+            amountError: false,
             isList: false,
             isListSteps: false,
             number: 1,
@@ -68,17 +70,40 @@ class AddNewRecipeForm extends Component {
 
     handleAddIngredient(e){
         e.preventDefault();
-        const ing = {
-            "ingredientName":this.state.ingredient,
-            "amount":this.state.amount
+        if(this.state.ingredient.length == 0){
+            this.setState({ingredientError: true})
+            setTimeout(() => {
+                this.setState({ingredientError: false})
+            }, 3000);
         }
-        this.setState({
-            recIngredients: [...this.state.recIngredients, ing],
-            ingredient: "",
-            amount: "",
-            isList: true,
-        });
+        if(this.state.amount.length == 0){
+            this.setState({amountError: true})
+            setTimeout(() => {
+                this.setState({amountError: false})
+            }, 3000);
+        }
+        if(this.state.ingredient.length > 0 && this.state.amount.length > 0){
 
+            const ing = {
+                "ingredientName":this.state.ingredient,
+                "amount":this.state.amount
+            }
+
+            this.setState({
+                recIngredients: [...this.state.recIngredients, ing],
+                ingredient: "",
+                amount: "",
+                isList: true,
+                ingredientError: false,
+                amountError: false,
+            })
+        }
+
+    }
+
+    handleRemoveIngredient = (i) => {
+        this.state.recIngredients.splice(i,1);
+        this.setState({recIngredients: this.state.recIngredients})
     }
 
     handleAddStep(e){
@@ -132,8 +157,8 @@ class AddNewRecipeForm extends Component {
     
   render() {
     const { step } = this.state;
-    const { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, amount, isList, isListSteps, instruction, number, recLevel, recCat } = this.state;
-    const values = { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, amount, isList, isListSteps, instruction, number, recLevel, recCat };
+    const { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, ingredientError, amountError, amount, isList, isListSteps, instruction, number, recLevel, recCat } = this.state;
+    const values = { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, ingredientError, amountError, amount, isList, isListSteps, instruction, number, recLevel, recCat };
 
         // eslint-disable-next-line default-case
         switch (step) {
@@ -154,6 +179,7 @@ class AddNewRecipeForm extends Component {
                     handleChange={this.handleChange}
                     values={values}
                     addIng={this.handleAddIngredient}
+                    removeIng={this.handleRemoveIngredient}
                 />
                 );
             case 3:

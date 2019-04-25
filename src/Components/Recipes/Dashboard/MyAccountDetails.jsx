@@ -1,5 +1,5 @@
 import React, { Component, useContext } from 'react'
-import {withStyles, Button, Grid, Avatar, Paper, Typography, FormControl, Input, InputLabel, TextField, InputAdornment, CardMedia, CardContent, Card, CardHeader} from '@material-ui/core'
+import {withStyles, Button, Grid, Avatar, Paper, Typography, FormControl, Input, InputLabel, TextField, InputAdornment, CardMedia, CardContent, Card, CardHeader, Hidden} from '@material-ui/core'
 import { AuthContext } from '../../Auth/Auth';
 import AccountDetailsLocked from './AccountDetailsLocked';
 import AccountDetailsChange from './AccountDetailsChange';
@@ -7,7 +7,6 @@ import AccountChangePassword from './AccountChangePassword';
 
 const styles = theme => ({
   paper: {
-    marginTop: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -90,8 +89,8 @@ class MyAccountDetails extends Component {
         <>
         <AccountDetailsLocked />
         <div style={{width: '100%', display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-          <Button variant="contained" onClick={() => this.handleChange(2)} size="small" color="primary">Edit Details</Button>
-          <Button variant="contained" onClick={() => this.handleChange(3)} size="small" color="secondary">Change Password</Button>
+          <Button style={{fontSize: '0.78rem'}} variant="contained" onClick={() => this.handleChange(2)} size="small" color="primary">Edit Details</Button>
+          <Button style={{fontSize: '0.78rem'}} variant="contained" onClick={() => this.handleChange(3)} size="small" color="secondary">Change Password</Button>
         </div> 
         </>
       )
@@ -123,7 +122,7 @@ class MyAccountDetails extends Component {
     switch(x){
       case 1:
       return(
-        <Card square className={this.props.classes.paper} style={{padding: 0}}>
+        <Card square className={this.props.classes.paper} style={{padding: 0, height: '100%'}}>
           <CardContent style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
             <Typography variant="h6">Your Latest Recipe</Typography>
             <span title={this.props.status[0]} style={{position: 'absolute', right: '30px',}}>Status:<span className={this.props.classes.circle} style={{background: this.props.status[1]}}></span> </span>
@@ -141,7 +140,7 @@ class MyAccountDetails extends Component {
       )
       case 0:
       return(
-        <Paper className={this.props.classes.paper}>
+        <Paper className={this.props.classes.paper} style={{height: '100%'}}>
           <Typography variant="h5" >
             Your Latest Recipe
           </Typography>
@@ -170,6 +169,8 @@ class MyAccountDetails extends Component {
     const {classes, latestRecipe} = this.props;
     const {form} = this.state;
     return (
+      <>
+      <Hidden smDown>
       <Grid container>
         <Grid item xs={12} sm>
           <Paper square className={classes.paper} style={{marginRight: '10px'}}>
@@ -185,6 +186,25 @@ class MyAccountDetails extends Component {
             {this.handleLatestRecipe(this.props.latestRecipeExists)}
         </Grid>  
       </Grid>
+      </Hidden>
+      <Hidden mdUp>
+      <Grid container>
+        <Grid item xs={12} sm={8}>
+            {this.handleLatestRecipe(this.props.latestRecipeExists)}
+        </Grid>  
+        <Grid item xs={12} sm>
+          <Paper square className={classes.paper} style={{marginTop: '10px', marginBottom: '10px'}}>
+            <Typography variant="h5" >
+              Update Your Details
+            </Typography>
+            <span style={{color: 'red', textAlign: 'center'}}>{state.error}</span>
+            {this.handleAccountForm(this.state.form)}
+        
+          </Paper>
+        </Grid>
+      </Grid>
+      </Hidden>
+      </>
     )
   }
 }
