@@ -116,15 +116,15 @@ class FormRecipeIngredients extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <Fab size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
+                            <Fab style={{borderRadius: 0, marginTop: '10px'}} size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
                         </Grid>
                     </Grid>
                     {values.isList ? <Table style={{marginTop: '10px'}}>
+                        <TableBody>
                             <TableRow>
                                 <TableCell>Ingredient Name</TableCell>
                                 <TableCell>Amount</TableCell>
                             </TableRow>
-                        <TableBody>
                             {ingredientList.map((ingredient, i) => 
                                 <TableRow key={i} hover className={classes.hover} onClick={() => this.props.removeIng(i)}>
                                     <IngredientItem

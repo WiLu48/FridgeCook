@@ -37,6 +37,12 @@ const styles = theme => ({
         [theme.breakpoints.down(1000)]: {
             width: '95%',
         },
+    },
+    hover: {
+        "&:hover": {
+          backgroundColor: 'rgb(244, 66, 66, 0.3) !important',
+          cursor: 'pointer',
+      }
     }
 })
 
@@ -85,16 +91,15 @@ class FormRecipeSteps extends Component {
                         </Grid>
                     </Grid>
                     {values.isListSteps ? 
-                        <List>
+                        <Table style={{marginTop: '20px'}}>
+                            <TableBody>
                             {stepsList.map((step, index) => 
-                                <StepsItem
-                                style={{wordWrap: 'break-word'}}
-                                key={step.instructions}
-                                step={step.instructions}
-                                number={index+1}
-                                />
+                                <TableRow key={index} hover className={classes.hover} onClick={() => this.props.removeStep(index)}>
+                                    <TableCell style={{fontSize: '0.9rem'}}>{index+1}. {step.instructions}</TableCell>
+                                </TableRow>
                             )}
-                    </List> : null}                    
+                            </TableBody>
+                    </Table> : null}                    
                     <div style={{textAlign: 'center', marginTop: '10px'}}>
                     <Button
                     style={{marginRight: '5px'}}

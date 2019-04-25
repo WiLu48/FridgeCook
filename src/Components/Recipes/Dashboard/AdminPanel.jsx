@@ -11,7 +11,6 @@ const styles = theme => ({
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
     [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
         width: 950,
         marginLeft: 'auto',
@@ -129,12 +128,12 @@ class AdminPanel extends Component {
       <>
         {visible ? 
         <Paper square className={classes.paper}>
-        <div>
-          <h1>LOL</h1>
+        <div style={{paddingLeft: '10px'}}>
+          <h1>Recipes Awaiting Approval</h1>
         </div>
         <Divider />
         <List>
-          {recipes.map(recipe => (
+          {recipes ? recipes.map(recipe => (
             <React.Fragment key={recipe.Recipe_ID}>
               <Link style={{textDecoration: 'none'}} to={"/recipes/"+recipe.Recipe_ID}>
               <ListItem button>
@@ -157,7 +156,7 @@ class AdminPanel extends Component {
               </Link>
               <Divider />
             </React.Fragment>
-          ))}
+          )) : "\b none"}
         </List>
         </Paper>
           

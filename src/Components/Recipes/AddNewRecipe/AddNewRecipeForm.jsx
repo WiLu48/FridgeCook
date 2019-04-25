@@ -106,6 +106,11 @@ class AddNewRecipeForm extends Component {
         this.setState({recIngredients: this.state.recIngredients})
     }
 
+    handleRemoveStep = (i) => {
+        this.state.recSteps.splice(i,1);
+        this.setState({recSteps: this.state.recSteps})
+    }
+
     handleAddStep(e){
         e.preventDefault();
         const stps = {
@@ -190,6 +195,7 @@ class AddNewRecipeForm extends Component {
                     values={values}
                     submit={this.submitRecipe}
                     addStep={this.handleAddStep}
+                    removeStep={this.handleRemoveStep}
                 />
                 );
             case 4:
