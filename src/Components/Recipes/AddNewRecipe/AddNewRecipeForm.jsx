@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import FormRecipeDetails from './FormRecipeDetails';
 import FormRecipeIngredients from './FormRecipeIngredients';
 import FormRecipeSteps from './FormRecipeSteps';
 import Axios from 'axios';
 import { AuthContext } from '../../Auth/Auth';
+import { Button } from '@material-ui/core';
 
 class AddNewRecipeForm extends Component {
     static contextType = AuthContext;
@@ -141,13 +143,15 @@ class AddNewRecipeForm extends Component {
         .then(res => {
             console.log(res.data);
             var id = res.data;
+            this.setState({newRecipeID: id})
             const fileExtension = this.state.recFile.name.split('.').slice(1).join();
             const file = new FormData();
             file.append('recipe_image', this.state.recFile, id+"."+fileExtension);
                 
             Axios.post(page, file)
             .then(res => {
-                console.log(res);
+                this.setState({recipeAdded: true})
+                
             })
             .catch(err => {
                 console.log(err);
@@ -161,6 +165,9 @@ class AddNewRecipeForm extends Component {
 
     
   render() {
+    if(this.state.recipeAdded){
+        return <Redirect to={"/recipes/" + this.state.newRecipeID} />
+    }
     const { step } = this.state;
     const { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, ingredientError, amountError, amount, isList, isListSteps, instruction, number, recLevel, recCat } = this.state;
     const values = { recID, recAuthor, recName, recDesc, recFile, recImg, recIngredients, recSteps, ingredient, ingredientError, amountError, amount, isList, isListSteps, instruction, number, recLevel, recCat };
