@@ -70,7 +70,7 @@ class FeaturedRecipe extends Component {
       <Paper square style={{background: '#fffaf0'}}>
         <Grid container style={{height: 'auto'}}>
           <Grid item sm={12} md={5}>
-            <img style={{height: '100%', width: '100%'}} src={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recImg} alt="Recipes Logo" />
+            {recImg ? <img style={{height: '100%', width: '100%'}} src={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recImg} alt="Recipes Logo" /> : null }
           </Grid>
           <Grid item sm={12} md={7}>
             <Grid style={{height: '100%'}} container direction="column">

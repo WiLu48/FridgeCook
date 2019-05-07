@@ -123,7 +123,7 @@ class AdminPanel extends Component {
   render() {
     const {visible, recipes} = this.state;
     const {classes} = this.props;
-    const img = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + this.props.image;
+    const img = "https://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + this.props.image;
     return (
       <>
         {visible ? 
@@ -138,7 +138,7 @@ class AdminPanel extends Component {
               <Link style={{textDecoration: 'none'}} to={"/recipes/"+recipe.Recipe_ID}>
               <ListItem button>
                 <ListItemAvatar>
-                    <Avatar style={{height: '60px', width: '60px', border: 'solid 2px '+this.state.color[recipe.Visible]}} src={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recipe.Recipe_Image} />
+                    <Avatar style={{height: '60px', width: '60px', border: 'solid 2px '+this.state.color[recipe.Visible]}} src={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recipe.Recipe_Image} />
                 </ListItemAvatar>
                 <ListItemText primary={
                   <>

@@ -40,7 +40,7 @@ class SingleRecipe extends Component {
 
     const link = "/recipes/" + this.props.id;
 
-    const img = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + this.props.image;
+    const img = "https://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + this.props.image;
 
     
     return(

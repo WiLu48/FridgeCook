@@ -56,7 +56,7 @@ class FormRecipeDetails extends Component {
         </Typography>
             <div className={classes.form}>
             {values.recImg ? <img style={{width: '75%', margin: '0 auto', display: 'block', borderRadius: '10px'}} alt="" src={values.recImg}></img>
-             : <img style={{maxHeight: '50%', maxWidth: '50%', margin: '0 auto', display: 'block', borderRadius: '10px'}} alt="" src={"http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + values.img}></img>}
+             : <img style={{maxHeight: '50%', maxWidth: '50%', margin: '0 auto', display: 'block', borderRadius: '10px'}} alt="" src={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + values.img}></img>}
             
             <Grid container alignItems="flex-end">
                 <Grid item xs={12} sm>

@@ -113,7 +113,7 @@ componentDidMount() {
     // var test = JSON.parse(localStorage.getItem('SL'));
     const { classes } = this.props;
     const { id, category, title, description, img, ingredients, steps} = this.state;
-    const imglink = "http://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + img;
+    const imglink = "https://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + img;
     return (
         <>
         <div className={classes.main}>

@@ -68,7 +68,7 @@ class AdminPanel extends Component {
     }
 
     handleChangeVisibilityAPI(){
-      const page = "http://www.p4tr7k.me/API/Recipes/Change_Visibility.php";
+      const page = "https://www.p4tr7k.me/API/Recipes/Change_Visibility.php";
       const post = {
         'id': this.context.state.userid,
         'key': this.context.state.key,
@@ -86,7 +86,7 @@ class AdminPanel extends Component {
     }
 
     handleDeleteRecipeAPI(){
-      const page = "http://www.p4tr7k.me/API/Recipes/Delete_Recipe.php";
+      const page = "https://www.p4tr7k.me/API/Recipes/Delete_Recipe.php";
       const post = {
         'id': this.context.state.userid,
         'key': this.context.state.key,
