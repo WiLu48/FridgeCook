@@ -23,11 +23,26 @@ export default class SingleRecipePage extends Component {
   }
 
   shouldRedirect(){
-    this.state.Visible == 0 && this.context.state.userid != this.state.Author && !this.state.admin ? this.setState({redirect: true}) : this.setState({redirect: false})
+    this.state.Visible == 0 && this.context.state.userid != this.state.Author && !this.state.isAdmin ? this.setState({redirect: true}) : this.setState({redirect: false})
   }
 
   async checkPermissions(){
     const page = "https://p4tr7k.me/API/Recipes/Recipes.php?id="+this.props.match.params.id;
+    var page2 = "https://www.p4tr7k.me/API/Account/Admin.php"
+    var post2 = {
+      'id': this.context.state.userid,
+      'key': this.context.state.key,
+    };
+
+    await Axios.post(page2, post2)
+      .then(res => {
+        this.setState({isAdmin: true})
+
+      })
+      .catch(err => {
+        sessionStorage.removeItem('admin')
+        this.setState({isAdmin: false})
+      })
 
     await Axios.get(page)
     .then(res=> {
@@ -44,21 +59,6 @@ export default class SingleRecipePage extends Component {
 
     })
 
-    var page2 = "https://www.p4tr7k.me/API/Account/Admin.php"
-    var post2 = {
-      'id': this.context.state.userid,
-      'key': this.context.state.key,
-    };
-
-    await Axios.post(page2, post2)
-      .then(res => {
-        this.setState({isAdmin: true})
-
-      })
-      .catch(err => {
-        sessionStorage.removeItem('admin')
-        this.setState({isAdmin: false})
-      })
 
   }
 
