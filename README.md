@@ -1,6 +1,6 @@
 
 # FRIDGE COOK 
-![](https://fridgecook.club/Assets/FC_LOGOx256.png)
+![](https://fridgecook.club/Assets/FC_LOGO2.png)
 > This project has been developed as part of the Computing and Web Development Degree at Buckinghamshire New University
 
 
