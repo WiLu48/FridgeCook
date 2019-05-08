@@ -1,11 +1,15 @@
+![](https://fridgecook.club/Assets/FC_LOGO.png)
+
 # FRIDGE COOK
-> Short blurb about what your product does.
+> This project has been developed as part of the Computing and Web Development Degree at Buckinghamshire New University
 
 
-One to two paragraph statement about your product and what it does.
+It aims to design and develop a cross platform Progressive Web Application that introduce easier and smarter way of cooking by breaking the process down to step-by-step instructions aimed at university students to improve their ability to cook, save money and adapt healthier lifestyle.
 
-![](header.png)
 
-## Usage example
+## ACCESSIBILITY
+This project has been deployed and is publicly accessible on [FridgeCook](https://www.FridgeCook.club) website.
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+
+##DISCLAIMER
+> This repository has been made publicly available to simply showcase the source code of the application.
