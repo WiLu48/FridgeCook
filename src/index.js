@@ -17,6 +17,7 @@ import AuthRoute from './Routes/AuthRoute';
 import ShoppingList from './Pages/ShoppingList';
 import { MuiThemeProvider } from '@material-ui/core';
 import THEME from './Theme/MuiTheme';
+import AboutPage from './Pages/AboutPage';
 
 
 
@@ -28,6 +29,7 @@ const routing = (
                 <div>
                 <NavBar />
                 <Route exact path='/' component={Homepage} />
+                <Route exact path='/about' component={AboutPage} />
                 <Route exact path='/recipes' component={RecipesPage} />
                 <Route exact path='/recipes/:id' component={SingleRecipePage} />
                 <AuthRoute exact path='/login' component={LoginPage} />
