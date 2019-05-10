@@ -23,6 +23,11 @@ const styles = theme => ({
   },
   container: {
   },
+  title: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 });
 
 class SingleRecipe extends Component {
@@ -54,6 +59,9 @@ class SingleRecipe extends Component {
             image={img}
           />
           <CardHeader
+          classes={{
+            title: classes.title
+          }}
           className={classes.cardheader}
           title={this.props.name}
           />
