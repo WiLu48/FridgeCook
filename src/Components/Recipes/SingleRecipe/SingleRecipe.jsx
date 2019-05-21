@@ -57,8 +57,8 @@ class SingleRecipe extends Component {
     ingredients: [],
     steps: [],
     categoryname: {
-        1: 'DINNER',
-        2: 'BREAKFAST',
+        1: 'BREAKFAST',
+        2: 'DINNER',
         3: 'DESERT'
       },
     showInstructions: false,

@@ -30,8 +30,8 @@ const styles = theme => ({
 class FeaturedRecipe extends Component {
   state = {
     categoryname: {
-      1: 'Dinner',
-      2: 'Breakfast',
+      1: 'Breakfast',
+      2: 'Dinner',
       3: 'Desert'
     },
 
