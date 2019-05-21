@@ -137,7 +137,6 @@ class EditRecipeForm extends Component {
 
         Axios.post(page, config)
         .then(res => {
-            console.log(res)
             if(this.state.recFile){
                 
                 var id = this.state.recID;
@@ -147,7 +146,6 @@ class EditRecipeForm extends Component {
                     
                 Axios.post(page, file)
                 .then(res => {
-                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err);
@@ -155,6 +153,7 @@ class EditRecipeForm extends Component {
             }
 
             this.cancel();
+            this.props.changeState('Visible', 0);
         })
         .catch(err => {
             console.log(err);
