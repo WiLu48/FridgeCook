@@ -8,10 +8,10 @@ import ErrorMsg from '../Components/Login/ErrorMsg';
 class RegisterPage extends Component {
   render() {
     return (
-      <div>
+      <>
         <ErrorMsg />
         <RegisterForm />        
-      </div>
+      </>
     )
   }
 }

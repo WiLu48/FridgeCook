@@ -24,7 +24,7 @@ function ErrorMsg (props) {
     return(
         <Paper className={classes.wrapper}>
             <AuthConsumer>
-                {value => value.error}
+                {value => value.error ? <div style={{padding: '10px', color: 'red'}}>{value.error}</div> : null}
             </AuthConsumer>
         </Paper>
     )
