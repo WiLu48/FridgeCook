@@ -34,7 +34,7 @@ class AuthProvider extends Component {
     }
 
     displayError(){
-      setTimeout(() => this.setState({error: ''}), 7000);
+      setTimeout(() => this.setState({error: ''}), 5000);
     }
 
     updateState(name, value, store){
@@ -55,6 +55,7 @@ class AuthProvider extends Component {
 
       if(!this.validateEmail()){
         this.setState({error: "Wrong Email"})
+        this.displayError();
       } else if (this.checkPassword()){
         this.callCreateUserAPI();
       }
@@ -150,7 +151,8 @@ class AuthProvider extends Component {
           'email': this.state.email,
           'password': this.state.password,
           'firstname': this.state.firstname,
-          'lastname': this.state.lastname
+          'lastname': this.state.lastname,
+          'level': this.state.level
         }
         var auth;
         Axios.post(page, post)
