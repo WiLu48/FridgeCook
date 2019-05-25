@@ -10,8 +10,8 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
         marginTop: theme.spacing.unit * 3,
-        [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
-            width: 1000,
+        [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+            width: 1200,
             marginLeft: 'auto',
             marginRight: 'auto',
         },

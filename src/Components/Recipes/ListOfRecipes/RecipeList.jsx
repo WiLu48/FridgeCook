@@ -8,7 +8,7 @@ import RecipesByIngredients from './RecipesByIngredients';
 
 const styles = theme => ({
   container: {
-    width: '70%',
+    width: '1200px',
     margin: '0 auto',
     [theme.breakpoints.down(800)]: {
       width: '95%',

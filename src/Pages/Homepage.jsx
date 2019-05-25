@@ -2,10 +2,27 @@ import React, { Component } from 'react'
 import { withStyles, Divider } from '@material-ui/core';
 import FeaturedRecipe from '../Components/Recipes/FeaturedRecipe/FeaturedRecipe';
 import WelcomeMsg from '../Components/Homepage/WelcomeMsg';
+import HomeHero from '../Components/Homepage/HomeHero';
 
 
 
 const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginBottom: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+        width: 1200,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    [theme.breakpoints.down(600 + theme.spacing.unit * 3 * 2)]: {
+      marginLeft: 0,
+      marginRight: 0,
+  },
+  },
   bannerSpace: {
     backgroundImage: 'url(/Assets/Nav_Back.png)',
     height: '300px',
@@ -34,13 +51,14 @@ class Homepage extends Component {
   render() {
     const {classes} = this.props;
     return (
-      <>
-      <div className={classes.bannerSpace}>  
-        <WelcomeMsg />
+      <div className={classes.main}>
+          <HomeHero />
+        {/* <div className={classes.bannerSpace}>  
+          <WelcomeMsg />
+        </div> */}
+        {/* <Divider /> */}
+        <FeaturedRecipe />
       </div>
-      <Divider />
-      <FeaturedRecipe />
-      </>
     )
   }
 }
