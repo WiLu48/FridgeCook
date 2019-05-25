@@ -41,12 +41,12 @@ class MobileMenu extends Component {
       const {classes, isAuth} = this.props;
       const {logout} = this.context;
     return (
-      <div style={{position: 'absolute', right: '5px'}}>
+      <div style={{position: 'absolute', right: '5px', top: '8px'}}>
           <Button 
           aria-owns={this.state.open ? 'simple-menu' : null}
           aria-haspopup="menu"
           onClick={this.handleClick}
-          ><MenuIcon style={{color: 'white'}} /></Button>
+          ><MenuIcon style={{color: 'white', fontSize: '35px'}} /></Button>
           <Menu
           id="mobile-menu"
           anchorEl={this.state.anchorEl}

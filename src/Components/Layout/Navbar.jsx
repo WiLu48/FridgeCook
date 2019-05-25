@@ -25,6 +25,9 @@ const styles = theme => ({
     toolbar: {
         justifyContent: 'space-evenly',
         alignItems: 'flex-end',
+        [theme.breakpoints.down(600)]: {
+            justifyContent: 'flex-start'
+        }
     },
     links: {
         color: 'black',

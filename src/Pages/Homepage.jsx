@@ -18,10 +18,6 @@ const styles = theme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
-    [theme.breakpoints.down(600 + theme.spacing.unit * 3 * 2)]: {
-      marginLeft: 0,
-      marginRight: 0,
-  },
   },
   bannerSpace: {
     backgroundImage: 'url(/Assets/Nav_Back.png)',
@@ -52,11 +48,7 @@ class Homepage extends Component {
     const {classes} = this.props;
     return (
       <div className={classes.main}>
-          <HomeHero />
-        {/* <div className={classes.bannerSpace}>  
-          <WelcomeMsg />
-        </div> */}
-        {/* <Divider /> */}
+        <HomeHero />
         <FeaturedRecipe />
       </div>
     )

@@ -6,14 +6,11 @@ import { withStyles, Typography, Button } from '@material-ui/core';
 const styles = theme => ({
     
     imageWrapper: {
-      width: '10<div>0%',
+      width: '100%',
       height: '600px',
       backgroundImage: 'url(https://i.imgur.com/D5p7ZTe.jpg)',
       boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)",
       backgroundSize: 'cover',
-      [theme.breakpoints.down(600 + theme.spacing.unit * 3 * 2)]: {
-        height: '500px'
-        },
     },
     innerWrapper: {
         display: 'flex',
@@ -21,6 +18,10 @@ const styles = theme => ({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: '35px',
+        [theme.breakpoints.down(600 + theme.spacing.unit * 3 * 2)]: {
+            textAlign: 'center'
+        },
     },
     links: {
         color: 'white',
@@ -41,7 +42,7 @@ class HomeHero extends Component {
                         Community driven recipes
                     </Typography>
                     <Link to="/recipes" className={classes.links}>
-                        <Button color="secondary" size="large" variant="raised" style={{borderRadius: 0}}>View Recipes</Button>
+                        <Button color="secondary" size="large" variant="contained" style={{borderRadius: 0}}>View Recipes</Button>
                     </Link>
                </div>
             </div>

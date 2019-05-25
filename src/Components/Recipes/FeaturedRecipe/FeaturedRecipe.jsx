@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import {withStyles,  Grid, Typography, Button, Paper } from '@material-ui/core';
+import {withStyles,  Grid, Typography, Button, Paper, CardContent, CardHeader, Card, CardMedia, CardActionArea } from '@material-ui/core';
 import Axios from 'axios';
 
 const styles = theme => ({
@@ -9,21 +9,38 @@ const styles = theme => ({
     display: 'block', // Fix IE 11 issue.
     marginTop: theme.spacing.unit * 6,
     marginBottom: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
-        width: 1000,
+    [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+        width: 1200,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
   },
-  titleBox: {
-    marginTop: '5%',
-    padding: '20px',
-  },
   links: {
     color: 'white',
     textDecoration: 'none',
+  },
+  title: {
+    whiteSpace: 'nowrap',
+  },
+  titleBox: {
+    padding: '20px',
+  },
+  latestRecipeCard: {
+  height: '350px',
+  width: '95%',
+  display: 'flex',
+  flexDirection: 'column',
+    [theme.breakpoints.down(600)]: {
+      width: '100%',
+      marginBottom: '20px',
+    },
+  },
+  featuredRecipeCard: {
+    [theme.breakpoints.down(600)]: {
+      background: 'white',
+      marginBottom: '50px',
+      textAlign: 'justify'
+    }
   }
 })
 
@@ -42,18 +59,22 @@ class FeaturedRecipe extends Component {
   }
 
   fetchFeatured(){
-    const page = "https://p4tr7k.me/API/Recipes/Recipes.php?featured";
+    const featured = "https://p4tr7k.me/API/Recipes/Recipes.php?featured";
+    const latest = "https://p4tr7k.me/API/Recipes/Recipes.php?latest";
 
-    Axios.get(page)
-    .then(res => {
+    Axios.all([Axios.get(featured), Axios.get(latest)])
+    .then(Axios.spread((featured, latest) => {
       this.setState({
-        recID: res.data.Recipe_ID,
-        recipeName: res.data.Recipe_Name,
-        recipeDesc: res.data.Recipe_Description,
-        recImg: res.data.Recipe_Image,
-        recCat: res.data.Category_ID
+        recID: featured.data.Recipe_ID,
+        recipeName: featured.data.Recipe_Name,
+        recipeDesc: featured.data.Recipe_Description,
+        recImg: featured.data.Recipe_Image,
+        recCat: featured.data.Category_ID,
+        latestID: latest.data.Recipe_ID,
+        latestTitle: latest.data.Recipe_Name,
+        latestImg: latest.data.Recipe_Image,
       })
-    })
+    }))
     .catch(err => {
       console.log(err);
     })
@@ -63,44 +84,68 @@ class FeaturedRecipe extends Component {
 
   render() {
     const {classes} = this.props;
-    const {recID, recipeName, recipeDesc, recImg, recCat} = this.state;
+    const {recID, recipeName, recipeDesc, recImg, recCat, latestID, latestTitle, latestImg} = this.state;
     return (
       <div className={classes.main}>
-      <Typography variant="caption" color="secondary" style={{fontSize: '15px', marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>FEATURED</span> RECIPE</Typography>
-      <Paper square style={{background: '#fffaf0'}}>
-        <Grid container style={{height: 'auto'}}>
-          <Grid item sm={12} md={5}>
-            {recImg ? <img style={{height: '100%', width: '100%'}} src={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recImg} alt="Recipes Logo" /> : null }
+        <Grid container style={{marginBottom: '50px'}}>
+          <Grid item sm={12} md={4} style={{width: '100%'}}>
+          <Typography variant="caption" color="secondary" style={{fontSize: '20px', marginBottom: '5px', textShadow: '1px 1px 1px black'}}><span style={{fontWeight: 'bold'}}>LATEST</span> RECIPE</Typography>
+          <Card square
+          className={classes.latestRecipeCard}
+          key={latestID}
+          
+          >
+            <Link to={"/recipes/"+latestID} className={classes.links}><CardActionArea>
+              {latestImg ? 
+            <CardMedia
+              style={{height: 0, paddingTop: '75%'}}
+              image={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/" + latestImg}
+            /> : null }
+            <CardHeader
+            title={latestTitle}
+            classes={{title: classes.title}}
+            style={{marginBottom: 'auto', textAlign: 'center'}}
+            />
+            </CardActionArea></Link>         
+          </Card>
           </Grid>
-          <Grid item sm={12} md={7}>
-            <Grid style={{height: '100%'}} container direction="column">
-              <Grid item>
-                <div className={classes.titleBox}>
-                  <Typography variant="h3">
-                    {recipeName}
-                  </Typography>
-                  <Typography variant="h6">
-                    {this.state.categoryname[recCat]}
-                  </Typography>
-                </div>                            
+          <Grid item sm={12} md={8}>
+          <Typography variant="caption" color="secondary" style={{fontSize: '20px', marginBottom: '5px', textShadow: '1px 1px 1px black'}}><span style={{fontWeight: 'bold'}}>FEATURED</span> RECIPE</Typography>
+            <Paper square>
+              <Grid container style={{height: '350px'}} >
+                <Grid item sm={12} md={5} style={{height: '100%'}}>
+                  {recImg ? <img style={{height: '100%', width: '100%'}} src={"https://www.p4tr7k.me/API/Recipes/Rec_Imgs/"+recImg} alt="Recipes Logo" /> : null }
+                </Grid>
+                <Grid item sm={12} md={7} className={classes.featuredRecipeCard}>
+                  <Grid style={{height: '100%'}} container direction="column">
+                    <Grid item>
+                      <div className={classes.titleBox}>
+                        <Typography variant="h4">
+                          {recipeName}
+                        </Typography>
+                        <Typography variant="h6">
+                          {this.state.categoryname[recCat]}
+                        </Typography>
+                      </div>                            
+                    </Grid>
+                    <Grid item>
+                      <div style={{padding: '20px'}}>
+                        <Typography variant="body1">
+                          {recipeDesc}
+                        </Typography>
+                      </div>
+                    </Grid>
+                    <Grid item style={{display: 'flex', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                      <Link className={classes.links} to={"/recipes/"+recID}>
+                        <Button style={{borderRadius: 0, marginBottom: '20px', marginRight: '20px'}} variant="contained" color="primary">View Recipe</Button>
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <div style={{padding: '20px'}}>
-                  <Typography variant="body1">
-                    {recipeDesc}
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item style={{display: 'flex', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                <Link className={classes.links} to={"/recipes/"+recID}>
-                  <Button size="large" style={{marginBottom: '20px', marginRight: '20px'}} variant="outlined" color="secondary">View Recipe</Button>
-                </Link>
-              </Grid>
-            </Grid>
+            </Paper>
           </Grid>
         </Grid>
-        </Paper>
-        
       </div>
     )
   }
