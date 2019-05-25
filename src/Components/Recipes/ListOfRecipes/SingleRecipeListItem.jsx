@@ -50,7 +50,7 @@ class SingleRecipe extends Component {
     
     return(
       <Grid item sm={12} md={6} lg={4} style={{padding: '10px'}}>
-      <Card 
+      <Card square
           className={classes.card}
           key={this.props.key}
           >         
