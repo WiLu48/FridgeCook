@@ -129,7 +129,7 @@ class RegisterForm extends Component {
             </form>
             </div>
             <Button
-              square={true}
+              square
               type="submit"
               onClick={(e) => register(e)}
               fullWidth

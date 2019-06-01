@@ -91,7 +91,7 @@ class LoginForm extends Component {
           Sign in
         </Typography>
       </div>
-        <Paper className={classes.paper} square={true}>
+        <Paper className={classes.paper} square>
           
           <Typography component='h1' variant="body1">
               {"Don't have account? "}
@@ -120,7 +120,7 @@ class LoginForm extends Component {
           </form>
         </Paper>
         <Button
-              square={true}
+              square
               type="submit"
               onClick={(e) => login(e)}
               fullWidth
