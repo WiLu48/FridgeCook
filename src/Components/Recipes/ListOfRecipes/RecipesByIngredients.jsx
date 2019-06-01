@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Paper, Typography, TextField, Button, withStyles, Fab, Table, TableBody, TableCell, TableRow, Tooltip } from '@material-ui/core';
+import { Paper, Typography, TextField, Button, withStyles, Fab, Table, TableBody, TableCell, TableRow, Tooltip, Zoom } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 
@@ -10,8 +10,8 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
         marginBottom: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 800,
+        [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+            width: 600,
             marginLeft: 'auto',
             marginRight: 'auto',
         },
@@ -42,14 +42,15 @@ const styles = theme => ({
 
  class RecipesByIngredients extends Component {
   render() {
-      const {classes, handleChange, addIngredient, ingredientsExists, ingredientName, ingredients, reset, hideIngredients, removeIngredient} = this.props;
+      const {classes, handleChange, addIngredient, ingredientsExists, ingredientName, ingredients, reset, hideIngredients, removeIngredient, visible} = this.props;
     return (
+      <Zoom in={!visible} >
       <div className={classes.main}>
-        <Paper className={classes.paper} style={{position: 'relative'}}>
+        <Paper square className={classes.paper} style={{position: 'relative'}}>
             <Typography variant="h4">Search By Ingredients</Typography>
             <div style={{display: 'inline-flex', alignItems: 'center', marginTop: '10px'}}>
                 <TextField name="ingredientName" onChange={handleChange} value={ingredientName} style={{marginRight: '10px'}} variant="outlined" label="Ingredient's name">Ingredient's name</TextField>
-                <Fab onClick={addIngredient} size="small" variant="round" color="primary" ><AddIcon /></Fab>
+                <Fab onClick={addIngredient} size="small" variant="round" style={{borderRadius: 0}} color="primary" ><AddIcon /></Fab>
             </div>
             {ingredientsExists ?
             <>
@@ -72,6 +73,7 @@ const styles = theme => ({
             </div>
         </Paper>
       </div>
+      </Zoom>
     )
   }
 }

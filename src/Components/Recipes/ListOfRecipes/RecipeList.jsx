@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
 import SingleRecipeListItem from './SingleRecipeListItem'
-import { Button, Grid, Paper, withStyles } from '@material-ui/core'
+import { Button, Grid, withStyles, Paper } from '@material-ui/core'
 import RecipeFilters from './RecipeFilters';
 import RecipesByIngredients from './RecipesByIngredients';
+import Loading from '../../Utils/Loading';
 
 
 const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginBottom: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+        width: 1200,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+  },
   container: {
     width: '1200px',
     margin: '0 auto',
@@ -14,6 +27,14 @@ const styles = theme => ({
       width: '95%',
     }
   },
+  errorMessage: {
+    width: '600px',
+    margin: 'auto',
+    padding: '10px',
+    boxSizing: 'border-box',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 });
 
 class RecipeList extends Component {
@@ -21,11 +42,11 @@ class RecipeList extends Component {
     super(props)
   
   this.state = {
-      isLoading: null,
+      isLoading: true,
       recipes: [],
       error: null,
       limit: 6,
-      filter: null,
+      filter: 0,
       recipesfiltered: [],
       test: 1,
       ingredientName: '',
@@ -55,9 +76,10 @@ class RecipeList extends Component {
       this.setState({
         recipes: res,
         recipesfiltered: res,
+        isLoading: false,
       })
     })
-    .catch(error => this.state({ error, isLoading: false}));
+    .catch(error => this.state({ error, isLoading: true}));
   }
       
   componentDidMount() {
@@ -67,12 +89,16 @@ class RecipeList extends Component {
   filterRecipes(filter) {
     this.setState({limit: 6})
     if (filter === '0'){
-      this.setState({recipesfiltered: this.state.recipes})
+      this.setState({
+        filter: filter,
+        recipesfiltered: this.state.recipes
+      })
     } else {
       let updatedlist = this.state.recipes.filter(recipe => {
         return recipe.Category_ID === filter;
       })
       this.setState({
+        filter: filter,
         recipesfiltered: updatedlist
       })
   }}
@@ -86,10 +112,6 @@ class RecipeList extends Component {
     this.setState({
       recipesfiltered: updatedlist,
     })
-  }
-
-  searchByIngredient(){
-
   }
 
   handleChange = e => {
@@ -166,18 +188,25 @@ class RecipeList extends Component {
     const { isLoading, recipes, error, limit, recipesfiltered, ingredientsVisible, isError } = this.state;
     const {classes} = this.props;
     return (
-      <div style={{marginTop: '30px'}}>
-      { ingredientsVisible ? 
-      <RecipesByIngredients handleChange={this.handleChange} addIngredient={this.handleAddIngredient}
-      ingredientsExists={this.state.ingredientsExists} ingredientName={this.state.ingredientName}
-      ingredients={this.state.ingredients} reset={this.resetIngredients} hideIngredients={this.handleIngredientsVisibility} removeIngredient={this.removeIngredient} />
-      : null }      
-      {isError ? 
-        <div style={{color: 'red', textAlign: 'center', margin: '10px', fontWeight: 'bold'}}>Unfortunately we couldn't find any Recipes with those Ingredients, displaying All Recipes</div>
-         : null}
-      <RecipeFilters inputRecipes={this.filterByInput.bind(this)} filterRecipes={this.filterRecipes.bind(this)} 
-      showIngredients={this.handleIngredientsVisibility} ingredientsVisible={ingredientsVisible}
-      />
+      <>
+      {isLoading
+      ? <div style={{marginTop: '100px'}}><Loading title="Fetching Recipes..." /></div>
+      : <>
+        {
+          isError 
+          ? <Paper square className={classes.errorMessage} >Unfortunately we couldn't find any Recipes with those Ingredients, displaying All Recipes</Paper>
+          : null
+        }
+        {
+          ingredientsVisible 
+          ? <RecipesByIngredients visible={this.ingredientsVisible} handleChange={this.handleChange} addIngredient={this.handleAddIngredient}
+            ingredientsExists={this.state.ingredientsExists} ingredientName={this.state.ingredientName}
+            ingredients={this.state.ingredients} reset={this.resetIngredients} hideIngredients={this.handleIngredientsVisibility} removeIngredient={this.removeIngredient} />
+          : null
+        }      
+        <RecipeFilters inputRecipes={this.filterByInput.bind(this)} filterRecipes={this.filterRecipes.bind(this)} 
+        showIngredients={this.handleIngredientsVisibility} ingredientsVisible={ingredientsVisible}
+        />
         <Grid container
         className={classes.container}
         >
@@ -196,7 +225,9 @@ class RecipeList extends Component {
           {limit < recipesfiltered.length &&
             <Button onClick={this.loadMore} type="button">Load More</Button>}
         </div>
-      </div>
+        </>
+        }
+      </>
     )
   }
 }
