@@ -55,7 +55,7 @@ class EditRecipeForm extends Component {
                 currentSteps: stp.data,
             })
             this.state.currentIngredients.length > 0 ? this.setState({isList: true, recIngredients: this.state.currentIngredients.map((data) => {return{ingredientName: data.Ingredient_Name, amount:data.Ingredient_Amount}})}) : this.setState({recIngredients: null})
-            this.state.currentSteps.length > 0 ? this.setState({isListSteps: true, recSteps: this.state.currentSteps.map((data) => {return{instructions: data.Instructions}})}) : this.setState({recSteps: null})
+            this.state.currentSteps.length > 0 ? this.setState({isListSteps: true, recSteps: this.state.currentSteps.map((data) => {return{instructions: data.Instructions}})}) : this.setState({recSteps: []})
         }))
         .catch(err => console.log("Axios err: ", err))
 
@@ -110,7 +110,7 @@ class EditRecipeForm extends Component {
     handleAddStep(e){
         e.preventDefault();
         const stps = {
-            "instructions":this.state.instruction
+            "instructions": this.state.instruction
         }
         this.setState({
             recSteps: [...this.state.recSteps, stps],
@@ -118,6 +118,16 @@ class EditRecipeForm extends Component {
             isListSteps: true,
         });
 
+    }
+
+    handleRemoveIngredient = (i) => {
+        this.state.recIngredients.splice(i,1);
+        this.setState({recIngredients: this.state.recIngredients})
+    }
+
+    handleRemoveStep = (i) => {
+        this.state.recSteps.splice(i,1);
+        this.setState({recSteps: this.state.recSteps})
     }
 
     submitRecipe(e){
@@ -197,6 +207,7 @@ class EditRecipeForm extends Component {
                     handleChange={this.handleChange}
                     values={values}
                     addIng={this.handleAddIngredient}
+                    removeIng={this.handleRemoveIngredient}
                 />
                 );
             case 3:
@@ -207,6 +218,7 @@ class EditRecipeForm extends Component {
                     values={values}
                     submit={this.submitRecipe}
                     addStep={this.handleAddStep}
+                    removeStep={this.handleRemoveStep}
                 />
                 );
         }

@@ -9,7 +9,6 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        marginTop: theme.spacing.unit * 3,
         [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
             width: 1200,
             marginLeft: 'auto',
@@ -17,14 +16,16 @@ const styles = theme => ({
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 4,
         marginBottom: theme.spacing.unit * 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         },
     content: {
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around'
     },
     links: {
         color: 'white',

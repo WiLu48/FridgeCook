@@ -27,6 +27,9 @@ const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    [theme.breakpoints.down(800)]: {
+      whiteSpace: 'normal'
+    },
   },
 });
 

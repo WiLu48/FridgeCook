@@ -15,18 +15,16 @@ const styles = theme => ({
       display: 'block', // Fix IE 11 issue.
       marginLeft: theme.spacing.unit * 3,
       marginRight: theme.spacing.unit * 3,
-      [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-          width: 1000,
+      [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+          width: "1200px",
           marginLeft: 'auto',
           marginRight: 'auto',
       },
   },
   paper: {
-      marginTop: theme.spacing.unit * 4,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
       [theme.breakpoints.down(800)]: {
         padding: 0,
     },
@@ -114,7 +112,7 @@ class DashboardPage extends Component {
       case 2:
       return(
         <Grid container
-        justify="center">
+        >
           {recipes ? recipes.map(recipe => 
             <MyRecipesItem
             key={recipe.Recipe_ID}
@@ -182,7 +180,11 @@ class DashboardPage extends Component {
           indicatorColor="secondary"
           onChange={this.handleChange}
           >
-              <Tab disabled={true} label={state.firstname + " " +state.lastname} />
+              {
+                state.admin == 1
+                ? <Tab disabled={true} label={state.firstname + " " +state.lastname} style={{display: 'none'}} />
+                : <Tab disabled={true} label={state.firstname + " " +state.lastname} />
+              }
               <Tab icon={<Settings />} />
               <Tab icon={<Fastfood />} />
               <Tab icon={<AddCircle />} />

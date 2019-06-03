@@ -77,7 +77,7 @@ const styles = theme => ({
     return (
       <div className={classes.main}>
       {shoppingList ?
-          <Paper className={classes.paper}>
+          <Paper square className={classes.paper}>
               <Table>
                   <Typography style={{textAlign: 'center', marginBottom: '5px'}} variant="h4">Shopping List</Typography>
                   {shoppingList.map((ing, i) => {
@@ -92,12 +92,12 @@ const styles = theme => ({
                 </Table>
           </Paper>
         :
-        <>
+        <Paper square style={{padding: '24px'}}>
         <Typography style={{textAlign: 'center'}} variant="h4">Your shopping list appear to be empty</Typography>
         <div style={{width: '100%', marginTop: '10px', textAlign: 'center'}}>
-            <Link to="/recipes" className={classes.link}><Button  color="primary" variant="contained">View Recipes</Button></Link>
+            <Link to="/recipes" className={classes.link}><Button style={{borderRadius: 0}} color="primary" variant="contained">View Recipes</Button></Link>
         </div>
-        </>}  
+        </Paper>}  
       </div>
     )
   }

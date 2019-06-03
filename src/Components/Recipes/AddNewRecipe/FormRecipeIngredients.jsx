@@ -10,8 +10,8 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         // marginLeft: theme.spacing.unit * 3,
         // marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 950,
+        [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+            width: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
@@ -119,11 +119,12 @@ class FormRecipeIngredients extends Component {
                             <Fab style={{borderRadius: 0, marginTop: '10px'}} size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
                         </Grid>
                     </Grid>
-                    {values.isList ? <Table style={{marginTop: '10px'}}>
+                    {values.isList ? 
+                    <Table style={{marginTop: '10px'}}>
                         <TableBody>
                             <TableRow>
-                                <TableCell>Ingredient Name</TableCell>
-                                <TableCell>Amount</TableCell>
+                                <TableCell style={{fontWeight: 'bold'}}>Ingredient Name</TableCell>
+                                <TableCell style={{fontWeight: 'bold'}}>Amount</TableCell>
                             </TableRow>
                             {ingredientList.map((ingredient, i) => 
                                 <TableRow key={i} hover className={classes.hover} onClick={() => this.props.removeIng(i)}>

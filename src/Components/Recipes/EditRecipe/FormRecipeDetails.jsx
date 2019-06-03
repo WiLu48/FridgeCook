@@ -10,14 +10,14 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 950,
+        marginBottom: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+            width: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,7 +50,7 @@ class FormRecipeDetails extends Component {
     return (        
         <div>
         <main className={classes.main}>
-        <Paper className={classes.paper}>
+        <Paper square className={classes.paper}>
         <Typography variant="h3">
             Edit Recipe
         </Typography>
@@ -99,7 +99,7 @@ class FormRecipeDetails extends Component {
                 <Grid item xs={12} sm={3}>
                     <Input className={classes.input} type='file' onChange={handleFile} name="recfile" id="contained-button-file"/>
                     <label htmlFor="contained-button-file">
-                        <Button variant="contained" component="span">Upload Image</Button>
+                        <Button variant="contained" color="secondary" style={{borderRadius: 0}} component="span">Upload Image</Button>
                     </label>
                         {values.recImg.length > 0 ? <Button color="secondary" onClick={removeImg} style={{marginLeft: '5px'}} variant="outlined">X</Button> : null}
                 </Grid>
@@ -116,13 +116,14 @@ class FormRecipeDetails extends Component {
             </FormControl>
             <div style={{textAlign: 'center', marginTop: '10px'}}>
                 <Button
-                style={{marginRight: '5px'}}
+                style={{marginRight: '5px', borderRadius: 0}}
                 variant="contained"
                 color="secondary"
                 onClick={this.props.cancel}
                 >
                 Cancel</Button>
                 <Button
+                style={{borderRadius: 0}}
                 variant="contained"
                 color="primary"
                 onClick={this.continue}

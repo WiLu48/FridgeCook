@@ -9,7 +9,8 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        marginBottom: theme.spacing.unit * 3,
+        marginBottom: 0,
+        padding: '0px 10px',
         [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
             width: 600,
             marginLeft: 'auto',
@@ -22,21 +23,29 @@ const styles = theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+        [theme.breakpoints.down("xs")]: {
+          alignItems: 'flex-start',
+        }
     },
     table: {
-      width: '35%',
       marginTop: theme.spacing.unit * 3,
       marginBottom: theme.spacing.unit * 3,
+      overflow: 'hidden'
     },
     tableCell: {
-      textAlign: 'center',
       fontSize: '20px'
     },
     hover: {
       "&:hover": {
         backgroundColor: 'rgb(244, 66, 66, 0.3) !important',
         cursor: 'pointer',
-    }
+      },
+    },
+    titleWrapper: {
+      [theme.breakpoints.down("xs")]: {
+        fontSize: '1.5rem',
+        width: '80%'
+      }
     }
 });
 
@@ -47,7 +56,7 @@ const styles = theme => ({
       <Zoom in={!visible} >
       <div className={classes.main}>
         <Paper square className={classes.paper} style={{position: 'relative'}}>
-            <Typography variant="h4">Search By Ingredients</Typography>
+            <Typography variant="h4" className={classes.titleWrapper}>Search By Ingredients</Typography>
             <div style={{display: 'inline-flex', alignItems: 'center', marginTop: '10px'}}>
                 <TextField name="ingredientName" onChange={handleChange} value={ingredientName} style={{marginRight: '10px'}} variant="outlined" label="Ingredient's name">Ingredient's name</TextField>
                 <Fab onClick={addIngredient} size="small" variant="round" style={{borderRadius: 0}} color="primary" ><AddIcon /></Fab>

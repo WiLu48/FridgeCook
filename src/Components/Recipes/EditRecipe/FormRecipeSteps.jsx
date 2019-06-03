@@ -10,14 +10,14 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 950,
+        marginBottom: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+            width: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -30,6 +30,20 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
+    },
+    btn: {
+        marginTop: '-5px',
+        width: '98%',
+        borderRadius: 0,
+        [theme.breakpoints.down(1000)]: {
+            width: '95%',
+        },
+    },
+    hover: {
+        "&:hover": {
+          backgroundColor: 'rgb(244, 66, 66, 0.3) !important',
+          cursor: 'pointer',
+      }
     },
 })
 
@@ -52,7 +66,7 @@ class FormRecipeSteps extends Component {
     return (        
       <div>
         <main className={classes.main}>
-        <Paper className={classes.paper}>
+        <Paper square className={classes.paper}>
         <Typography variant="h3">
             Add Recipe Instructions
         </Typography>
@@ -60,7 +74,7 @@ class FormRecipeSteps extends Component {
                 <form>
                     <Grid container
                     alignItems="center">
-                        <Grid item xs>
+                        <Grid item xs={12}>
                             <FormControl margin='normal' fullWidth>
                                 <TextField
                                     onChange={handleChange}
@@ -73,30 +87,30 @@ class FormRecipeSteps extends Component {
                                     rows={6}></TextField>
                                 </FormControl>
                         </Grid>
-                        <Grid item>
-                            <Fab size="small" variant="round" color="primary" onClick={addStep}><AddIcon /></Fab>
+                        <Grid item xs={12} style={{textAlign: 'center'}}>
+                            <Button className={classes.btn} variant="contained" color="primary" onClick={addStep}><AddIcon /></Button>
                         </Grid>
                     </Grid>
                     {values.isListSteps ? 
-                        <List>
+                        <Table style={{marginTop: '20px'}}>
+                            <TableBody>
                             {stepsList.map((step, index) => 
-                                <StepsItem
-                                style={{wordWrap: 'break-word'}}
-                                key={step.instructions}
-                                step={step.instructions}
-                                number={index+1}
-                                />
+                                <TableRow key={index} hover className={classes.hover} onClick={() => this.props.removeStep(index)}>
+                                    <TableCell style={{fontSize: '0.9rem'}}>{index+1}. {step.instructions}</TableCell>
+                                </TableRow>
                             )}
-                    </List> : null}                    
+                            </TableBody>
+                    </Table> : null}                    
                     <div style={{textAlign: 'center', marginTop: '10px'}}>
                     <Button
-                    style={{marginRight: '5px'}}
+                    style={{marginRight: '5px', borderRadius: 0}}
                     variant="contained"
                     color="secondary"
                     onClick={this.back}
                     >
                     Back</Button>
                     <Button
+                    style={{borderRadius: 0}}
                     variant="contained"
                     color="primary"
                     onClick={submit}

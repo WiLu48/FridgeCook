@@ -5,11 +5,23 @@ import { AuthContext } from '../../Auth/Auth';
 import EditRecipeForm from '../EditRecipe/EditRecipeForm';
 
 const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    background: 'lightgrey',
+    [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+        width: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+},
     paper: {
       width: '50%',
       margin: '0 auto',
       marginTop: '30px',
-      background: 'lightgrey'
+      
     },
     paperWrapper: {
         padding: theme.spacing.unit,
@@ -28,6 +40,13 @@ const styles = theme => ({
       marginLeft: '5px',
       display: 'inline-block'
     },
+    btn: {
+      borderRadius: 0,
+      [theme.breakpoints.down("xs")]: {
+        fontSize: '13px',
+        padding: '7px'
+      }
+    }
   });
   
 
@@ -121,7 +140,7 @@ class AdminPanel extends Component {
       const {status, color, confirmation, visibility, editRec} = this.state;
     return (
       <>
-      <Paper square className={classes.paper}>
+      <Paper square className={classes.main}>
         <span className={classes.paperAccent} />
         <div className={classes.paperWrapper}>
           <Typography variant="h5" style={{textAlign: 'center'}}>
@@ -131,18 +150,18 @@ class AdminPanel extends Component {
               Recipe Status: <span className={classes.circle} style={{marginRight: '5px', background: color[visible]}} /> {status[visible]}
           </Typography>
           <Grid container justify="center">
-            {this.props.isAdmin ? <Button onClick={this.handleChangeVisibilityAPI} style={{marginRight: '5px'}} variant="contained" color="primary">{visibility[visible]}</Button> : null}
-            <Button style={{marginRight: '5px'}} onClick={this.handleEditRecipe} variant="contained" color="primary">Edit Recipe</Button>
+            {this.props.isAdmin ? <Button className={classes.btn} onClick={this.handleChangeVisibilityAPI} style={{marginRight: '5px'}} variant="contained" color="primary">{visibility[visible]}</Button> : null}
+            <Button className={classes.btn} style={{marginRight: '5px'}} onClick={this.handleEditRecipe} variant="contained" color="primary">Edit Recipe</Button>
             {confirmation ? 
             <>
             <Typography variant="subheading" style={{display: 'flex', alignItems: 'center', marginRight: '5px'}}>
               Are you sure?
             </Typography>
-            <Button onClick={this.handleDeleteRecipeAPI} variant="contained" color="secondary" style={{marginRight: '5px'}} >Yes</Button>
-            <Button onClick={this.handleNo} variant="outlined" color="primary" >No</Button>
+            <Button className={classes.btn} onClick={this.handleDeleteRecipeAPI} variant="contained" color="secondary" style={{marginRight: '5px'}} >Yes</Button>
+            <Button className={classes.btn}  onClick={this.handleNo} variant="outlined" color="primary" >No</Button>
             </>
             : 
-            <Button onClick={this.handleButtonRemove} variant="contained" color="secondary" >Delete Recipe</Button>
+            <Button className={classes.btn}  onClick={this.handleButtonRemove} variant="contained" color="secondary" >Delete Recipe</Button>
             }
           </Grid>
         </div>

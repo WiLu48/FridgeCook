@@ -10,12 +10,11 @@ import Loading from '../../Utils/Loading';
 const styles = theme => ({
   main: {
     width: 'auto',
-    display: 'block', // Fix IE 11 issue.
     marginBottom: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
-        width: 1200,
+        width: '1200px',
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -33,7 +32,10 @@ const styles = theme => ({
     padding: '10px',
     boxSizing: 'border-box',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    [theme.breakpoints.down("xs")]: {
+      width: 'auto'
+    }
   }
 });
 
@@ -208,7 +210,7 @@ class RecipeList extends Component {
         showIngredients={this.handleIngredientsVisibility} ingredientsVisible={ingredientsVisible}
         />
         <Grid container
-        className={classes.container}
+        className={classes.main}
         >
           {recipesfiltered.slice(0, limit).map(recipe =>
             <SingleRecipeListItem
@@ -223,7 +225,7 @@ class RecipeList extends Component {
         </Grid>
         <div style={{margin: '30px', textAlign: 'center'}}>
           {limit < recipesfiltered.length &&
-            <Button onClick={this.loadMore} type="button">Load More</Button>}
+            <Button variant="contained" color="secondary" style={{borderRadius: 0}} size="large" onClick={this.loadMore} type="button">Load More</Button>}
         </div>
         </>
         }

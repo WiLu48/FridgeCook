@@ -20,7 +20,7 @@ const styles = theme => ({
         pointerEvents: 'none',
     },
     paper: {
-      backgroundColor: 'transparent',
+      backgroundColor: 'white',
       boxShadow: 'none',
     },
 })

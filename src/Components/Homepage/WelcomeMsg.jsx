@@ -87,7 +87,7 @@ class WelcomeMsg extends Component {
             </Hidden>
             </Grid>
             <Hidden mdDown>
-              <Grid lg={2} item style={{height: '100%'}}>      
+              <Grid item lg={2} style={{height: '100%'}}>      
                 <img alt="" style={{marginLeft: '-100px',height: '100%'}} src="/Assets/HP_BG.png" />      
               </Grid>
             </Hidden>

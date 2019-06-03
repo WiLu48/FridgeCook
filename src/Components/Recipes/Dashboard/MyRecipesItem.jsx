@@ -4,28 +4,20 @@ import { Button, Grid, Card, CardHeader, CardMedia, CardContent, Typography, Car
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
-  card: {
-    width: 310,
-    margin: 10,
+  gridWrapper: {
+    padding: '5px',
+    boxSizing: 'border-box',
+    [theme.breakpoints.down("xs")]: {
+      width:'100%',
+    },    
   },
   cardheader: {
     textAlign: 'center',
-    width: '75%',
-    margin: 'auto',
-    marginTop: '-25px',
-    background: 'white',
   },
   carddesc: {
     paddingTop: 0,
     height: '100px',
-  },
-  button: {
-    width: '70%',
-    margin: '0 auto',
-    display: 'block',
-    textAlign: 'center',
-  },
-  container: {
+    overflow: 'hidden'
   },
 });
 
@@ -48,29 +40,24 @@ class MyRecipesItem extends Component {
 
     
     return(
-      <div className={classes.container}>
-      <Grid item lg={6}>
+      <Grid item sm={12} md={4} lg={4} className={classes.gridWrapper}>
       <Card 
-          className={classes.card}
-          key={this.props.key}
-          >
-          <CardActionArea>
-            <CardMedia
-              style={{height: 0, paddingTop: '56.25%'}}
-              image={img}
-              />
-            <CardContent>
-              <Typography style={{textAlign: 'center', overflow: 'hidden'}} variant="h6">
-                {this.props.name}
-              </Typography>
-            </CardContent>
-          </CardActionArea>         
-          <Button variant="contained" color="primary" className={classes.button} component={props => <Link to={link} {...props}/>} >
-            Full Recipe
-          </Button>
+        square
+        key={this.props.key}
+        >
+        <CardActionArea component={props => <Link to={link} {...props}/>} >
+          <CardMedia
+            style={{height: 0, paddingTop: '56.25%'}}
+            image={img}
+            />
+          <CardContent>
+            <Typography style={{textAlign: 'center', overflow: 'hidden'}} variant="h6">
+              {this.props.name}
+            </Typography>
+          </CardContent>
+        </CardActionArea>       
         </Card>
       </Grid>
-      </div>
     )
   }
 }

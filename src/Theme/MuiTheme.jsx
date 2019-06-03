@@ -16,6 +16,13 @@ const THEME = createMuiTheme({
             main: '#B23554',
         } 
     },
+    overrides: {
+        MuiPaper: {
+          root: {
+            backgroundColor: '#fafbff',
+          },
+        },
+      }
 })
 
 export default THEME

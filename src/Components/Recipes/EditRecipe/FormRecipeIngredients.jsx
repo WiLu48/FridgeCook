@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button, TextField, Fab, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { withStyles, Paper, FormControl, InputLabel, Input, Typography, Grid, Button, TextField, Fab, Table, TableRow, TableCell, TableBody } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import IngredientItem from './IngredientItem';
 
@@ -10,14 +10,14 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-            width: 950,
+        marginBottom: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+            width: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,6 +31,12 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
     },
+    hover: {
+        "&:hover": {
+          backgroundColor: 'rgb(244, 66, 66, 0.3) !important',
+          cursor: 'pointer',
+      }
+    }
 })
 
 
@@ -56,7 +62,7 @@ class FormRecipeIngredients extends Component {
     return (        
       <div>
         <main className={classes.main}>
-        <Paper className={classes.paper}>
+        <Paper square className={classes.paper}>
         <Typography variant="h3">
             Add Recipe Ingredients
         </Typography>
@@ -75,7 +81,7 @@ class FormRecipeIngredients extends Component {
                                 variant="outlined"></TextField>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4} md={3}>
                             <FormControl margin='normal' fullWidth>
                             <TextField
                                 value={values.amount}
@@ -87,35 +93,36 @@ class FormRecipeIngredients extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <Fab size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
+                            <Fab style={{borderRadius: 0, marginTop: '10px'}} size="small" variant="round" color="primary" onClick={addIng}><AddIcon /></Fab>
                         </Grid>
                     </Grid>
-                    {values.isList ? <Table>
-                        <TableHead>
+                    {values.isList ? 
+                    <Table>
+                        <TableBody>
                             <TableRow>
                                 <TableCell>Ingredient Name</TableCell>
                                 <TableCell>Amount</TableCell>
                             </TableRow>
-                        </TableHead>    
-                        <TableBody>
-                            {ingredientList.map(ingredient => 
-                                <IngredientItem
-                                key={ingredient.ingredientName}
-                                name={ingredient.ingredientName}
-                                amount={ingredient.amount}
-                                />
+                            {ingredientList.map((ingredient, i) => 
+                                <TableRow key={i} hover className={classes.hover} onClick={() => this.props.removeIng(i)}>
+                                    <IngredientItem
+                                    name={ingredient.ingredientName}
+                                    amount={ingredient.amount}
+                                    />
+                                </TableRow>
                             )}
                         </TableBody> 
                     </Table> : null}                    
                 <div style={{textAlign: 'center', marginTop: '10px'}}>
                     <Button
-                    style={{marginRight: '5px'}}
+                    style={{marginRight: '5px', borderRadius: 0}}
                     variant="contained"
                     color="secondary"
                     onClick={this.back}
                     >
                     Back</Button>
                     <Button
+                    style={{borderRadius: 0}}
                     variant="contained"
                     color="primary"
                     onClick={this.continue}

@@ -10,9 +10,8 @@ const styles = theme => ({
         display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
-        marginTop: theme.spacing.unit * 6,
         [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
-            width: 1200,
+            width: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
@@ -43,7 +42,29 @@ const styles = theme => ({
     links: {
       color: 'white',
       textDecoration: 'none',
-    }
+    },
+    gridWrapper: {
+      [theme.breakpoints.down("xs")]: {
+        flexDirection: 'column-reverse',
+        marginBottom: '25px'
+      },
+    },
+    btnWrapper: {
+      position: 'absolute',
+      width: '100%',
+      bottom: '0px',
+      [theme.breakpoints.down("xs")]: {
+        width: '100%',
+        bottom: '0px',
+        right: '0px',
+      },
+    },
+    btnMobile: {
+      width:'100%',
+      [theme.breakpoints.down("xs")]: {
+        width: '100%',
+      },
+    },
 });
 
 
@@ -117,9 +138,8 @@ componentDidMount() {
     return (
         <>
         <div className={classes.main}>
-        <Typography variant="caption" color="secondary" style={{fontSize: '20px', marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>{this.state.categoryname[category]}</span> RECIPE</Typography>
         <Paper square>
-          <Grid container style={{height: 'auto'}}>
+          <Grid container style={{height: 'auto'}} className={classes.gridWrapper}>
             <Grid item sm={12} md={6} >
               <Grid style={{height: '100%'}} container justify="space-between" direction="column">
                 <Grid item>
@@ -127,6 +147,7 @@ componentDidMount() {
                     <Typography variant="h3">
                       {title}
                     </Typography>
+                    <Typography variant="caption" color="secondary" style={{fontSize: '20px', marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>{this.state.categoryname[category]}</span> RECIPE</Typography>
                   </div>                            
                 </Grid>
                 <Grid item>
@@ -140,20 +161,22 @@ componentDidMount() {
                   <>
                   <Typography variant="h6" style={{textAlign: 'center', textDecoration: 'underline'}}>Ingredients:</Typography>
                     <Typography variant="body1">
-                    <Table padding="dense">
-                        {ingredients.map(ing => {
-                            return(
-                                <TableRow style={{height:'auto'}}>
-                                    <TableCell>
-                                        {ing.Ingredient_Name}
-                                    </TableCell>
-                                    <TableCell>
-                                        {ing.Ingredient_Amount}
-                                    </TableCell>
-                                </TableRow>
-                            )})}
+                      <div style={{maxHeight: '250px', overflow: 'auto'}}>
+                      <Table padding="dense">
+                          {ingredients.map(ing => {
+                              return(
+                                  <TableRow style={{height:'auto'}}>
+                                      <TableCell>
+                                          {ing.Ingredient_Name}
+                                      </TableCell>
+                                      <TableCell>
+                                          {ing.Ingredient_Amount}
+                                      </TableCell>
+                                  </TableRow>
+                              )})}
 
-                    </Table>
+                      </Table>
+                    </div>
                     {this.state.recipeAdded ? 
                     <>
                     {this.state.ingredientsButton ? <Link to="/ShoppingList" className={classes.links}> <Button style={{width: '100%', borderRadius: 0}} variant="contained" color="secondary">Go to Shopping List</Button></Link> : 
@@ -170,8 +193,8 @@ componentDidMount() {
             </Grid>
             <Grid item sm={12} md={6}>
                  <div style={{width: '100%', height: '100%', position: 'relative'}}>
-                 <span style={{position: 'absolute', right: '10px', bottom: '5px'}}>
-                    <Button size="large" variant="contained" color="secondary" onClick={() => this.setState(prevState => ({showInstructions: !prevState.showInstructions}))}>{this.state.showInstructions ? "Hide Instructions" : "Show Instructions"}</Button>                     
+                 <span className={classes.btnWrapper}>
+                    <Button className={classes.btnMobile} variant="contained" color="secondary" style={{borderRadius: 0}} onClick={() => this.setState(prevState => ({showInstructions: !prevState.showInstructions}))}>{this.state.showInstructions ? "Hide Instructions" : "Show Instructions"}</Button>                     
                  </span>
                 <img style={{height: '100%', width: '100%'}} src={imglink} alt="Recipes Logo" />
                 </div>
@@ -184,7 +207,7 @@ componentDidMount() {
         <>
         {steps.length > 0 ? steps.map((stp, i) => {
             return(
-                <div className={classes.second}> 
+                <div key={i} className={classes.second}> 
                 <Paper >
                     <Grid container>
                         <Grid item xs={12} style={{padding: '20px'}}>

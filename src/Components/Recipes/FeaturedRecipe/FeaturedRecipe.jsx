@@ -135,9 +135,9 @@ class FeaturedRecipe extends Component {
                         </Typography>
                       </div>
                     </Grid>
-                    <Grid item style={{display: 'flex', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                    <Grid item style={{marginTop: 'auto'}}>
                       <Link className={classes.links} to={"/recipes/"+recID}>
-                        <Button style={{borderRadius: 0, marginBottom: '20px', marginRight: '20px'}} variant="contained" color="primary">View Recipe</Button>
+                        <Button style={{borderRadius: 0, width: '100%'}} variant="contained" color="secondary">View Recipe</Button>
                       </Link>
                     </Grid>
                   </Grid>

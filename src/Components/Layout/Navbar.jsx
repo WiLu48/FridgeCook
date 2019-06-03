@@ -40,6 +40,9 @@ const styles = theme => ({
     logo: {
         fontFamily: 'Indie Flower, cursive', 
         fontSize: '40px',
+        [theme.breakpoints.down("sm")]: {
+            fontSize: '35px'
+        }
     },
     navButtonsWrap: {
         display: 'flex',
@@ -68,14 +71,14 @@ function NavBar (props) {
                         </Hidden>
                         <Hidden xsDown>
                             <Grid container>
-                                <Grid item xs={3}>
+                                <Grid item md={3} sm={4}>
                                     <Typography className={classes.logo}>
                                         <Link className={classes.links} style={{color: '#B23554'}} to="/">
                                             FRIDGE COOK
                                         </Link>
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={5} className={classes.navButtonsWrap}>
+                                <Grid item md={5} sm={7} className={classes.navButtonsWrap}>
                                     <Typography variant="h6">
                                         <Link className={classes.links} to="/recipes">RECIPES</Link>
                                     </Typography>
@@ -84,9 +87,9 @@ function NavBar (props) {
                                     </Typography>
                                     <Typography variant="h6">
                                         <Link className={classes.links} to="/ShoppingList">SHOPPING LIST</Link>
-                                    </Typography>                                    
+                                    </Typography>                                   
                                 </Grid>
-                                <Grid item xs={4} className={classes.navButtonsWrap} style={{justifyContent: 'flex-end'}}>
+                                <Grid item md={4} sm={1} className={classes.navButtonsWrap} style={{justifyContent: 'flex-end'}}>
                                     { isAuth ? (
                                         <>
                                         <SimpleMenu />
